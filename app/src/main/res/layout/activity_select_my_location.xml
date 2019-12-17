@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CONTROLLER.SelectMyLocation">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="7.0"
+        android:orientation="horizontal"
+        >
+    <EditText
+        android:id="@+id/select_my_location_search_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="주소 검색"
+        android:layout_weight="1"
+        />
+        <Button
+            android:id="@+id/select_my_lcoation_search_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="검색"
+            android:layout_weight="4"
+            />
+
+</LinearLayout>
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        />
+    <Button
+        android:id="@+id/select_my_location_setting_my_location"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="현재위치로 설정"
+        android:layout_weight="7.0"
+        />
+
+
+</LinearLayout>

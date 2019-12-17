@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CONTROLLER.SearchMyLocation">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="horizontal"
+    >
+    <ImageButton
+        android:id="@+id/search_my_location_back"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:src="@drawable/arrow_back"
+        android:background="#00ff0000"/>
+    <EditText
+        android:id="@+id/search_my_location_insert_address"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="내 동네 이름(동,읍,면)으로 검색"
+        android:drawableLeft="@drawable/search"
+        android:layout_marginRight="10dp"
+        />
+
+</LinearLayout>
+    <Button
+        android:id="@+id/search_my_location_my_location"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@drawable/round_corner"
+        android:text="현재 위치로 찾기"
+        android:textColor="#ffffff"
+        android:layout_margin="20dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="근처 동네"
+        android:layout_margin="10dp"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_my_location_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+</LinearLayout>

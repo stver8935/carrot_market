@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">carrot_market</string>
+    <string name="permission_1">[설정] > [권한] 에서 권한을 허용할 수 있습니다.</string>
+    <string name="permission_2">사진 및 파일을 저장하기 위하여 접근 권한이 필요합니다.</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">YOUR_KEY_HERE</string>
+    <string name="title_activity_asdasdasd">Map</string>
+    <string name="imagepicker_multiselect_not_enough_plural">%d 개의 이미지를 선택할수 있습니다.</string>
+    <string name="imagepicker_multiselect_done">첨부</string>
+</resources>

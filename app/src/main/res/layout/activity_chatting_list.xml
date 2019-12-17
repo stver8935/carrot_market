@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CONTROLLER.ChattingList">
+
+
+
+    <TextView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:text="채팅"
+        android:textColor="#000000"
+        android:textSize="30dp"
+        android:gravity="center"
+        android:layout_marginLeft="10dp"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#999999"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chatting_list_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+
+
+</LinearLayout>

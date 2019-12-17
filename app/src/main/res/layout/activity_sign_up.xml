@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CONTROLLER.Login">
+    <LinearLayout
+        android:id="@+id/sign_up_title"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+        <ImageButton
+            android:id="@+id/sign_up_back"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/click_effect_after"
+            android:src="@drawable/arrow_back"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="회원가입/ 로그인"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            />
+    </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_title"
+        android:layout_weight="1"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            >
+            <TextView
+                android:id="@+id/sign_up_id_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30dp"
+                android:text="아이디"
+                android:gravity="center_vertical"
+                android:textColor="@color/colorblack"
+                android:layout_marginRight="30dp"
+                app:layout_constraintTop_toTopOf="@+id/sign_up_id"
+                app:layout_constraintEnd_toStartOf="@+id/sign_up_id"
+                app:layout_constraintBottom_toBottomOf="@+id/sign_up_id"
+                />
+            <EditText
+                android:id="@+id/sign_up_id"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:hint="아이디"
+                android:textSize="25dp"
+                android:inputType="text"
+                android:maxLines="1"
+                android:gravity="center_horizontal"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="100dp"
+                android:background="@drawable/border_line"
+                android:padding="3dp"
+                />
+            <Button
+                android:id="@+id/sign_up_id_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="중복확인"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/click_effect_after"
+                app:layout_constraintTop_toTopOf="@+id/sign_up_id"
+                app:layout_constraintStart_toEndOf="@+id/sign_up_id"
+                app:layout_constraintBottom_toBottomOf="@+id/sign_up_id"
+                />
+
+            <TextView
+                android:id="@+id/sign_up_id_check_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="사용이 불가능한 아이디 입니다."
+                app:layout_constraintTop_toBottomOf="@+id/sign_up_id_check"
+                app:layout_constraintStart_toStartOf="@+id/sign_up_id"
+                android:layout_marginTop="10dp"
+                />
+            <ImageView
+                android:id="@+id/sign_up_id_help"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/help"
+                app:layout_constraintEnd_toStartOf="@+id/sign_up_id_check_text"
+                app:layout_constraintTop_toTopOf="@+id/sign_up_id_check_text"
+                app:layout_constraintBottom_toBottomOf="@+id/sign_up_id_check_text"
+                android:layout_marginRight="10dp"
+                />
+
+
+            <TextView
+                android:id="@+id/sign_up_password_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25dp"
+                android:textColor="@color/colorblack"
+                android:text="비밀번호"
+                app:layout_constraintTop_toTopOf="@+id/sign_up_password"
+                app:layout_constraintBottom_toBottomOf="@+id/sign_up_password"
+                app:layout_constraintEnd_toEndOf="@+id/sign_up_id_title"
+                />
+
+            <EditText
+                android:id="@+id/sign_up_password"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:hint="비밀번호"
+                android:gravity="center_horizontal"
+                android:textSize="25dp"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                app:layout_constraintStart_toStartOf="@id/sign_up_id"
+                app:layout_constraintTop_toBottomOf="@+id/sign_up_id"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/border_line"
+                android:padding="3dp"
+
+                />
+            <ImageView
+                android:id="@+id/sign_up_password_help"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/help"
+                app:layout_constraintTop_toTopOf="@+id/sign_up_password_text"
+                app:layout_constraintEnd_toStartOf="@+id/sign_up_password_text"
+                android:layout_marginRight="10dp"
+                />
+            <TextView
+                android:id="@+id/sign_up_password_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="유효하지 않은 비밀번호 입니다"
+                app:layout_constraintTop_toBottomOf="@+id/sign_up_password"
+                app:layout_constraintStart_toStartOf="@+id/sign_up_password"
+                android:layout_marginTop="10dp"
+                />
+
+
+            <EditText
+                android:id="@+id/sign_up_password_check"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:hint="비밀번호 확인"
+                android:textSize="25dp"
+                android:gravity="center_horizontal"
+                android:inputType="textPassword"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/border_line"
+                android:padding="3dp"
+                android:maxLines="1"
+                app:layout_constraintTop_toBottomOf="@+id/sign_up_password"
+                app:layout_constraintStart_toStartOf="@+id/sign_up_password"/>
+
+            <TextView
+                android:id="@+id/sign_up_password_check_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="비밀번호와 같게 입력해주세요"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/sign_up_password_check"
+                app:layout_constraintStart_toStartOf="@+id/sign_up_password_check"
+                />
+
+
+
+            <TextView
+                android:id="@+id/sign_up_name_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="이름"
+                android:textSize="20dp"
+                android:textColor="@color/colorblack"
+                app:layout_constraintTop_toBottomOf="@+id/sign_up_password_check"
+                app:layout_constraintEnd_toEndOf="@+id/sign_up_password_title"
+                app:layout_constraintBottom_toBottomOf="@+id/sign_up_name"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="50dp"
+                />
+
+            <EditText
+                android:id="@+id/sign_up_name"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:hint="이름"
+                android:gravity="center"
+                android:inputType="phone"
+                app:layout_constraintTop_toTopOf="@+id/sign_up_name_title"
+                app:layout_constraintStart_toStartOf="@+id/sign_up_password_check"
+                android:maxLines="1"
+                android:background="@drawable/border_line"
+                />
+
+
+            <TextView
+                android:id="@+id/sign_up_phone_num_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="핸드폰 번호"
+                android:textSize="20dp"
+                android:textColor="@color/colorblack"
+                app:layout_constraintTop_toBottomOf="@+id/sign_up_name_title"
+                app:layout_constraintEnd_toEndOf="@+id/sign_up_password_title"
+                app:layout_constraintBottom_toBottomOf="@+id/sign_up_phone_num"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                />
+
+            <EditText
+                android:id="@+id/sign_up_phone_num"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:hint="핸드폰 번호"
+                android:gravity="center"
+                android:inputType="phone"
+                app:layout_constraintTop_toTopOf="@+id/sign_up_phone_num_title"
+                app:layout_constraintStart_toStartOf="@+id/sign_up_password_check"
+                android:maxLines="1"
+                />
+
+
+            <TextView
+                android:id="@+id/sign_up_email_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="E-mail"
+                android:textSize="25dp"
+                android:textColor="@color/colorblack"
+                app:layout_constraintTop_toTopOf="@+id/sign_up_email"
+                app:layout_constraintBottom_toBottomOf="@+id/sign_up_email"
+                app:layout_constraintEnd_toEndOf="@+id/sign_up_phone_num_title"
+
+                />
+
+            <EditText
+                android:id="@+id/sign_up_email"
+                android:layout_width="210dp"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                app:layout_constraintTop_toBottomOf="@+id/sign_up_phone_num"
+                app:layout_constraintStart_toStartOf="@+id/sign_up_phone_num"
+                android:hint="이메일 주소를 입력해주세요"
+                android:background="@drawable/border_line"
+                android:padding="3dp"
+                android:layout_marginTop="30dp"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+    <Button
+        android:id="@+id/sign_up_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="회원가입"
+        android:layout_gravity="bottom"
+        android:background="@drawable/click_effect_after"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+</LinearLayout>

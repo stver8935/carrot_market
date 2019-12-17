@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CONTROLLER.MyProfile">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="나의 당근"
+        android:textSize="25dp"
+        android:textColor="#000000"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+    <ImageButton
+        android:id="@+id/my_profile_setting"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/settings"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/click_effect_after"
+        android:clickable="true"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#999999"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/my_profile_profile_bar"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:clickable="true"
+        android:background="@drawable/click_effect_after"
+        >
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/my_profile_profile_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/profile_image_man"
+            android:layout_margin="20dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/my_profile_profile_image_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_line"
+            android:src="@drawable/camera"
+            app:layout_constraintBottom_toBottomOf="@+id/my_profile_profile_image"
+            app:layout_constraintEnd_toEndOf="@+id/my_profile_profile_image"
+            />
+        <TextView
+            android:id="@+id/my_profile_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="로그인 하기"
+            android:textSize="25dp"
+            android:textColor="#ff6600"
+            android:layout_marginLeft="15dp"
+            app:layout_constraintTop_toTopOf="@+id/my_profile_profile_image"
+            app:layout_constraintStart_toEndOf="@+id/my_profile_profile_image"
+            />
+        <TextView
+            android:id="@+id/my_profile_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toStartOf="@+id/my_profile_login"
+            app:layout_constraintTop_toBottomOf="@+id/my_profile_login"
+            android:text="사당제 1동"
+            />
+
+        <Button
+            android:id="@+id/my_profile_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="프로필 보기"
+            android:textSize="20dp"
+            android:background="@drawable/round_corner_nomal"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/my_profile_location"
+            android:layout_marginRight="10dp"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#999999"
+        android:layout_marginBottom="20dp"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#ffffff"
+        android:paddingBottom="10dp"
+        android:paddingRight="25dp">
+
+
+        <ImageView
+            android:id="@+id/my_profile_sales_histoty"
+            android:layout_width="120dp"
+            android:layout_height="140dp"
+            android:background="@drawable/click_effect_after"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:clickable="true"
+            android:paddingRight="20dp"
+            android:paddingBottom="20dp"
+            android:src="@drawable/sales_history"
+            app:layout_constraintEnd_toStartOf="@id/my_profile_purchase_history"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/round_corner"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:text="판매내역"
+            app:layout_constraintEnd_toEndOf="@+id/my_profile_sales_histoty"
+            app:layout_constraintBottom_toBottomOf="@id/my_profile_sales_histoty"
+            app:layout_constraintStart_toStartOf="@id/my_profile_sales_histoty"
+            />
+
+
+        <ImageView
+            android:id="@+id/my_profile_purchase_history"
+            android:layout_width="120dp"
+            android:layout_height="140dp"
+            android:src="@drawable/favorite11"
+            android:clickable="true"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:paddingBottom="20dp"
+            android:background="@drawable/click_effect_after"
+            app:layout_constraintEnd_toStartOf="@id/my_profile_favorite_list"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/round_corner"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:gravity="center"
+            android:text="구매내역"
+            app:layout_constraintBottom_toBottomOf="@id/my_profile_purchase_history"
+            app:layout_constraintEnd_toEndOf="@id/my_profile_purchase_history"
+            app:layout_constraintStart_toStartOf="@+id/my_profile_purchase_history"
+            />
+
+        <ImageView
+            android:id="@+id/my_profile_favorite_list"
+            android:layout_width="120dp"
+            android:layout_height="140dp"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:paddingBottom="20dp"
+            android:clickable="true"
+            android:background="@drawable/click_effect_after"
+            android:src="@drawable/favorite_icon"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+   />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/my_profile_favorite_list"
+            app:layout_constraintStart_toStartOf="@+id/my_profile_favorite_list"
+            app:layout_constraintBottom_toBottomOf="@+id/my_profile_favorite_list"
+            android:text="관심목록"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+            <Button
+                android:id="@+id/my_profile_my_location_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/marker"
+                android:text="   내 동네 설정"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/click_effect_after"
+                android:gravity="left"
+                android:paddingLeft="10dp"
+                android:textSize="20dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                />
+
+            <Button
+                android:id="@+id/my_profile_my_location_certification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/location_search"
+                android:background="@drawable/click_effect_after"
+                android:text="   동네 인증하기"
+                android:clickable="true"
+                android:paddingLeft="10dp"
+                android:gravity="left"
+                android:textSize="20dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                />
+            <Button
+                android:id="@+id/my_profile_key_word_notify"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="  키워드 알림"
+                android:drawableLeft="@drawable/offer"
+                android:background="@drawable/click_effect_after"
+                android:gravity="left"
+                android:paddingLeft="10dp"
+                android:textSize="20dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                />
+            <Button
+                android:id="@+id/my_profile_collect_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="   모아보기"
+                android:drawableLeft="@drawable/apps_icon"
+                android:background="@drawable/click_effect_after"
+                android:gravity="left"
+                android:paddingLeft="10dp"
+                android:textSize="20dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#00ff0000"/>
+
+            <Button
+                android:id="@+id/my_profile_Invite_friends"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="   친구초대"
+                android:drawableLeft="@drawable/email"
+                android:background="@drawable/click_effect_after"
+                android:gravity="left"
+                android:paddingLeft="10dp"
+                android:textSize="20dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                />
+
+            <Button
+                android:id="@+id/my_profile_share_market"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="   당근마켓 공유"
+                android:drawableLeft="@drawable/share"
+                android:drawableTint="#8F8F8F"
+                android:gravity="left"
+                android:paddingLeft="10dp"
+                android:textSize="20dp"
+                android:background="@drawable/click_effect_after"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                />
+            <Button
+                android:id="@+id/my_profile_notice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/click_effect_after"
+                android:drawableLeft="@drawable/loud_apeaker"
+                android:gravity="left"
+                android:textSize="20dp"
+                android:text="   공지 사항"
+                android:paddingLeft="10dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                />
+
+
+            <Button
+                android:id="@+id/my_profile_logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="   로그아웃"
+                android:gravity="left"
+                android:paddingLeft="10dp"
+                android:textSize="20dp"
+                android:background="@drawable/click_effect_after"
+                android:drawableLeft="@drawable/settings"
+                android:drawableTint="#8F8F8F"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                />
+            <Button
+                android:id="@+id/my_profile_app_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="   앱설정"
+                android:gravity="left"
+                android:paddingLeft="10dp"
+                android:textSize="20dp"
+                android:background="@drawable/click_effect_after"
+                android:drawableLeft="@drawable/settings"
+                android:drawableTint="#8F8F8F"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

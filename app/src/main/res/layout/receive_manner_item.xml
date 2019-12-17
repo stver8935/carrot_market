@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    >
+<TextView
+    android:id="@+id/receive_manner_item_count"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:drawableLeft="@drawable/multiple_users"
+    android:drawablePadding="10dp"
+    android:text="0"
+    android:textSize="30dp"
+    android:textColor="@color/colorblack"/>
+    <TextView
+        android:id="@+id/receive_manner_item_text"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/round_corner"
+        android:text="안녕하세요"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:textSize="25dp"
+        android:textColor="@color/colorblack"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        />
+</LinearLayout>

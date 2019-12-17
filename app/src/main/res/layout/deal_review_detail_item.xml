@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/deal_review_detail_profile_image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/test_chair"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="10dp"
+        />
+    <TextView
+        android:id="@+id/deal_review_detail_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="stver8935"
+        android:textSize="25dp"
+        android:textColor="@color/colorblack"
+        app:layout_constraintTop_toTopOf="@+id/deal_review_detail_profile_image"
+        app:layout_constraintBottom_toBottomOf="@+id/deal_review_detail_profile_image"
+        app:layout_constraintLeft_toRightOf="@+id/deal_review_detail_profile_image"
+        android:layout_marginLeft="10dp"
+        />
+
+    <TextView
+        android:id="@+id/deal_review_detail_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="아산시 배방읍"
+        app:layout_constraintTop_toTopOf="@+id/deal_review_detail_id"
+        app:layout_constraintBottom_toBottomOf="@+id/deal_review_detail_id"
+        app:layout_constraintLeft_toRightOf="@+id/deal_review_detail_id"
+        android:layout_marginLeft="10dp"
+        />
+
+    <TextView
+        android:id="@+id/deal_review_detail_coment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="좋네요 잘쓸게요"
+        app:layout_constraintTop_toBottomOf="@+id/deal_review_detail_profile_image"
+        app:layout_constraintStart_toStartOf="@+id/deal_review_detail_profile_image"
+        android:layout_marginTop="10dp"
+        android:textSize="20dp"
+        />
+    <TextView
+        android:id="@+id/deal_review_detail_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10일전"
+        android:textSize="20dp"
+        android:textColor="@color/colorgray"
+        app:layout_constraintTop_toBottomOf="@+id/deal_review_detail_coment"
+        app:layout_constraintStart_toStartOf="@+id/deal_review_detail_coment"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

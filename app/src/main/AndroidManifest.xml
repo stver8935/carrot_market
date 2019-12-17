@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.carrot_market">
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+
+        <activity android:name=".CONTROLLER.SignUp" />
+
+        <activity android:name=".CONTROLLER.DetailManner" />
+        <activity android:name=".CONTROLLER.DealReviewDetail" />
+        <activity android:name=".CONTROLLER.SaleItemes" />
+        <activity android:name=".CONTROLLER.ProductComent" />
+        <activity android:name=".CONTROLLER.Gallery" />
+        <activity android:name=".CONTROLLER.CategoryDialog" />
+        <activity android:name=".CONTROLLER.AddPromotion" />
+        <activity android:name=".CONTROLLER.ProfileDetail" />
+        <activity android:name=".CONTROLLER.AddKeyword" />
+        <activity android:name=".CONTROLLER.CategoeyList" />
+        <activity android:name=".CONTROLLER.MainNotifyKeyWord" />
+        <activity android:name=".CONTROLLER.MainNotificationActive" />
+        <activity android:name=".CONTROLLER.MainNotification" />
+        <activity
+            android:name=".CONTROLLER.AddProduct"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".CONTROLLER.ProductList" />
+        <activity android:name=".CONTROLLER.HomeSearchFragmentPerson" />
+        <activity android:name=".CONTROLLER.HomeSearchFragmentLocalInfo" />
+        <activity android:name=".CONTROLLER.HomeSearchFragmentDeal" />
+        <activity android:name=".CONTROLLER.HomeSearch" />
+
+        <service
+            android:name=".MODEL.CHATTINGSERVICE.ChattingService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAX8bYC4gvQI8dIK8_5n5uq4TAUQXA7GSY" />
+
+        <activity
+            android:name=".CONTROLLER.Dialog.FindAccountDialog"
+            android:theme="@style/NoTitleDialog" />
+        <activity android:name=".CONTROLLER.HomeNotify" />
+        <activity android:name=".CONTROLLER.Chatting" />
+        <activity android:name=".CONTROLLER.ChattingList" />
+        <activity android:name=".CONTROLLER.MyLocationCertification" />
+        <activity android:name=".CONTROLLER.MyProfileSetting" />
+        <activity android:name=".CONTROLLER.MyProfile" />
+        <activity android:name=".CONTROLLER.AttentionCategory" />
+        <activity android:name=".CONTROLLER.SearchMyLocation" />
+        <activity android:name=".CONTROLLER.MyLocationSetting" />
+        <activity android:name=".CONTROLLER.Product" />
+        <activity android:name=".CONTROLLER.MainActivity"></activity>
+        <activity
+            android:name=".CONTROLLER.MainFragment"
+            android:screenOrientation="portrait" />
+        <activity android:name=".CONTROLLER.SelectMyLocation" />
+        <activity android:name=".CONTROLLER.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service android:name=".MODEL.ChattingReceiver" />
+        <service android:name=".MODEL.ChattingSend" />
+    </application>
+
+</manifest>

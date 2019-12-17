@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CONTROLLER.Chatting">
+
+    <ImageButton
+        android:id="@+id/chatting_back"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/arrow_back"
+        android:background="@drawable/click_effect_after"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+    <TextView
+        android:id="@+id/chatting_id"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="id"
+        android:textSize="25dp"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/chatting_back"
+        android:layout_marginLeft="10dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="36.5*"
+        android:background="@drawable/border_line_percent"
+        android:textSize="15dp"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textColor="#000000"
+        app:layout_constraintTop_toTopOf="@+id/chatting_id"
+        app:layout_constraintStart_toEndOf="@+id/chatting_id"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        />
+
+    <ImageButton
+        android:id="@+id/chatting_appointment_date"
+        android:layout_width="65dp"
+        android:layout_height="57dp"
+        android:background="@drawable/click_effect_after"
+        android:src="@drawable/calender"
+        app:layout_constraintEnd_toStartOf="@id/chatting_more"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/chatting_more"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/more_vert"
+        android:background="@drawable/click_effect_after"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <View
+        android:id="@+id/chatting_view1"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#000000"
+        app:layout_constraintTop_toBottomOf="@+id/chatting_id"
+        />
+<ImageView
+    android:id="@+id/chatting_product_image"
+    android:layout_width="60dp"
+    android:layout_height="60dp"
+    android:src="@drawable/test_chair"
+    app:layout_constraintTop_toBottomOf="@+id/chatting_view1"
+    app:layout_constraintStart_toStartOf="parent"
+    android:layout_margin="10dp"
+    />
+
+    <TextView
+        android:id="@+id/chatting_product_title"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/chatting_product_image"
+        app:layout_constraintStart_toEndOf="@+id/chatting_product_image"
+        android:text="의자"
+        android:textSize="20dp"
+        android:textColor="#000000"
+        android:singleLine="true"
+        android:layout_marginLeft="20dp"
+        />
+
+    <TextView
+        android:id="@+id/chatting_product_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="23,0000원"
+        android:textSize="20dp"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/chatting_product_image"
+        app:layout_constraintStart_toStartOf="@+id/chatting_product_title"
+        />
+
+    <TextView
+        android:id="@+id/chatting_deal_review"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:background="@drawable/border_line_percent"
+        android:padding="10dp"
+        android:text="거래후기 남기기"
+        android:gravity="center"
+        android:textColor="#ff4400"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/chatting_product_price"
+        app:layout_constraintStart_toEndOf="@+id/chatting_product_title"
+        app:layout_constraintTop_toTopOf="@+id/chatting_product_title"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <View
+        android:id="@+id/chatting_view2"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#000000"
+        app:layout_constraintTop_toBottomOf="@+id/chatting_product_image"
+        android:layout_marginTop="20dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chatting_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="480dp"
+        android:maxHeight="480dp"
+        android:layout_marginBottom="12dp"
+        android:background="#ffffff"
+        app:layout_constraintBottom_toTopOf="@+id/chatting_insert_bar"
+        app:layout_constraintTop_toBottomOf="@+id/chatting_view2"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/chatting_insert_bar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    app:layout_constraintBottom_toBottomOf="parent"
+    >
+    <ImageButton
+        android:id="@+id/chatting_add"
+        android:layout_width="60dp"
+        android:layout_height="44dp"
+        android:src="@drawable/add"
+        android:background="#00ff0000"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+    <EditText
+        android:id="@+id/chatting_contents"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@drawable/edit_text_border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/chatting_add"
+        android:layout_marginBottom="10dp"
+        android:hint="메세지를 입력하세요"
+        />
+    <ImageView
+        android:id="@+id/chatting_send"
+        android:layout_width="40dp"
+        android:layout_height="44dp"
+        android:src="@drawable/send"
+        android:background="#00ff0000"
+        android:layout_marginRight="20dp"
+        app:layout_constraintTop_toTopOf="@+id/chatting_add"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

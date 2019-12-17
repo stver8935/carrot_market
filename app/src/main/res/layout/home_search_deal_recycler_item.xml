@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/offer"
+        android:background="@drawable/circle_border_line"/>
+    <TextView
+        android:id="@+id/home_fragment_recyclerview_item_text"
+        android:layout_width="300dp"
+        android:maxLines="3"
+        android:textSize="20dp"
+        android:layout_height="wrap_content"
+        android:text="이어폰"/>
+
+    <ImageView
+        android:id="@+id/home_fragment_recyclerview_item_clear"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="15dp"
+        android:src="@drawable/clear"
+        />
+    </LinearLayout>
+<View
+    android:layout_width="match_parent"
+    android:layout_height="0.5dp"
+    android:background="@color/colorblack"/>
+</LinearLayout>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/create_post_deal_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/click_effect_after"
+        >
+    <ImageView
+        android:id="@+id/create_post_shopping_bag"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/shopping_bag"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="10dp"
+        />
+        <TextView
+            android:id="@+id/create_post_deal_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/create_post_shopping_bag"
+            app:layout_constraintLeft_toRightOf="@+id/create_post_shopping_bag"
+            android:text="중고거래"
+            android:textSize="20dp"
+            android:layout_marginLeft="30dp"
+            android:textColor="@color/colorblack"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="중고 물건을 판매할 수 있어요"
+            android:textSize="13dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/create_post_deal_title"
+            app:layout_constraintStart_toStartOf="@+id/create_post_deal_title"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorblack"
+        />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/create_post_promotion_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/click_effect_after"
+        >
+        <ImageView
+            android:id="@+id/create_post_store"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/store"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            />
+        <TextView
+            android:id="@+id/create_post_promotion_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/create_post_store"
+            app:layout_constraintLeft_toRightOf="@+id/create_post_store"
+            android:text="동네 홍보"
+            android:textSize="20dp"
+            android:layout_marginLeft="30dp"
+            android:textColor="@color/colorblack"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="업체소개, 부동산, 농수산물 등을 올릴 수 있어요"
+            android:textSize="13dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/create_post_promotion_title"
+            app:layout_constraintStart_toStartOf="@+id/create_post_promotion_title"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

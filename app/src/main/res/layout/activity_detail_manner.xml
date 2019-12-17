@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CONTROLLER.DetailManner">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="horizontal"
+    >
+    <ImageButton
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/arrow_back"
+        android:background="@drawable/click_effect_after"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="매너 상세"
+        android:textSize="25dp"
+        android:textColor="@color/colorblack"
+        android:gravity="center_vertical"
+        />
+</LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorblack"
+        />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/smail_face"
+        android:text="받은 매너 칭찬"
+        android:gravity="center_vertical"
+        android:textColor="@color/colorblack"
+        android:textSize="25dp"
+        android:drawablePadding="10dp"
+        />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/detail_manner_list_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+    </ScrollView>
+</LinearLayout>

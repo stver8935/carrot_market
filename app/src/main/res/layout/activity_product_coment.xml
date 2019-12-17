@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CONTROLLER.ProductComent">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
+
+    <ImageButton
+        android:id="@+id/product_coment_back"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/click_effect_after"
+        android:src="@drawable/arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/product_coment_title"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:text="댓글"
+        android:textSize="35dp"
+        android:textColor="@color/colorblack"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/product_coment_back"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorblack"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/product_coment_list_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorblack"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        >
+        <EditText
+            android:id="@+id/product_coment_insert_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#00ff0000"
+            android:hint="따듯한 댓글을 입력해주세요 ^ㅡ^"
+            />
+        <Button
+            android:id="@+id/product_coment_commit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="작성"
+            android:layout_weight="4"
+            android:background="@drawable/round_corner"
+            android:textColor="@color/colorwhite"
+            android:layout_margin="5dp"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

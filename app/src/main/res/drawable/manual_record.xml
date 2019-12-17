@@ -1,0 +1,22 @@
+<vector android:height="24dp" android:tint="#999999"
+    android:viewportHeight="24.0" android:viewportWidth="24.0"
+    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#000000" android:pathData="M12,12m-8,0a8,8 0,1 1,16 0a8,8 0,1 1,-16 0"/>
+
+
+    <shape>
+
+    <corners android:bottomRightRadius="10dp"
+        android:bottomLeftRadius="10dp"
+        android:topLeftRadius="10dp"
+        android:topRightRadius="10dp"/>
+        <solid
+            android:color="#00ff0000"
+            />
+        <stroke
+            android:width="10dp"
+            android:color="#000000"
+            />
+</shape>
+
+</vector>

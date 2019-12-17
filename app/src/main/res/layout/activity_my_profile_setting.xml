@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CONTROLLER.MyProfileSetting">
+
+
+
+        <ImageButton
+            android:id="@+id/my_profile_setting_back"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/arrow_back"
+            android:background="#00ff0000"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:text="프로필 설정"
+        android:textColor="#000000"
+        android:textSize="25dp"
+        app:layout_constraintStart_toEndOf="@+id/my_profile_setting_back"
+        app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/my_profile_setting_commit"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="완료"
+            android:textSize="25dp"
+            android:background="#00ff0000"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#999999"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/my_profile_setting_commit"
+        />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/my_profile_setting_profile_image"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/profile_image_man"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/my_profile_setting_profile_image_camera"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/border_line"
+        android:src="@drawable/camera"
+        app:layout_constraintBottom_toBottomOf="@+id/my_profile_setting_profile_image"
+        app:layout_constraintEnd_toEndOf="@+id/my_profile_setting_profile_image"
+        />
+<TextView
+    android:id="@+id/my_profile_setting_nick_name_title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="닉네임"
+    app:layout_constraintBottom_toTopOf="@+id/my_profile_setting_insert_nick_name"
+    app:layout_constraintStart_toStartOf="@+id/my_profile_setting_insert_nick_name"
+    android:textColor="#ff6600"
+    />
+
+    <EditText
+        android:id="@+id/my_profile_setting_insert_nick_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="닉네임을 입력해 주세요"
+        android:layout_marginTop="50dp"
+        app:layout_constraintTop_toBottomOf="@+id/my_profile_setting_profile_image"
+        app:layout_constraintStart_toStartOf="parent"
+        android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    <TextView
+        android:id="@+id/my_profile_setting_insert_nick_name_explanation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/my_profile_setting_insert_nick_name"
+        app:layout_constraintStart_toStartOf="@+id/my_profile_setting_insert_nick_name"
+        android:text="닉네임은 최소 2자 입니다"
+        android:textColor="#ff6600"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
