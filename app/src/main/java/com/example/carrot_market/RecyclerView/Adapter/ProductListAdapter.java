@@ -12,8 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.carrot_market.CONTROLLER.Product;
-import com.example.carrot_market.R;
 import com.example.carrot_market.MODEL.DTO.ProductListItem;
+import com.example.carrot_market.MODEL.LOCALMODEL.SharedPreference.UserInfoSave;
+import com.example.carrot_market.R;
 
 import java.util.ArrayList;
 
@@ -21,10 +22,13 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     ArrayList<ProductListItem> arrayList;
     Context context;
+    private UserInfoSave userInfoSave;
+
 
     public ProductListAdapter(ArrayList<ProductListItem> arrayList, Context context) {
         this.arrayList = arrayList;
         this.context = context;
+        userInfoSave=new UserInfoSave(context);
     }
 
 
@@ -41,14 +45,16 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull final ProductListAdapter.CustomViewHolder holder, int position) {
+
+
+
         holder.title.setText(arrayList.get(holder.getAdapterPosition()).getTitle());
         holder.location.setText(arrayList.get(holder.getAdapterPosition()).getLocation());
         holder.time.setText(arrayList.get(holder.getAdapterPosition()).getTime());
-
         holder.price.setText(arrayList.get(holder.getAdapterPosition()).getPrice());
         holder.chatcount.setText(""+arrayList.get(holder.getAdapterPosition()).getChat_count());
         holder.favoritecount.setText(""+arrayList.get(holder.getAdapterPosition()).getFavorite_count());
-
+        holder.comentcount.setText(""+arrayList.get(holder.getAdapterPosition()).getComent_count());
         holder.product_image.setImageResource(arrayList.get(holder.getAdapterPosition()).getImage());
 
 
@@ -57,6 +63,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             public void onClick(View v) {
                 Intent intent=new Intent(context, Product.class);
                 intent.putExtra("product_key",arrayList.get(holder.getAdapterPosition()).getTitle());//제품키 넣어주기
+                intent.putExtra("id",userInfoSave.return_account().getId());
                 context.startActivity(intent);
             }
         });
@@ -69,7 +76,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
         ImageView product_image;
-        TextView title,price,location,time,chatcount,favoritecount;
+        TextView title,price,location,time,chatcount,favoritecount,comentcount;
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -78,9 +85,10 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             title=itemView.findViewById(R.id.product_list_item_title);
             price=itemView.findViewById(R.id.product_list_item_price);
             location=itemView.findViewById(R.id.product_list_item_location);
-            chatcount=itemView.findViewById(R.id.product_list_item_chat);
-            favoritecount=itemView.findViewById(R.id.product_list_item_favorte);
 
+            chatcount=itemView.findViewById(R.id.product_list_item_chat);
+            favoritecount=itemView.findViewById(R.id.product_list_item_favorite);
+            comentcount=itemView.findViewById(R.id.product_list_item_coment);
         }
     }
 }

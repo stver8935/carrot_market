@@ -5,6 +5,19 @@ public class ProductComentItem {
     String id;
     String location;
     String date;
+    String profile_image_path;
+
+    public String getProfile_image_path() {
+        return profile_image_path;
+    }
+
+    public void setProfile_image_path(String profile_image_path) {
+        this.profile_image_path = profile_image_path;
+    }
+
+    String coment;
+
+
 
     public String getComent() {
         return coment;
@@ -14,17 +27,7 @@ public class ProductComentItem {
         this.coment = coment;
     }
 
-    String coment;
 
-    public int getProfile_image() {
-        return profile_image;
-    }
-
-    public void setProfile_image(int profile_image) {
-        this.profile_image = profile_image;
-    }
-
-    int profile_image;
 
     public String getKey() {
         return key;

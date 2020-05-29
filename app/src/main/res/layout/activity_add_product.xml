@@ -94,7 +94,9 @@
                 android:layout_height="60dp"
                 android:drawableRight="@drawable/keyboard_arrow_down"
                 android:gravity="center_vertical"
-                android:text="카테고리"
+                android:background="@drawable/click_effect_after"
+                android:hint="카테고리"
+                android:textColorHint="@color/colorblack"
                 android:textColor="@color/colorblack"
                 android:textSize="25dp" />
 
@@ -111,7 +113,9 @@
                 android:layout_height="60dp"
                 android:drawableRight="@drawable/keyboard_arrow_down"
                 android:gravity="center_vertical"
-                android:text="~과 근처동네 23개"
+                android:hint="보여줄 동네 반경"
+                android:textColorHint="@color/colorblack"
+                android:background="@drawable/click_effect_after"
                 android:textColor="@color/colorblack"
                 android:textSize="25dp" />
 
@@ -131,6 +135,7 @@
                     android:layout_width="200dp"
                     android:layout_height="60dp"
                     android:background="#00ff0000"
+                    android:inputType="number"
                     android:hint="가격(선택사항)"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

@@ -2,11 +2,15 @@ package com.example.carrot_market.RecyclerView.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -14,17 +18,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.carrot_market.CONTROLLER.ProductComent;
+import com.bumptech.glide.Glide;
 import com.example.carrot_market.CONTROLLER.ProfileDetail;
-import com.example.carrot_market.R;
 import com.example.carrot_market.MODEL.DTO.ProductComentItem;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.example.carrot_market.MODEL.HttpConnect.ComentDeleteTask;
+import com.example.carrot_market.MODEL.LOCALMODEL.SharedPreference.UserInfoSave;
+import com.example.carrot_market.R;
 
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.example.carrot_market.CONTROLLER.SplashActivity.API_URL;
 
 public class ProductComentAdapter extends RecyclerView.Adapter<ProductComentAdapter.CustomViewHolder> {
 
@@ -32,6 +40,7 @@ public class ProductComentAdapter extends RecyclerView.Adapter<ProductComentAdap
      Context context;
      EditText coment;
      Boolean product_coment_and_coment_list;
+
 
     public ProductComentAdapter(ArrayList<ProductComentItem> arrayList,Context context,EditText coment) {
         product_coment_and_coment_list=true;
@@ -57,7 +66,12 @@ public class ProductComentAdapter extends RecyclerView.Adapter<ProductComentAdap
     @Override
     public void onBindViewHolder(@NonNull final ProductComentAdapter.CustomViewHolder holder, final int i) {
 
-        holder.profile_image.setImageResource(arrayList.get(i).getProfile_image());
+        if (!arrayList.get(holder.getAdapterPosition()).getProfile_image_path().equals("null")) {
+            Glide.with(context).load(API_URL + "/image/" + arrayList.get(holder.getAdapterPosition()).getProfile_image_path()).into(holder.profile_image);
+        }else {
+            holder.profile_image.setImageDrawable(context.getResources().getDrawable(R.drawable.profile_image_man));
+        }
+
         holder.id.setText(arrayList.get(i).getId());
         holder.coment.setText(arrayList.get(i).getComent());
         holder.location.setText(arrayList.get(i).getLocation());
@@ -68,15 +82,6 @@ public class ProductComentAdapter extends RecyclerView.Adapter<ProductComentAdap
         //holder.itemView.setPadding();
 
 
-        //대댓글 달기 버튼 이벤트 처리
-        holder.reply.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(context,ProductComent.class);
-                intent.putExtra("key","reply");
-                context.startActivity(intent);
-            }
-        });
 
 
 
@@ -86,22 +91,43 @@ public class ProductComentAdapter extends RecyclerView.Adapter<ProductComentAdap
             public void onClick(View v) {
 
                 if (product_coment_and_coment_list) {
-                    PopupMenu coment_setting_menu = new PopupMenu(context, holder.more);
+                    final PopupMenu coment_setting_menu = new PopupMenu(context, holder.more);
                     coment_setting_menu.inflate(R.menu.coment_menu);
                     coment_setting_menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
 
                             //댓글 보기에서의 댓글 더보기 이벤트 처리
-                            if (!holder.id.getText().equals("stver8935")) {
+                            if (!holder.id.getText().equals(new UserInfoSave(context).return_account().getId())) {
                                 Toast.makeText(context, "작성자만 수정 할 수 있습니다.", Toast.LENGTH_SHORT).show();
                             } else {
                                 switch (item.getItemId()) {
                                     case R.id.coment_setting:
                                         coment.setText(holder.coment.getText());
+                                        coment.requestFocus();
+
+                                        coment.requestFocus();
+
+                                        //키보드 보이게 하는 부분
+
+                                        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                                        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+
+
+
+
                                         //데이터베스에 수정
                                         break;
                                     case R.id.coment_delete:
+
+
+                                        Log.e("coment_key",arrayList.get(holder.getAdapterPosition()).getKey());
+
+                                        ComentDeleteTask comentDeleteTask=new ComentDeleteTask(arrayList.get(holder.getAdapterPosition()).getKey(),handler);
+                                        Thread thread=new Thread(comentDeleteTask);
+                                        thread.run();
 
                                         //데이터베스에서 삭제
                                         arrayList.remove(holder.getAdapterPosition());
@@ -190,7 +216,7 @@ public class ProductComentAdapter extends RecyclerView.Adapter<ProductComentAdap
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
         private CircleImageView profile_image;
-        private TextView id,location,date,reply,coment;
+        private TextView id,location,date,coment;
         private ImageView more;
 
         public CustomViewHolder(@NonNull View itemView) {
@@ -199,11 +225,40 @@ public class ProductComentAdapter extends RecyclerView.Adapter<ProductComentAdap
         id=itemView.findViewById(R.id.product_coment_item_id);
         location=itemView.findViewById(R.id.product_coment_item_location);
         date=itemView.findViewById(R.id.product_coment_item_date);
-        reply=itemView.findViewById(R.id.product_coment_item_reply);
+
         more=itemView.findViewById(R.id.product_coment_item_more);
         coment=itemView.findViewById(R.id.product_coment_item_textarea);
 
 
         }
     }
+
+    Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message message){
+
+            switch (message.what){
+
+                case 0:
+
+                    Toast.makeText(context, "댓글을 삭제 했습니다.", Toast.LENGTH_SHORT).show();
+                    break;
+                case 1:
+
+                    Toast.makeText(context, "댓글을 수정 했습니다.", Toast.LENGTH_SHORT).show();
+
+                    break;
+
+
+                    default:
+
+
+                        break;
+            }
+
+
+
+    }};
+
+
 }

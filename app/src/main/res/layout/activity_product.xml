@@ -8,275 +8,225 @@
     tools:context=".CONTROLLER.Product">
 
 
-
-
-
     <ScrollView
         android:id="@+id/product_srollview"
         android:layout_width="match_parent"
         android:layout_height="800dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/view"
-        android:padding="10dp"
         android:layout_marginBottom="60dp"
-        >
-<LinearLayout
-
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    >
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/product_view_pager"
-        android:layout_width="match_parent"
-        android:layout_marginTop="70dp"
-        android:layout_marginBottom="20dp"
-        android:layout_height="400dp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/view"
         app:layout_constraintTop_toTopOf="parent"
-        />
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/product_view_pager_indicator_tab_layout"
+        app:layout_constraintVertical_bias="0.811"
+        tools:layout_editor_absoluteX="61dp">
+
+        <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabBackground="@drawable/indicator_selector"
-            app:tabGravity="center"
-            app:tabIndicatorHeight="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/product_view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:layout_marginTop="70dp"
+                    android:layout_marginBottom="20dp"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:orientation="horizontal"
-        >
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/product_profile_image"
-            android:layout_height="50dp"
-            android:layout_width="50dp"
-            android:src="@drawable/test_chair"
-            android:layout_margin="10dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
-        <TextView
-            android:id="@+id/product_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="아이디"
-            android:textSize="15dp"
-            android:textColor="#000000"
-            app:layout_constraintTop_toTopOf="@+id/product_profile_image"
-            app:layout_constraintStart_toEndOf="@id/product_profile_image"
-            android:layout_marginLeft="20dp"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="동작구 동작동"
-            android:textSize="10dp"
-            app:layout_constraintTop_toBottomOf="@id/product_id"
-            app:layout_constraintStart_toStartOf="@+id/product_id"
-            android:layout_marginTop="5dp"/>
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/product_view_pager_indicator_tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:tabBackground="@drawable/indicator_selector"
+                    app:tabGravity="center"
+                    app:tabIndicatorHeight="0dp" />
 
 
-        <TextView
-            android:id="@+id/product_maner_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="매너온도"
-            android:textSize="8dp"
-            app:layout_constraintStart_toStartOf="@id/product_mener_progressBar"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/product_mener_progressBar"
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/product_user_profile_constraint_layout"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="67.3%"
-            android:textColor="#ff00"
-            app:layout_constraintBottom_toBottomOf="@+id/product_maner_text"
-            app:layout_constraintEnd_toEndOf="@id/product_mener_progressBar" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/product_user_profile_image"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/test_chair"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <ProgressBar
-            android:id="@+id/product_mener_progressBar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:progress="50"
-            app:layout_constraintTop_toBottomOf="@id/product_maner_text"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginRight="20dp"
- />
+                <TextView
+                    android:id="@+id/product_user_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="아이디"
+                    android:textColor="#000000"
+                    android:textSize="15dp"
+                    app:layout_constraintStart_toEndOf="@id/product_user_profile_image"
+                    app:layout_constraintTop_toTopOf="@+id/product_user_profile_image" />
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#999999"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        />
+                <TextView
+                    android:id="@+id/product_user_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="동작구 동작동"
+                    android:textSize="10dp"
+                    app:layout_constraintStart_toStartOf="@+id/product_user_id"
+                    app:layout_constraintTop_toBottomOf="@id/product_user_id" />
 
 
-    <TextView
-        android:id="@+id/product_product_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="아이폰 이어폰"
-        android:textSize="20dp"
-        android:textColor="#000000"/>
+                <TextView
+                    android:id="@+id/product_maner_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="매너온도"
+                    android:textSize="8dp"
+                    app:layout_constraintBottom_toTopOf="@id/product_user_tamperature"
+                    app:layout_constraintStart_toStartOf="@id/product_user_tamperature"
+                    app:layout_constraintTop_toTopOf="parent"
+
+                    />
+
+                <TextView
+                    android:id="@+id/product_user_tamperature_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="67.3%"
+                    android:textColor="#ff00"
+                    app:layout_constraintBottom_toBottomOf="@+id/product_maner_text"
+                    app:layout_constraintEnd_toEndOf="@id/product_user_tamperature" />
+
+                <ProgressBar
+                    android:id="@+id/product_user_tamperature"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:progress="50"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/product_maner_text" />
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="디지털/가전. 2시간전"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:textColor="#000000"
-        android:layout_marginBottom="20dp"
-        android:text="새거는 아니고 사용한 거지만 깨끗한 편입니다.
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="#999999" />
+
+
+            <TextView
+                android:id="@+id/product_product_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="아이폰 이어폰"
+                android:textColor="#000000"
+                android:textSize="20dp" />
+
+
+            <TextView
+                android:id="@+id/product_product_category_and_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="디지털/가전. 2시간전" />
+
+            <TextView
+                android:id="@+id/product_product_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:text="새거는 아니고 사용한 거지만 깨끗한 편입니다.
          매번 아이폰만 구매하다보니 이어폰이 많아서 정리해요 미세한 기스 있으니 예민하신분은 피해주세요"
-        />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#999999"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        />
-<TextView
-    android:id="@+id/product_declaration"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="이 게시글 신고하기"
-    android:textColor="#000000"
-    android:textSize="20dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="10dp"
-    />
-    <View
-    android:layout_width="match_parent"
-    android:layout_height="0.5dp"
-    android:background="#999999"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="10dp"
-    />
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
->
-    <TextView
-        android:id="@+id/product_coment"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+                android:textColor="#000000" />
 
-        android:text="댓글 0"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="#000000"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="#999999"
-            app:layout_constraintTop_toBottomOf="@id/product_coment"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            />
-
- <Button
-     android:id="@+id/product_insert_coment"
-     android:layout_width="wrap_content"
-     android:layout_height="match_parent"
-     android:text="댓글 쓰기"
-     android:gravity="center"
-     android:background="#00ff0000"
-     app:layout_constraintEnd_toEndOf="parent"
-     />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/product_in_coment_recycler"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
-    <TextView
-        android:id="@+id/product_all_coment_see"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0개 댓글 전체 보기"
-        android:layout_gravity="right"
-        />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#999999"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/product_insert_coment"
-        />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="한기형님의 판매상품"
-        android:textColor="#000000"
-        android:textSize="20dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
-
-        <Button
-            android:id="@+id/product_seller_product_view_all"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="모두보기"
-            android:background="#00ff0000"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/product_seller_product_list_recycler"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="#999999" />
 
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-</LinearLayout>
+                <TextView
+                    android:id="@+id/product_coment_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:gravity="center"
+                    android:text="댓글 0"
+                    android:textColor="#000000"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#999999"
+                    app:layout_constraintTop_toBottomOf="@id/product_coment_count" />
+
+                <Button
+                    android:id="@+id/product_insert_coment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#00ff0000"
+                    android:gravity="center"
+                    android:text="댓글 쓰기"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/product_in_coment_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never"
+                android:layout_weight="1"
+                />
+
+            <TextView
+                android:id="@+id/product_coment_all_see"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="0개 댓글 전체 보기" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="#999999"
+                app:layout_constraintTop_toBottomOf="@+id/product_insert_coment" />
+
+
+        </LinearLayout>
     </ScrollView>
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/product_linear1"
@@ -390,6 +340,7 @@
             />
 
         <Button
+            android:id="@+id/product_buy_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#ff6600"
@@ -401,8 +352,6 @@
             android:padding="10dp"
             android:layout_margin="10dp"
             />
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

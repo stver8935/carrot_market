@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/follow_list_item_profile_image"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:src="@drawable/profile_image_man"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+    <TextView
+        android:id="@+id/follow_list_item_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/follow_list_item_profile_image"
+        app:layout_constraintStart_toEndOf="@id/follow_list_item_profile_image"
+        android:textColor="@color/colorblack"
+        android:textSize="20dp"
+        android:text="아이디"
+        android:layout_marginLeft="20dp"
+        />
+
+    <TextView
+        android:id="@+id/follow_list_item_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/follow_list_item_profile_image"
+        app:layout_constraintStart_toStartOf="@id/follow_list_item_id"
+        android:textColor="@color/default_gray"
+        android:textSize="15dp"
+        android:text="주소"
+        />
+
+    <TextView
+        android:id="@+id/follow_list_item_follow_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/corner_round_color_orange"
+        android:text="모아보는중"
+        android:textColor="@color/colorwhite"
+        android:textSize="20dp"
+        android:padding="7dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/default_gray"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/follow_list_item_profile_image"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

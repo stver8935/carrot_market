@@ -1,69 +1,60 @@
 package com.example.carrot_market.CONTROLLER;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.os.Bundle;
-import android.view.View;
+import android.os.Handler;
+import android.os.Message;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
-import android.widget.RadioButton;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.carrot_market.MODEL.DTO.AttentionCategoryItem;
+import com.example.carrot_market.MODEL.HttpConnect.CategoryLoadTask;
+import com.example.carrot_market.MODEL.LOCALMODEL.SharedPreference.UserInfoSave;
 import com.example.carrot_market.R;
+import com.example.carrot_market.RecyclerView.Adapter.AttentionCategoryAdapter;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class AttentionCategory extends AppCompatActivity implements View.OnClickListener {
+public class AttentionCategory extends AppCompatActivity {
 
-    CheckBox category1,category2,category3,category4,category5,category6,category7,category8,category9,category10,
-    category11,category12,category13,category14;
     ImageButton back;
-    ArrayList<CheckBox> category_list=new ArrayList<>();
-
+    ArrayList<CheckBox> category_list = new ArrayList<>();
+    RecyclerView recyclerView;
+    AttentionCategoryAdapter attentionCategoryAdapter;
+    ArrayList<AttentionCategoryItem> arrayList = new ArrayList<>();
+    UserInfoSave userInfoSave;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attention_category);
 
+        recyclerView = findViewById(R.id.attention_category_recycler);
+        recyclerView.setLayoutManager(new GridLayoutManager(AttentionCategory.this, 2));
+        attentionCategoryAdapter = new AttentionCategoryAdapter(arrayList);
+        recyclerView.setAdapter(attentionCategoryAdapter);
+        userInfoSave=new UserInfoSave(this);
 
 
-        category1=findViewById(R.id.category_1);
-        category2=findViewById(R.id.category_2);
-        category3=findViewById(R.id.category_3);
-        category4=findViewById(R.id.category_4);
-        category5=findViewById(R.id.category_5);
-        category6=findViewById(R.id.category_6);
-        category7=findViewById(R.id.category_7);
-        category8=findViewById(R.id.category_8);
-        category9=findViewById(R.id.category_9);
-        category10=findViewById(R.id.category_10);
-        category11=findViewById(R.id.category_11);
-        category12=findViewById(R.id.category_12);
-        category13=findViewById(R.id.category_13);
-        category14=findViewById(R.id.category_14);
-
-        category_list.add(category1);
-        category_list.add(category2);
-        category_list.add(category3);
-        category_list.add(category4);
-        category_list.add(category5);
-        category_list.add(category6);
-        category_list.add(category7);
-        category_list.add(category8);
-        category_list.add(category9);
-        category_list.add(category10);
-        category_list.add(category11);
-        category_list.add(category12);
-        category_list.add(category13);
-        category_list.add(category14);
-
-        back=findViewById(R.id.attention_category_back);
-        btn_setting();
+        back = findViewById(R.id.attention_category_back);
 
 
         //최소 1개 이상의 카테고리가  체크 되어 있어야함 1개 이하 체크 됬을시 경고문구
         //ArrayList<CheckBox> arrayList=new ArrayList<>();
+
+
+        CategoryLoadTask task=new CategoryLoadTask(userInfoSave.return_account().getId(),handler);
+        Thread thread=new Thread(task);
+        thread.run();
+
+
 
 
 
@@ -79,122 +70,51 @@ public class AttentionCategory extends AppCompatActivity implements View.OnClick
      * 11-도서/티켓/음반 12-반려동물용품
      * 13-기타 중고물품 14-삽니다
      * */
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.category_1:
 
-                if (category_check()){
-                    category_list.get(0).setChecked(true);
-                }
 
-                break;
-            case R.id.category_2:
-                if (category_check()){
-                    category_list.get(1).setChecked(true);
-                }
-                break;
-            case R.id.category_3:
-                if (category_check()){
-                    category_list.get(2).setChecked(true);
-                }
-                break;
-            case R.id.category_4:
-                if (category_check()){
-                    category_list.get(3).setChecked(true);
-                }
-                break;
-            case R.id.category_5:
-                if (category_check()){
-                    category_list.get(4).setChecked(true);
-                }
-                break;
-            case R.id.category_6:
-                if (category_check()){
-                    category_list.get(5).setChecked(true);
-                }
-                break;
-            case R.id.category_7:
-                if (category_check()){
-                    category_list.get(6).setChecked(true);
-                }
-                break;
-            case R.id.category_8:
-                if (category_check()){
-                    category_list.get(7).setChecked(true);
-                }
-                break;
-            case R.id.category_9:
-                if (category_check()){
-                    category_list.get(8).setChecked(true);
-                }
-                break;
-            case R.id.category_10:
-                if (category_check()){
-                    category_list.get(9).setChecked(true);
-                }
-                break;
-            case R.id.category_11:
-                if (category_check()){
-                    category_list.get(10).setChecked(true);
-                }
-                break;
-            case R.id.category_12:
-                if (category_check()){
-                    category_list.get(11).setChecked(true);
-                }
-                break;
-            case R.id.category_13:
-                if (category_check()){
-                    category_list.get(12).setChecked(true);
-                }
-                break;
-            case R.id.category_14:
-                if (category_check()){
-                    category_list.get(13).setChecked(true);
-                }
-                break;
-                //액티비티 종료 버튼
-            case R.id.attention_category_back:
-                finish();
-                break;
 
-        }
+    Handler handler=new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message msg) {
+            switch (msg.what){
+                case 0:
+                    try {
 
-    }
 
-    private void btn_setting(){
-        category1.setOnClickListener(this);
-        category2.setOnClickListener(this);
-        category3.setOnClickListener(this);
-        category4.setOnClickListener(this);
-        category5.setOnClickListener(this);
-        category6.setOnClickListener(this);
-        category7.setOnClickListener(this);
-        category8.setOnClickListener(this);
-        category9.setOnClickListener(this);
-        category10.setOnClickListener(this);
-        category11.setOnClickListener(this);
-        category12.setOnClickListener(this);
-        category13.setOnClickListener(this);
-        category14.setOnClickListener(this);
-        back.setOnClickListener(this);
-    }
+                        JSONArray jsonArray=new JSONArray(msg.getData().getString("category_list"));
 
-    private boolean category_check(){
-        int category_check_num=0;
-        for (int i=0;i<category_list.size();i++){
 
-            if(category_list.get(i).isChecked()){
-            category_check_num++;
+
+                    for (int i=0;i<jsonArray.length();i++){
+                        JSONObject jsonObject=jsonArray.getJSONObject(i);
+
+                            AttentionCategoryItem item = new AttentionCategoryItem();
+                            switch (jsonObject.getInt("category_select")){
+                                case 0:
+                                    item.setCheck(false);
+                                    break;
+                                case 1:
+                                item.setCheck(true);
+                            break;
+
+                            }
+
+                            item.setTitle(jsonObject.getString("category_name"));
+                            arrayList.add(item);
+                            attentionCategoryAdapter.notifyItemInserted(i);
+                    }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
             }
+
+
+
+            return false;
         }
-        if (category_check_num <1) {
-            Toast.makeText(this, "카테고리를 한개 이상 선택해 주세요", Toast.LENGTH_SHORT).show();
-            return true;
-        }
-    return false;
-    }
+    });
 
 
 }

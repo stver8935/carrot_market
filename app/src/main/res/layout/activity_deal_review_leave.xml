@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CONTROLLER.DealReviewLeave">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="horizontal"
+    >
+    <ImageView
+        android:id="@+id/deal_review_leave_back"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:src="@drawable/arrow_back"
+        android:background="@color/colorwhite"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="거래 후기 남기기"
+        android:gravity="center"
+        android:textColor="@color/colorblack"
+        android:textSize="30dp"
+        />
+
+
+</LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorblack"
+        />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/deal_review_leave_product_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:background="#E4E4E4"
+        >
+        <ImageView
+            android:id="@+id/deal_review_leave_product_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/test_chair"
+            />
+
+        <TextView
+            android:id="@+id/deal_review_leave_product_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/deal_review_leave_product_image"
+            app:layout_constraintStart_toEndOf="@+id/deal_review_leave_product_image"
+            android:text="거래한 상품"
+            android:layout_marginLeft="10dp"
+            />
+
+        <TextView
+            android:id="@+id/deal_review_leave_product_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/deal_review_leave_product_state"
+            app:layout_constraintStart_toStartOf="@+id/deal_review_leave_product_state"
+            android:text="미개봉 새제품"
+            android:textColor="@color/colorblack"
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:singleLine="true"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/deal_review_leave_question_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="root 님과 거래가 어떠셨나요"
+        android:textColor="@color/colorblack"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:padding="20dp"
+        android:layout_gravity="center"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/deal_review_leave_bad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="별로예요"
+        android:textSize="30dp"
+        android:gravity="center_horizontal|bottom"
+        android:drawableTop="@drawable/badface"
+        android:layout_weight="1"
+        android:drawableTint="@color/colorblack"
+            />
+        <TextView
+            android:id="@+id/deal_review_leave_nomal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="좋아요"
+            android:textSize="30dp"
+            android:gravity="center_horizontal|bottom"
+            android:drawableTop="@drawable/nomalface"
+            android:layout_weight="1"
+            />
+        <TextView
+            android:id="@+id/deal_review_leave_good"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="최고예요!"
+            android:textSize="30dp"
+            android:gravity="center_horizontal|bottom"
+            android:drawableTop="@drawable/goodface"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+<LinearLayout
+    android:id="@+id/deal_review_leave_body"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <CheckBox
+        android:id="@+id/deal_review_leave_user_block"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="이 분과는 다시는 거래하고 싶지 않아요"
+        android:padding="20dp"
+        android:button="@drawable/check_button"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorblack" />
+
+            <TextView
+                android:id="@+id/deal_review_leave_check_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="거래하며 불편했던 점을 선택해 주세요."
+                android:layout_gravity="center"
+                android:textColor="@color/colorblack"
+                android:textSize="20dp"
+                android:layout_marginTop="20dp"
+                />
+            <TextView
+                android:id="@+id/deal_review_leave_check_info"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:text="부정후기는 상대방에게 알림이 가지 않아요.
+                    누가 평가했는지는 알 수 없으니 안심하세요"
+                />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/deal_review_leave_check_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorblack"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                />
+
+            <TextView
+                android:id="@+id/deal_revieW_leave_coment_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="root님에게 감사 인사를 남겨 보세요."
+                android:textColor="@color/colorblack"
+                android:textSize="20dp"/>
+            <TextView
+                android:id="@+id/deal_review_leave_coment_info"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="신고 내용은 상대방에게 공개되지 않습니다(선택사항)"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:orientation="horizontal"
+                android:background="@drawable/border_line"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                >
+                <EditText
+                    android:id="@+id/deal_review_leave_coment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="300dp"
+                    android:layout_weight="1"
+                    android:hint="여기에 신고 사항을 작성하세요"
+                    android:background="#00ff0000"
+                    android:layout_gravity="top"
+                    />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/border_line"
+                    android:padding="5dp"
+                    >
+                <ImageView
+                    android:id="@+id/deal_review_leave_coment_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/camera"
+                    android:layout_weight="1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:scaleType="fitXY"
+                    />
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/deal_review_leave_coment_image_remove"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="@id/deal_review_leave_coment_image"
+                        app:layout_constraintEnd_toEndOf="@id/deal_review_leave_coment_image"
+                        android:src="@drawable/clear"
+                        android:background="@drawable/border_line_percent"
+                        android:visibility="gone"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+            <Button
+                android:id="@+id/deal_review_leave_commit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_line_fill_orange"
+                android:text="거래 후기 작성 완료"
+                android:textSize="30dp"
+                android:textColor="@color/colorwhite"
+                android:layout_margin="20dp"
+                />
+        </LinearLayout>
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>

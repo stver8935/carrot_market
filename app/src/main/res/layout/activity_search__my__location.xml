@@ -43,6 +43,10 @@
         android:text="근처 동네"
         android:layout_margin="10dp"
         />
+    <ScrollView
+        android:id="@+id/search_my_location_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_my_location_recyclerview"
         android:layout_width="match_parent"
@@ -50,5 +54,5 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
-
+    </ScrollView>
 </LinearLayout>

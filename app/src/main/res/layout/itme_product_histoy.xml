@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@drawable/click_effect_after"
+    android:layout_width="match_parent"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/product_history_imageview"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_launcher_background"
+        android:scaleType="fitXY"
+        app:layout_constraintCircleRadius="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/product_histroy_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="안녕하세요"
+        android:textSize="20dp"
+        android:textColor="#000000"
+        android:maxLines="2"
+        android:singleLine="true"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintStart_toEndOf="@+id/product_history_imageview"
+        app:layout_constraintTop_toTopOf="@+id/product_history_imageview" />
+<ImageView
+    android:id="@+id/product_histoy_more"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/more_vert"
+    app:layout_constraintTop_toTopOf="@+id/product_histroy_item_title"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:layout_marginRight="10dp"
+    />
+    <TextView
+        android:id="@+id/product_history_item_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:text="서초구 방배동 . 9초전"
+        android:layout_marginTop="10sp"
+        app:layout_constraintTop_toBottomOf="@id/product_histroy_item_title"
+        app:layout_constraintStart_toStartOf="@id/product_histroy_item_title"
+        />
+    <TextView
+        android:id="@+id/product_histroy_item_sales_completed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="판매완료"
+        android:textSize="13dp"
+        android:padding="2dp"
+        android:textColor="@color/colorwhite"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:background="@drawable/border_lien_fill_gray"
+        app:layout_constraintTop_toBottomOf="@id/product_history_item_location"
+        app:layout_constraintStart_toStartOf="@id/product_history_item_location"
+        />
+    <TextView
+        android:id="@+id/product_histroy_item_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:text="5000원"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        app:layout_constraintStart_toEndOf="@+id/product_histroy_item_sales_completed"
+        app:layout_constraintTop_toBottomOf="@+id/product_history_item_location"
+        app:layout_constraintBottom_toBottomOf="@+id/product_histroy_item_sales_completed"
+        />
+
+    <LinearLayout
+        android:id="@+id/product_histroy_item_linear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="264dp"
+        android:orientation="horizontal"
+        android:layout_marginRight="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/product_histroy_item_price">
+
+
+        <TextView
+            android:id="@+id/product_history_item_coment_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/coment"
+            android:text="1"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            />
+
+        <TextView
+            android:id="@+id/product_history_item_chat_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/forum"
+            android:drawableTint="#747474"
+            android:gravity="center"
+            android:text=" 3" />
+
+        <TextView
+            android:id="@+id/product_history_item_favorite_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/favorite_border"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:text="3"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/product_histoy_view"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/default_gray"
+        app:layout_constraintTop_toBottomOf="@id/product_histroy_item_linear"
+        />
+
+    <TextView
+        android:id="@+id/product_history_deal_review_leave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="거래 후기 남기기"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:textColor="@color/colororange"
+        android:background="@color/colorwhite"
+        app:layout_constraintTop_toBottomOf="@id/product_histoy_view"
+        />
+    <View
+        android:id="@+id/product_histoy_view2"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/default_gray"
+        app:layout_constraintTop_toBottomOf="@id/product_history_deal_review_leave"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

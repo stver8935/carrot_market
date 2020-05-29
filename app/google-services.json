@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "501393677905",
+    "firebase_url": "https://carrot-market-2cf7b.firebaseio.com",
+    "project_id": "carrot-market-2cf7b",
+    "storage_bucket": "carrot-market-2cf7b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:501393677905:android:e3737f2b4fc9993bdc2270",
+        "android_client_info": {
+          "package_name": "com.example.carrot_market"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "501393677905-5oh508m0e7n5n16n96sfrqf4gjl5r1k3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.carrot_market",
+            "certificate_hash": "37da37210d84565dc686e3d9f320d5e54af8eab6"
+          }
+        },
+        {
+          "client_id": "501393677905-vi74nqdomrqv2aaq1ichr5afgcdng7sa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMe0a5nwc_p5AGoBP3_Ky-cNXhry2wX70"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "501393677905-vi74nqdomrqv2aaq1ichr5afgcdng7sa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

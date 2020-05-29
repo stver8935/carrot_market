@@ -8,11 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.carrot_market.MODEL.DTO.AddProductImageItem;
 import com.example.carrot_market.R;
-import com.example.carrot_market.MODEL.DTO.AddProductItem;
 
 import java.util.ArrayList;
 
@@ -20,9 +20,9 @@ public class AddProductAdapter extends RecyclerView.Adapter<AddProductAdapter.Cu
 
 
     private Context context;
-   private ArrayList<AddProductItem> arrayList;
+   private ArrayList<AddProductImageItem> arrayList;
     private TextView camera_count;
-    public AddProductAdapter(Context context, ArrayList<AddProductItem> arrayList, TextView camera_count) {
+    public AddProductAdapter(Context context, ArrayList<AddProductImageItem> arrayList, TextView camera_count) {
         this.context = context;
         this.arrayList = arrayList;
         this.camera_count=camera_count;
@@ -41,7 +41,8 @@ public class AddProductAdapter extends RecyclerView.Adapter<AddProductAdapter.Cu
     @Override
     public void onBindViewHolder(@NonNull final AddProductAdapter.CustomViewHolder holder, int position) {
 
-        holder.product_image.setImageURI(arrayList.get(holder.getAdapterPosition()).getImage());
+        Glide.with(context).load(arrayList.get(holder.getAdapterPosition()).getImage()).into(holder.product_image);
+
         //이미지 삭제
 
         //부모 레이아웃에 있는 현재 첨부한 이미지의 갯수 카운트 해주기위한 명령문

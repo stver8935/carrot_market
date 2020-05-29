@@ -13,9 +13,12 @@
         <Button
             android:id="@+id/home_fragment_mylocation"
             android:layout_height="wrap_content"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:background="#00ff0000"
             android:text="나의 위치"
+            android:textColor="@color/colorblack"
+            android:textSize="20dp"
+            android:layout_marginLeft="10dp"
             android:drawableRight="@drawable/keyboard_arrow_down"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -32,6 +35,17 @@
             android:background="#00ff0000"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/home_fragment_notificaiton"
+            />
+        <ImageButton
+            android:id="@+id/home_fragment_notificaiton"
+            android:layout_width="50sp"
+            android:layout_height="match_parent"
+            android:src="@drawable/notifications"
+            android:layout_marginLeft="165sp"
+            android:background="#00ff0000"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/home_fragment_tune"
             />
 
@@ -42,20 +56,11 @@
             android:src="@drawable/tune"
             android:background="#00ff0000"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/home_fragment_notification"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             />
 
-        <ImageButton
-            android:id="@+id/home_fragment_notification"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/notifications"
-            android:background="#00ff0000"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <View
@@ -68,7 +73,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/home_fragment_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        >
 
     </androidx.recyclerview.widget.RecyclerView>
 

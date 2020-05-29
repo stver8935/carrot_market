@@ -1,22 +1,18 @@
 package com.example.carrot_market.CONTROLLER;
 
 
-import androidx.annotation.RequiresApi;
-
-import androidx.fragment.app.FragmentActivity;
-
-
 import android.content.Intent;
-
 import android.location.Address;
 import android.location.Geocoder;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.FragmentActivity;
 
 import com.example.carrot_market.R;
 import com.google.android.gms.maps.CameraUpdate;
@@ -38,6 +34,8 @@ public class SelectMyLocation extends FragmentActivity implements OnMapReadyCall
 
     //이전의 마커를 지우기 위한 마커 리스트
     protected ArrayList<Marker> markerArrayList;
+
+
     protected Button button;
 
     @Override
@@ -100,8 +98,6 @@ button.setOnClickListener(new View.OnClickListener() {
 
                     //  좌표의 결과 반환 최대 결과물 갯수 1개로 지정
                     List<Address>  geoList= geocoder.getFromLocation(latitude,longitude,1);
-
-
 
 
                     if (geoList!=null && geoList.size()>0&&geoList.get(0).getAdminArea()!=null) {

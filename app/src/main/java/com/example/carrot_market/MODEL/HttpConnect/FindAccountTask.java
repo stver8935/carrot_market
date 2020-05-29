@@ -32,7 +32,7 @@ public class FindAccountTask extends AsyncTask<String, String, String > {
     @Override
     protected String doInBackground(String... pms) {
 
-        call=retrofitService.Find_Account(pms[0],pms[1],pms[2]);
+        call=retrofitService.Find_Account(pms[0],pms[1]);
 
         try {
             String RpCode=call.execute().body().string();

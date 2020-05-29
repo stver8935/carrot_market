@@ -1,50 +1,55 @@
 package com.example.carrot_market.CONTROLLER;
 
 
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
-
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.os.Bundle;
-import android.util.Log;
-
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.PopupMenu;
-import android.widget.ScrollView;
-
-import android.widget.TextView;
-import android.widget.Toast;
-
-
+import com.bumptech.glide.Glide;
+import com.example.carrot_market.MODEL.DTO.ProductComentItem;
+import com.example.carrot_market.MODEL.DTO.ProductSellerProductListItem;
+import com.example.carrot_market.MODEL.HttpConnect.ProductDetaileDownloadTask;
+import com.example.carrot_market.MODEL.HttpConnect.ProductFavoriteTask;
+import com.example.carrot_market.MODEL.LOCALMODEL.SharedPreference.UserInfoSave;
 import com.example.carrot_market.R;
 import com.example.carrot_market.RecyclerView.Adapter.ProductComentAdapter;
 import com.example.carrot_market.RecyclerView.Adapter.ProductSellerProductListAdapter;
-import com.example.carrot_market.MODEL.DTO.ProductComentItem;
-import com.example.carrot_market.MODEL.DTO.ProductSellerProductListItem;
 import com.example.carrot_market.ViewPager.Adapter.ProductViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.example.carrot_market.CONTROLLER.SplashActivity.API_URL;
 
 
 public class Product extends AppCompatActivity {
@@ -52,15 +57,15 @@ public class Product extends AppCompatActivity {
     private ViewPager viewPager;
     private ProductViewPagerAdapter pagerAdapter;
 
-    protected RecyclerView seller_product_recycler,product_coment_recycler;
+    protected RecyclerView product_coment_recycler;
     protected ProductSellerProductListAdapter seller_product_adapter;
     private ProductComentAdapter product_coment_adapter;
     protected GridLayoutManager seller_product_layout_manager;
     private LinearLayoutManager product_coment_layout_manager;
     protected ArrayList<ProductSellerProductListItem> seller_product_list=new ArrayList<>();
     private ArrayList<ProductComentItem> coment_list=new ArrayList<>();
-
-
+    private ConstraintLayout product_user_profile_constraint_layout;
+    UserInfoSave userInfoSave;
 
     private TabLayout product_indicator;
 
@@ -68,9 +73,16 @@ public class Product extends AppCompatActivity {
     boolean aa=true;
 
     protected ImageButton backbutton,favorit_button,product_more;
+    private Button product_buy_button;
     protected ConstraintLayout linearLayout;
-    protected TextView title;
+    protected TextView Top_title,title,user_id,category,product_descripion,user_tamperature_num,product_price,product_user_location
+            ,product_coment_all_see,product_coment_count;
     private Button write_coment;
+    private CircleImageView user_profile_image;
+    private ProgressBar user_tamperature;
+    private String product_id;
+
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,10 +90,11 @@ public class Product extends AppCompatActivity {
         setContentView(R.layout.activity_product);
 
 
+        userInfoSave=new UserInfoSave(Product.this);
         //판매 상품의 사진 뷰페이저 초기화
         viewPager=findViewById(R.id.product_view_pager);
-        pagerAdapter=new ProductViewPagerAdapter(this,10);
-        viewPager.setAdapter(pagerAdapter);
+
+
         product_indicator=findViewById(R.id.product_view_pager_indicator_tab_layout);
         product_indicator.setupWithViewPager(viewPager);
 
@@ -90,30 +103,48 @@ public class Product extends AppCompatActivity {
         product_coment_recycler=findViewById(R.id.product_in_coment_recycler);
         product_coment_adapter=new ProductComentAdapter(coment_list,this);
         product_coment_layout_manager=new LinearLayoutManager(this);
+
         product_coment_recycler.setLayoutManager(product_coment_layout_manager);
         product_coment_recycler.setAdapter(product_coment_adapter);
 
 
         //판매자가 판매하고 있는 리스트를 보여주는 리사이클러뷰 초기화
-        seller_product_recycler=findViewById(R.id.product_seller_product_list_recycler);
-        seller_product_recycler.setHasFixedSize(true);
+
         seller_product_adapter=new ProductSellerProductListAdapter(this,seller_product_list);
         seller_product_layout_manager=new GridLayoutManager(this,1);
         seller_product_layout_manager.setOrientation(GridLayoutManager.HORIZONTAL);
 
-        seller_product_recycler.setAdapter(seller_product_adapter);
-        seller_product_recycler.setLayoutManager(seller_product_layout_manager);
+
 
 
         scrollView=findViewById(R.id.product_srollview);
+
+
+
+        //판매자 프로필을 담고 있는 레이아웃
+        product_user_profile_constraint_layout=findViewById(R.id.product_user_profile_constraint_layout);
 
         //버튼 초기화
         backbutton=findViewById(R.id.product_back);
         linearLayout=findViewById(R.id.product_linear1);
         favorit_button=findViewById(R.id.product_favorite);
         product_more=findViewById(R.id.product_more);
-        title=findViewById(R.id.product_title);
+        Top_title=findViewById(R.id.product_title);
+        product_buy_button=findViewById(R.id.product_buy_button);
+
         write_coment=findViewById(R.id.product_insert_coment);
+        title=findViewById(R.id.product_product_title);
+        user_id=findViewById(R.id.product_user_id);
+        category=findViewById(R.id.product_product_category_and_time);
+        product_descripion=findViewById(R.id.product_product_description);
+        user_tamperature_num=findViewById(R.id.product_user_tamperature_num);
+        product_price=findViewById(R.id.product_price);
+        user_profile_image=findViewById(R.id.product_user_profile_image);
+        user_tamperature=findViewById(R.id.product_user_tamperature);
+        product_user_location=findViewById(R.id.product_user_location);
+        product_coment_all_see=findViewById(R.id.product_coment_all_see);
+        product_coment_count=findViewById(R.id.product_coment_count);
+
 
 
         //제품의 상세 내용 데이터 로드
@@ -122,19 +153,68 @@ public class Product extends AppCompatActivity {
         * 더미 데이터
         * */
 
+        String product_key=getIntent().getStringExtra("product_key");
+        ProductDetaileDownloadTask task=new ProductDetaileDownloadTask(product_key,userInfoSave.return_account().getId(),"0","3",handler);
+        Thread thread=new Thread(task);
+        thread.run();
 
-        for (int a=0;a<5;a++) {
-            ProductComentItem item = new ProductComentItem();
-            item.setProfile_image(R.drawable.test_chair);
-            item.setId("stver8935");
-            item.setComent("안녕하세요");
-            item.setDate("2019-05-11");
-            item.setLocation("대전광역시");
-            item.setText("hello");
-            item.setKey("awgaweg");
-            coment_list.add(item);
-            product_coment_adapter.notifyItemInserted(coment_list.size());
-        }
+
+//        product_coment_recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//
+//                int last=((LinearLayoutManager)product_coment_recycler.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+//                int itemcount=product_coment_recycler.getAdapter().getItemCount();
+//
+//                if (last==itemcount-1){
+//                    String product_key=getIntent().getStringExtra("product_key");
+//                    ProductDetaileDownloadTask task=new ProductDetaileDownloadTask(product_key,userInfoSave.return_account().getId(),"0","3",handler);
+//                    Thread thread=new Thread(task);
+//                    thread.run();
+//
+//
+//                }
+//
+//            }
+//        });
+
+
+
+
+
+        product_user_profile_constraint_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Product.this,ProfileDetail.class);
+                intent.putExtra("profile_id",user_id.getText().toString());
+                startActivity(intent);
+            }
+        });
+
+        product_buy_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                //로그인중이라면 채팅창으로 이동
+                //로그인중이 아니라면 회원가입창으로 이동
+
+                    Intent intent=new Intent(Product.this,Chatting.class);
+                    intent.putExtra("product_key",getIntent().getStringExtra("product_key"));
+                    intent.putExtra("opponent",getIntent().getStringExtra("id"));
+                    intent.putExtra("seller",product_id);
+                    intent.putExtra("buyer",userInfoSave.return_account().getId());
+                    intent.putExtra("id",product_id);
+
+
+                    Log.e("Product.class",""+getIntent().getStringExtra("seller")+"//"+getIntent().getStringExtra("buyer"));
+                    startActivity(intent);
+
+
+
+            }
+        });
 
         //제품의 댓글 작성 버튼 클릭 이벤트 처리
         write_coment.setOnClickListener(new View.OnClickListener() {
@@ -148,7 +228,15 @@ public class Product extends AppCompatActivity {
         });
 
 
-
+        product_coment_all_see.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Product.this,ProductComent.class);
+                intent.putExtra("key","product");
+                intent.putExtra("product_key",getIntent().getStringExtra("product_key"));
+                startActivity(intent);
+            }
+        });
 
         //관심 상품 등록 버튼 클릭 이벤트 처리 구현
         favorit_button.setOnClickListener(new View.OnClickListener() {
@@ -156,6 +244,10 @@ public class Product extends AppCompatActivity {
             public void onClick(View v) {
 
                 //로그인 안되어 있을떄 처리하기
+                ProductFavoriteTask task=new ProductFavoriteTask(userInfoSave.return_account().getId(),
+                        getIntent().getStringExtra("product_key"));
+                Thread thread=new Thread(task);
+                thread.run();
 
 
                 //로그인 되어있을시 처리
@@ -163,7 +255,6 @@ public class Product extends AppCompatActivity {
                     Drawable drawable = getResources().getDrawable(R.drawable.favorite_red);
                     favorit_button.setImageDrawable(drawable);
                     Toast.makeText(Product.this, "관심 상품를 등록 했습니다", Toast.LENGTH_SHORT).show();
-
                     aa=false;
                 }else {
 
@@ -216,6 +307,8 @@ public class Product extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+
+
             }
         });
 
@@ -228,39 +321,21 @@ public class Product extends AppCompatActivity {
             @Override
             public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
 
-
                 if (500<scrollY) {
-
                     linearLayout.setBackgroundResource(R.color.colorwhite);
-                    title.setText("의자");
+                    Top_title.setVisibility(View.VISIBLE);
                 }
                 else {
-
                     linearLayout.setBackgroundResource(R.color.Nocolor);
-                    title.setText("");
+                    Top_title.setVisibility(View.INVISIBLE);
                 }
-
-                Log.d("스크롤 위치",""+scrollY);
 
 
                 }
         });
         scrollView.scrollTo(0,100);
 
-        //seller_product_list_recyclerview 테스트 코드
-        for (int a=0; a<10;a++) {
-            ProductSellerProductListItem item = new ProductSellerProductListItem();
-            item.setProduct_title("아이폰");
-            item.setProduct_price("1000원");
 
-            Drawable drawable = getResources().getDrawable(R.drawable.test_chair);
-            // drawable 타입을 bitmap으로 변경
-            Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
-            item.setProduct_image(bitmap);
-
-            seller_product_list.add(item);
-            seller_product_adapter.notifyItemInserted(a);
-        }
     }
 
 
@@ -269,14 +344,132 @@ public class Product extends AppCompatActivity {
 
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
-
 
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
+        product_coment_adapter.notifyItemRangeRemoved(0,coment_list.size());
+        coment_list.clear();
+        String product_key=getIntent().getStringExtra("product_key");
+
+        ProductDetaileDownloadTask task=new ProductDetaileDownloadTask(product_key,userInfoSave.return_account().getId(),"0","3",handler);
+        Thread thread=new Thread(task);
+        thread.run();
+
+
     }
+
+Handler handler=new Handler(){
+
+    @Override
+    public void handleMessage(@NonNull Message msg) {
+        super.handleMessage(msg);
+
+        switch (msg.what){
+            case 0:
+                try {
+
+                    Log.e("error",""+msg.getData().getString("product_detaile_list").toString());
+
+                    JSONObject jsonobj=new JSONObject(msg.getData().getString("product_detaile_list").toString());
+
+                    Log.e("jsonarray",""+jsonobj);
+
+                    Top_title.setText(jsonobj.getString("title"));
+                    title.setText(jsonobj.getString("title"));
+                    user_id.setText(jsonobj.getString("id"));
+
+
+                    if (userInfoSave.return_account().getId().equals(user_id.getText().toString())){
+                        product_buy_button.setVisibility(View.GONE);
+                    }else {
+                        product_buy_button.setText("채팅으로 거래하기");
+                        product_buy_button.setVisibility(View.VISIBLE);
+                    }
+
+                    product_id=jsonobj.getString("id");
+                    category.setText(jsonobj.getString("category")+"."+jsonobj.getString("days"));
+                    product_descripion.setText(jsonobj.getString("description"));
+
+                    user_tamperature_num=findViewById(R.id.product_user_tamperature_num);
+                    user_tamperature_num.setText(""+jsonobj.getDouble("manner_temperature"));
+                    DecimalFormat myFormatter = new DecimalFormat("###,###");
+                    String formattedStringPrice = myFormatter.format(Integer.parseInt(jsonobj.getString("price")));
+                    product_price.setText(formattedStringPrice+" 원");
+
+                    product_coment_all_see.setText(jsonobj.getString("coment_count")+"개 댓글 전체 보기");
+                    product_coment_count.setText("댓글 "+jsonobj.getString("coment_count"));
+
+
+                    if (!jsonobj.getString("profile_image").equals("null")){
+                        Glide.with(Product.this).load(API_URL+"image/"+jsonobj.getString("profile_image")).into(user_profile_image);
+                    }else {
+                        user_profile_image.setImageDrawable(getResources().getDrawable(R.drawable.profile_image_man));
+                    }
+
+
+                    product_user_location.setText(jsonobj.getString("address"));
+                    int tam= (int) jsonobj.getDouble("manner_temperature");
+                    user_tamperature.setProgress(tam);
+
+
+                    if (jsonobj.getBoolean("favorite")) {
+                        Drawable drawable = getResources().getDrawable(R.drawable.favorite_red);
+                        favorit_button.setImageDrawable(drawable);
+                        aa=false;
+
+                    }else {
+                        Drawable drawable = getResources().getDrawable(R.drawable.favorite_border);
+                        favorit_button.setImageDrawable(drawable);
+                        aa=true;
+                    }
+
+
+                    JSONArray jsonArray=new JSONArray(jsonobj.getString("image_path_list"));
+
+                            pagerAdapter=new ProductViewPagerAdapter(Product.this,jsonArray.length(),jsonArray);
+                            viewPager.setAdapter(pagerAdapter);
+
+
+                            JSONArray json_coment_list=new JSONArray(jsonobj.getString("coment_list"));
+                                Log.e("json_len",""+json_coment_list);
+
+                            for (int i =0;i<json_coment_list.length();i++){
+                                JSONObject jsonObject=json_coment_list.getJSONObject(i);
+                                ProductComentItem item = new ProductComentItem();
+                                item.setKey(jsonObject.getString("coment_key"));
+                                item.setProfile_image_path(jsonObject.getString("profile_image"));
+                                item.setId(jsonObject.getString("id"));
+                                item.setComent(jsonObject.getString("coment"));
+                                item.setDate(jsonObject.getString("time_stamp"));
+                                coment_list.add(item);
+                                product_coment_adapter.notifyItemInserted(i);
+                            }
+
+
+
+                    /*
+                     * 더미 데이터
+                     * */
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                break;
+
+        }
+    }
+};
 }

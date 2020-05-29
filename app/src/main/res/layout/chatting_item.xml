@@ -4,19 +4,57 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_gravity="end"
+    android:padding="10dp"
+    android:layout_weight="1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+   <LinearLayout
+       android:id="@+id/chatting_date_layout"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:layout_marginTop="20dp"
+       android:layout_marginBottom="20dp"
+       >
+       <View
+           android:layout_width="match_parent"
+           android:layout_height="0.5dp"
+           android:layout_weight="1"
+           android:background="@color/colorblack"
+           android:layout_gravity="center"
+           />
+        <TextView
+            android:id="@+id/chatting_date_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:text="2020년 04월 05일"
+            android:textColor="@color/colorblack"
+            android:gravity="center"
+            android:layout_weight="1"/>
+       <View
+           android:layout_width="match_parent"
+           android:layout_height="0.5dp"
+           android:layout_weight="1"
+           android:layout_gravity="center"
+           android:background="@color/colorblack"
+           />
+
+   </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chatting_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
+        android:visibility="visible"
         android:orientation="horizontal">
         <TextView
             android:id="@+id/chatting_contents_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="오후 06:52"
+            android:textColor="@color/default_gray"
             android:layout_gravity="bottom"
             android:layout_marginRight="10dp"
             app:layout_constraintEnd_toStartOf="@+id/chatting_item_contents"
@@ -78,6 +116,146 @@
 
 
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chatting_item_oppointment_time_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_line"
+        android:layout_gravity="center"
+        android:visibility="visible"
+        android:padding="10dp"
+        >
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/chatting_item_oppointment_time_calendar"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:padding="4dp"
+            android:src="@drawable/date_range"
+            android:layout_margin="3dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/border_line_fill_orange"
+            />
+        <TextView
+            android:id="@+id/chatting_item_oppointment_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12월 31 (화) 4:30 오후"
+            android:textColor="@color/colorblack"
+            android:layout_marginLeft="10dp"
+            android:textSize="17dp"
+            app:layout_constraintStart_toEndOf="@+id/chatting_item_oppointment_time_calendar"
+            app:layout_constraintTop_toTopOf="@id/chatting_item_oppointment_time_calendar"
+            />
+        <TextView
+            android:id="@+id/chatting_item_oppointment_time_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorblack"
+            android:text="ㅁㅁ 님이 거래 약속을 만들었어요."
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/chatting_item_oppointment_time"
+            app:layout_constraintStart_toStartOf="@+id/chatting_item_oppointment_time"
+            />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chatting_item_other"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:orientation="horizontal"
+        android:visibility="gone"
 
+        >
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/chatting_item_other_profile_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/test_chair"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/chatting_item_other_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/chatting_item_other_profile_image"
+            app:layout_constraintStart_toStartOf="@+id/chatting_item_contents_other"
+            android:text="stver8935"
+            />
+        <TextView
+            android:id="@+id/chatting_contents_time_other"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="오후 06:52"
+            android:textColor="@color/default_gray"
+            android:layout_gravity="bottom"
+            android:layout_marginRight="10dp"
+            app:layout_constraintStart_toEndOf="@+id/chatting_item_contents_other"
+            app:layout_constraintBottom_toBottomOf="@id/chatting_item_contents_other"
+            />
+
+        <TextView
+            android:id="@+id/chatting_item_contents_other"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/chatting_contents_border_my"
+            android:padding="10dp"
+            android:text="안녕하세요"
+            android:textColor="#ffffff"
+            android:textSize="15dp"
+            app:layout_constraintStart_toEndOf="@+id/chatting_item_other_profile_image"
+            app:layout_constraintTop_toBottomOf="@id/chatting_item_other_id"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        >
+
+        <TextView
+            android:id="@+id/chatting_contents_iamge_time_other"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="오후 06:52"
+            android:layout_gravity="bottom"
+            android:layout_marginRight="10dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <ImageView
+                android:id="@+id/chatting_item_contents_image_other"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/test_chair"
+                />
+
+            <ProgressBar
+                android:id="@+id/chatting_item_contents_image_progress_other"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/chatting_item_line_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/default_gray"
+        android:text="약속 시간 30분 전에 알림이 울릴거에요"
+        android:gravity="center"
+        />
 </LinearLayout>

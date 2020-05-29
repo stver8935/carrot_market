@@ -14,7 +14,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@drawable/arrow_back"
-            android:background="#00ff0000"
+            android:background="@drawable/click_effect_after"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             />
@@ -73,13 +73,13 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="닉네임"
-    app:layout_constraintBottom_toTopOf="@+id/my_profile_setting_insert_nick_name"
-    app:layout_constraintStart_toStartOf="@+id/my_profile_setting_insert_nick_name"
+    app:layout_constraintBottom_toTopOf="@+id/my_profile_setting_nick_name"
+    app:layout_constraintStart_toStartOf="@+id/my_profile_setting_nick_name"
     android:textColor="#ff6600"
     />
 
     <EditText
-        android:id="@+id/my_profile_setting_insert_nick_name"
+        android:id="@+id/my_profile_setting_nick_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="닉네임을 입력해 주세요"
@@ -90,11 +90,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
     <TextView
-        android:id="@+id/my_profile_setting_insert_nick_name_explanation"
+        android:id="@+id/my_profile_setting_nick_name_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/my_profile_setting_insert_nick_name"
-        app:layout_constraintStart_toStartOf="@+id/my_profile_setting_insert_nick_name"
+        app:layout_constraintTop_toBottomOf="@+id/my_profile_setting_nick_name"
+        app:layout_constraintStart_toStartOf="@+id/my_profile_setting_nick_name"
         android:text="닉네임은 최소 2자 입니다"
         android:textColor="#ff6600"
         />

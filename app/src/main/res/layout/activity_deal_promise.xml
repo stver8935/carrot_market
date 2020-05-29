@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    tools:context=".CONTROLLER.DealPromise">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
+    <ImageButton
+        android:id="@+id/deal_promise_back_button"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/arrow_back"
+        android:background="@drawable/click_effect_after"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+    <TextView
+        android:id="@+id/deal_promise_title"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="거래약속 만들기"
+        android:textSize="30dp"
+        android:gravity="center"
+        android:textColor="@color/colorblack"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/deal_promise_back_button"
+        />
+    <Button
+        android:id="@+id/deal_promise_commit"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:textColor="@color/colorblack"
+        android:text="완료"
+        android:textSize="25dp"
+        android:background="@drawable/click_effect_after"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorblack"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="약속시간"
+            android:textSize="25dp"
+            android:textColor="@color/colorblack"
+            android:padding="10dp"
+            />
+    <TextView
+        android:id="@+id/deal_promise_call_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/click_effect_after"
+        android:text="3얼 1 (일) 6:30 오후"
+        android:textSize="25dp"
+        android:padding="10dp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorblack" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/deal_promise_alram_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:textColor="@color/colorblack"
+        android:text="알림 받기"
+        android:padding="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+        <Switch
+            android:id="@+id/deal_promise_alram_switch"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:checked="true"
+            app:layout_constraintTop_toTopOf="@+id/deal_promise_alram_title"
+            app:layout_constraintBottom_toBottomOf="@+id/deal_promise_alram_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="10dp"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/deal_promise_alram_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:padding="10dp"
+            android:text="30분 전"
+            android:background="@drawable/click_effect_after"
+            />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorblack" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="알람시간을 수전 해도 상대방의 알림시간은 변경되지 않습니다."
+        android:textSize="15dp"
+        android:padding="10dp"/>
+</LinearLayout>

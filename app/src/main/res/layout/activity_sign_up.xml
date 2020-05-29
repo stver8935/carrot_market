@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".CONTROLLER.Login">
+    >
     <LinearLayout
         android:id="@+id/sign_up_title"
         android:layout_width="match_parent"
@@ -197,7 +197,7 @@
                 android:layout_height="wrap_content"
                 android:hint="이름"
                 android:gravity="center"
-                android:inputType="phone"
+                android:inputType="textPersonName"
                 app:layout_constraintTop_toTopOf="@+id/sign_up_name_title"
                 app:layout_constraintStart_toStartOf="@+id/sign_up_password_check"
                 android:maxLines="1"

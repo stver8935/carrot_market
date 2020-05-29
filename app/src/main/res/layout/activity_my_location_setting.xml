@@ -19,6 +19,7 @@
             android:src="@drawable/arrow_back"
             android:background="#00ff0000"/>
         <TextView
+            android:id="@+id/select_my_location_title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="내 동네 설정"
@@ -37,16 +38,22 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
+        <LinearLayout
+            android:id="@+id/select_my_location_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:gravity="center"
-                android:text="동네 선책"
+                android:text="동네 선택"
                 android:textColor="#000000"
                 android:textSize="20dp" />
 
@@ -56,28 +63,35 @@
                 android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:text="지역을 최소 1개 이상 최대 2개까지 설정 가능해요." />
-
-            <Button
-                android:id="@+id/select_my_location_add"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:text="+" />
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                >
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/select_my_location_button_recycler"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    >
 
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
 
+        </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="#000000" />
 
             <TextView
-                android:id="@+id/select_my_location_around"
+                android:id="@+id/select_my_location_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:gravity="center"
-                android:text="**동과 근처동네 ** 개"
+                android:text="선택된 동네가 없습니다."
                 android:textColor="#000000"
                 android:textSize="20dp" />
             <TextView

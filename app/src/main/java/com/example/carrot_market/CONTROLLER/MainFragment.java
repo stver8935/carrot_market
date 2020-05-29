@@ -1,32 +1,32 @@
 package com.example.carrot_market.CONTROLLER;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
-
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-
+import android.util.Log;
 import android.view.Gravity;
-
+import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.example.carrot_market.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
-public class MainFragment extends AppCompatActivity implements View.OnClickListener {
+public class MainFragment extends AppCompatActivity {
 
-    Button home_btn,category_btn,write_btn,chatting_btn,my_carrot_btn;
-
-    static Fragment selectfragment=new HomeFragment();
-    CreatePostDialog dialog;
+    private BottomNavigationView navigationView;
+    private Fragment selectfragment;
+    private CreatePostDialog dialog;
+    public static Context context;
 
     @SuppressLint("ResourceAsColor")
     @RequiresApi(api = Build.VERSION_CODES.P)
@@ -34,26 +34,104 @@ public class MainFragment extends AppCompatActivity implements View.OnClickListe
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main_fragment);
+    context=MainFragment.this;
 
 
 
-
-        home_btn=findViewById(R.id.nav_home);
-    category_btn=findViewById(R.id.nav_category);
-    write_btn=findViewById(R.id.nav_write);
-    chatting_btn=findViewById(R.id.nav_chatting);
-    my_carrot_btn=findViewById(R.id.nav_my_carrot);
-
-        home_btn.setOnClickListener(this);
-        category_btn.setOnClickListener(this);
-        write_btn.setOnClickListener(this);
-        chatting_btn.setOnClickListener(this);
-        my_carrot_btn.setOnClickListener(this);
+    navigationView=findViewById(R.id.main_fragment_navibar);
 
 
-    //초기 프레그먼트 화면를 HomeFragment로 지정
-        selectfragment=new HomeFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment,selectfragment).commit();
+
+        navigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                       @Override
+
+               public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+
+        switch (menuItem.getItemId()){
+            case R.id.home_button:
+                Log.e("chatting_room_size",""+ ChattingList.arrayList.size());
+                selectfragment=new HomeFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment,selectfragment).commit();
+
+                break;
+
+
+            case R.id.write_button:
+
+                dialog = new CreatePostDialog(MainFragment.this,del); // 왼쪽 버튼 이벤트
+                dialog.setCancelable(true);
+                dialog.getWindow().setGravity(Gravity.TOP);
+                dialog.show();
+
+                break;
+
+
+            case R.id.chat_button:
+
+                selectfragment=new ChattingList();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment,selectfragment).commit();
+
+                break;
+            case R.id.profile_button:
+
+                selectfragment=new MyProfile();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment,selectfragment).commit();
+
+                break;
+
+        }
+        return true;
+                               }
+                           });
+//
+//    home_btn=findViewById(R.id.nav_home);
+//    write_btn=findViewById(R.id.nav_write);
+//    chatting_btn=findViewById(R.id.nav_chatting);
+//    my_carrot_btn=findViewById(R.id.nav_my_carrot);
+
+//        home_btn.setOnClickListener(this);
+//        write_btn.setOnClickListener(this);
+//        chatting_btn.setOnClickListener(this);
+//        my_carrot_btn.setOnClickListener(this);
+
+
+                Intent intent = getIntent();
+        int chatting_check=intent.getIntExtra("chatting_check",0);
+        String  product_key= intent.getStringExtra("product_key");
+        Log.e("mainfragmnet_chatting_c",""+chatting_check);
+
+
+        if (chatting_check==1){
+
+//채팅룸 프래그먼트로 이동
+
+//
+            selectfragment=new ChattingList();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment,selectfragment).commit();
+
+                Intent intent1=new Intent(MainFragment.this,Chatting.class);
+                intent1.putExtra("product_key",product_key);
+                intent1.putExtra("id",intent.getStringExtra("id"));
+                startActivity(intent1);
+
+
+        }else if (chatting_check==0){
+
+
+            //초기 프레그먼트 화면를 HomeFragment로 지정
+            selectfragment=new HomeFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment,selectfragment).commit();
+
+        }else if(chatting_check==4){
+            selectfragment=new HomeFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment,selectfragment).commit();
+            Intent intent1=new Intent(MainFragment.this,Product.class);
+            intent1.putExtra("product_key",product_key);
+            startActivity(intent1);
+
+        }
 
 
 
@@ -74,56 +152,43 @@ private View.OnClickListener del= new View.OnClickListener() {
     }
 };
 
-private View.OnClickListener promotion= new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        Intent intent=new Intent(MainFragment.this,AddPromotion.class);
-        startActivity(intent);
-        dialog.dismiss();
-    }
-};
+
+//
+//    @Override
+//    public void onClick(View v) {
+//
+//    }
 
     @Override
-    public void onClick(View v) {
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        switch (v.getId()){
-            case R.id.nav_home:
+        builder.setTitle("종료").setMessage("종료 하시겠습니까?");
 
-                selectfragment=new HomeFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment,selectfragment).commit();
+        builder.setPositiveButton("네", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int id)
+            {
+                finish();
+            }
+        });
 
-                break;
-            case R.id.nav_category:
-
-                selectfragment=new CategoeyList();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment,selectfragment).commit();
-
-                break;
-
-            case R.id.nav_write:
-
-                dialog = new CreatePostDialog(MainFragment.this,del,promotion); // 왼쪽 버튼 이벤트
-                dialog.setCancelable(true);
-                dialog.getWindow().setGravity(Gravity.TOP);
-                dialog.show();
-                break;
+        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int id)
+            {
+            }
+        });
 
 
-            case R.id.nav_chatting:
-
-                selectfragment=new ChattingList();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment,selectfragment).commit();
-
-                break;
-            case R.id.nav_my_carrot:
-
-                selectfragment=new MyProfile();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment,selectfragment).commit();
-
-                break;
-
-        }
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
 }

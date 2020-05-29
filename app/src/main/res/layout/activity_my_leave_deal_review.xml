@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CONTROLLER.MyLeaveDealReview">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorwhite"
+        >
+        <ImageView
+            android:id="@+id/my_leave_deal_review_back"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/arrow_back"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="내가 남긴 거래 후기"
+            android:textSize="20dp"
+            android:padding="10dp"
+            android:textColor="@color/colorblack"
+            android:gravity="center_vertical"
+            />
+
+    </LinearLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        >
+
+    <TextView
+        android:id="@+id/my_leave_deal_review_title"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:lineSpacingExtra="5dp"
+        android:text="아다리님에게 따듯한 후기를 보냈어요"
+        android:textColor="@color/colorblack"
+        app:layout_constraintTop_toTopOf="@+id/my_leave_deal_review_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/my_leave_deal_review_image"
+        />
+
+        <ImageView
+            android:id="@+id/my_leave_deal_review_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/email"
+            android:background="@drawable/circle_fill_white"
+            android:padding="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <LinearLayout
+            android:id="@+id/my_leave_deal_review_list_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/my_leave_deal_review_image"
+            android:background="@drawable/border_line"
+            android:layout_marginTop="30dp"
+            android:padding="20dp"
+            >
+           <TextView
+               android:id="@+id/my_leave_deal_review_id"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="To. 아다리"
+               android:textSize="20dp"
+               android:textColor="@color/colorblack"
+               android:layout_marginTop="10dp"
+               />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/my_leave_deal_review_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/my_leave_deal_review_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="...님과 ...을 거래 했어요"
+            app:layout_constraintTop_toBottomOf="@+id/my_leave_deal_review_list_layout"
+            app:layout_constraintStart_toStartOf="@+id/my_leave_deal_review_list_layout"
+            android:layout_marginTop="10dp"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

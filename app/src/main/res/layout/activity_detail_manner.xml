@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:text="매너 상세"
-        android:textSize="25dp"
+        android:textSize="20dp"
         android:textColor="@color/colorblack"
         android:gravity="center_vertical"
         />
@@ -46,14 +46,129 @@
         android:text="받은 매너 칭찬"
         android:gravity="center_vertical"
         android:textColor="@color/colorblack"
-        android:textSize="25dp"
+        android:textSize="20dp"
         android:drawablePadding="10dp"
+        android:padding="15dp"
         />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/detail_manner_list_recycler"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:layout_weight="1"
             />
+
+        <TextView
+            android:id="@+id/detail_manner_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/bad_face_small"
+            android:text="받은 비매너 평가"
+            android:gravity="center_vertical"
+            android:textColor="@color/colorblack"
+            android:textSize="20dp"
+            android:drawablePadding="10dp"
+            android:padding="15dp"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/detail_manner_list_recycler_bad"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@color/default_gray"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textColor="@color/colorblack"
+                android:text="참고사항"
+                />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/colorblack"
+            android:text="-받은 비매너 내역은 나에게만 보입니다."
+            />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/colorblack"
+                android:text="-매너온도가 올라가는 경우(가산점 높은 순)"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorblack"
+                android:textSize="15dp"
+                android:text="1.거래 상대방에게 받은 긍정적 거래후기"
+                android:layout_marginTop="5dp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorblack"
+                android:textSize="15dp"
+                android:text="2.거래 상대방에게 받은 매너 칭찬"
+                android:layout_marginTop="5dp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorblack"
+                android:textSize="15dp"
+                android:text="3.대화 상대방에게 받은 매너 칭찬"
+                android:layout_marginTop="5dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/colorblack"
+                android:text="매너온도가 내려가는 경우 (가상점 높은 순)"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorblack"
+                android:textSize="15dp"
+                android:text="1.이용정지 징계"
+                android:layout_marginTop="5dp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorblack"
+                android:textSize="15dp"
+                android:text="2.거래 상대방의 비매너 평가"
+                android:layout_marginTop="5dp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorblack"
+                android:textSize="15dp"
+                android:text="3.대화 상대방의 비매너 평가"
+                android:layout_marginTop="5dp"
+                />
+
+
+
+        </LinearLayout>
     </LinearLayout>
     </ScrollView>
 </LinearLayout>

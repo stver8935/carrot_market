@@ -61,24 +61,26 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/my_profile_profile_image"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:src="@drawable/profile_image_man"
             android:layout_margin="20dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             />
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/my_profile_profile_image_camera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/border_line"
-            android:src="@drawable/camera"
+            android:background="@drawable/circle_fill_white"
+            android:src="@drawable/camera_default_gray"
+            android:padding="3dp"
             app:layout_constraintBottom_toBottomOf="@+id/my_profile_profile_image"
             app:layout_constraintEnd_toEndOf="@+id/my_profile_profile_image"
             />
         <TextView
-            android:id="@+id/my_profile_login"
+            android:id="@+id/my_profile_login_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="로그인 하기"
@@ -93,8 +95,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            app:layout_constraintStart_toStartOf="@+id/my_profile_login"
-            app:layout_constraintTop_toBottomOf="@+id/my_profile_login"
+            app:layout_constraintStart_toStartOf="@+id/my_profile_login_id"
+            app:layout_constraintTop_toBottomOf="@+id/my_profile_login_id"
             android:text="사당제 1동"
             />
 
@@ -280,47 +282,6 @@
                 android:layout_height="10dp"
                 android:background="#00ff0000"/>
 
-            <Button
-                android:id="@+id/my_profile_Invite_friends"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="   친구초대"
-                android:drawableLeft="@drawable/email"
-                android:background="@drawable/click_effect_after"
-                android:gravity="left"
-                android:paddingLeft="10dp"
-                android:textSize="20dp"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
-                />
-
-            <Button
-                android:id="@+id/my_profile_share_market"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="   당근마켓 공유"
-                android:drawableLeft="@drawable/share"
-                android:drawableTint="#8F8F8F"
-                android:gravity="left"
-                android:paddingLeft="10dp"
-                android:textSize="20dp"
-                android:background="@drawable/click_effect_after"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
-                />
-            <Button
-                android:id="@+id/my_profile_notice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/click_effect_after"
-                android:drawableLeft="@drawable/loud_apeaker"
-                android:gravity="left"
-                android:textSize="20dp"
-                android:text="   공지 사항"
-                android:paddingLeft="10dp"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
-                />
 
 
             <Button
@@ -337,20 +298,7 @@
                 android:paddingTop="20dp"
                 android:paddingBottom="20dp"
                 />
-            <Button
-                android:id="@+id/my_profile_app_setting"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="   앱설정"
-                android:gravity="left"
-                android:paddingLeft="10dp"
-                android:textSize="20dp"
-                android:background="@drawable/click_effect_after"
-                android:drawableLeft="@drawable/settings"
-                android:drawableTint="#8F8F8F"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
-                />
+
 
         </LinearLayout>
     </ScrollView>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+
+    <TextView
+        android:id="@+id/dialog_product_history_title"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="게시글 관리"
+        android:textColor="@color/colorblack"
+        android:textSize="20dp"
+        android:padding="10dp"
+        android:gravity="center_vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        />
+
+    <TextView
+        android:id="@+id/dialog_product_history_ing"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:textSize="17dp"
+        android:textColor="@color/colorblack"
+        android:text="'판매중'으로 변경"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        />
+    <TextView
+        android:id="@+id/dialog_product_history_deal_review_leave"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:textSize="17dp"
+        android:textColor="@color/colorblack"
+        android:text="거래 후기 보내기"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        />
+
+    <TextView
+        android:id="@+id/dialog_product_history_growup"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:textSize="17dp"
+        android:textColor="@color/colorblack"
+        android:text="끌어올리기"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        />
+
+    <TextView
+        android:id="@+id/dialog_product_history_modify"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:textSize="17dp"
+        android:textColor="@color/colorblack"
+        android:text="수정"
+        android:padding="10dp"
+        android:gravity="center_vertical"
+        />
+
+
+    <TextView
+        android:id="@+id/dialog_product_history_hidden"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:textSize="17dp"
+        android:textColor="@color/colorblack"
+        android:text="숨기기"
+        android:padding="10dp"
+        android:gravity="center_vertical"
+        />
+
+    <TextView
+        android:id="@+id/dialog_product_history_delete"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:textSize="17dp"
+        android:textColor="@color/colorblack"
+        android:text="게시물 삭제"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        />
+
+
+</LinearLayout>

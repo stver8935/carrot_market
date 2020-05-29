@@ -8,4 +8,6 @@
     <color name="colorgray">#868686</color>
     <color name="colorblack">#000000</color>
     <color name="colororange">#ff8800</color>
+    <color name="default_gray">#E4E4E4</color>
+
 </resources>

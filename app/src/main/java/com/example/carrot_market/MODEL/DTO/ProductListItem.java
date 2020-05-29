@@ -6,12 +6,29 @@ public class ProductListItem {
     String time;
     String price;
     String product_key;
+    String id;
     int image;
     int chat_count;
     int favorite_count;
+    int coment_count;
 
+    public String getId() {
+        return id;
+    }
 
-    public String getProduct_key() {
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getComent_count() {
+        return coment_count;
+    }
+
+    public void setComent_count(int coment_count) {
+        this.coment_count = coment_count;
+    }
+
+    public String getPoduct_key() {
         return product_key;
     }
 

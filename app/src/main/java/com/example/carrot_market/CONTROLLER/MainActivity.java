@@ -1,13 +1,11 @@
 package com.example.carrot_market.CONTROLLER;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
-
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -15,17 +13,26 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.carrot_market.CONTROLLER.Dialog.FindAccountDialog;
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.carrot_market.CONTROLLER.Dialog.FindAccountDialog;
+import com.example.carrot_market.MODEL.CHATTINGSERVICE.ChattingService;
+import com.example.carrot_market.MODEL.DTO.UserInfoItem;
 import com.example.carrot_market.MODEL.HttpConnect.LoginTask;
 import com.example.carrot_market.MODEL.HttpConnect.RETROFIT.RetrofitService;
-import com.example.carrot_market.MODEL.LOCALMODEL.SharedPreference.AutoLoginCheck;
-
+import com.example.carrot_market.MODEL.LOCALMODEL.SharedPreference.UserInfoSave;
 import com.example.carrot_market.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -47,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     RetrofitService service;
     Call<ResponseBody> call;
 
+    BroadcastReceiver broadcastReceiver;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -73,11 +81,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //자동로그인 체크 메서드
 
+
         try {
             auto_login();
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
 
 
 
@@ -92,7 +102,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         };
-
 
         TedPermission.with(this)
                 .setPermissionListener(permissionlistener)
@@ -109,49 +118,55 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     //버튼 클릭 이벤트 구현
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onClick(View v) {
-
 
         Intent intent;
         switch (v.getId()){
             case R.id.login_button:
 
 
-                LoginTask loginTask=new LoginTask();
+                FirebaseInstanceId.getInstance().getInstanceId()
+                        .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<InstanceIdResult> task) {
 
-                try {
+                                if (!task.isSuccessful()) {
+                                    Log.w("token_faile", "getInstanceId failed", task.getException());
+                                    return;
+                                }
 
-                    String responscode=loginTask.execute(id.getText().toString(),password.getText().toString()).get();
+                                // Get new Instance ID token
+                                String token= task.getResult().getToken();
+                                // Log and toast
+                                Log.d("tokens", token);
 
-                    if (!responscode.equals("1")){
-                        Toast.makeText(this, "아이디나 비밀번호를 다시 입력해 주세요"+responscode, Toast.LENGTH_SHORT).show();
-                    }
-                    else {
+                                JSONObject login_to_json=new JSONObject();
+                                try {
+                                    login_to_json.put("id",id.getText().toString());
+
+                                login_to_json.put("password",password.getText().toString());
+                                login_to_json.put("token",token);
+                                LoginTask loginTask=new LoginTask();;
+                                String responscode=loginTask.execute(login_to_json.toString()).get();
+
+                                if (responscode.equals("null")){
+                                    finish();
+                                }
 
 
-                        LoadingDialog dialog=new LoadingDialog(MainActivity.this,"로그인중 입니다.");
-                        dialog.setCancelable(false);
-                        dialog.show();
+                                    login(responscode);
 
-                        AutoLoginCheck autoLoginCheck=new AutoLoginCheck(MainActivity.this);
-                        autoLoginCheck.insert_auto_login(auto_login.isChecked(),id.getText().toString(),password.getText().toString());
-
-                        //계정정보 리턴해서 쉐어드에 저장 하기
-                        intent=new Intent(MainActivity.this,MainFragment.class);
-                        startActivity(intent);
-                        dialog.dismiss();
-
-                        finish();
-                    }
-
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                } catch (ExecutionException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
 
                 break;
                 //회원가입 버튼
@@ -163,10 +178,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //계정 찾기
                 // 다이얼로그 형식으로 구현
             case R.id.login_find_account:
+
                 intent=new Intent(MainActivity.this, FindAccountDialog.class);
                 startActivity(intent);
-
-
                 break;
 
         }
@@ -190,16 +204,61 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void auto_login() throws JSONException {
-        AutoLoginCheck autoLoginCheck=new AutoLoginCheck(getApplicationContext());
+        UserInfoSave autoLoginCheck=new UserInfoSave(getApplicationContext());
 
         if (autoLoginCheck.check()){
-            autoLoginCheck.insert_auto_login(auto_login.isChecked(),id.getText().toString(),password.getText().toString());
+            UserInfoItem infoItem=new UserInfoItem();
+            infoItem.setAuto_login_check(auto_login.isChecked());
+            infoItem.setId(id.getText().toString());
+            infoItem.setPassword(password.getText().toString());
+            autoLoginCheck.insert_account(infoItem);
         }else {
-
+            UserInfoItem infoItem=new UserInfoItem();
+            infoItem.setAuto_login_check(auto_login.isChecked());
+            infoItem.setId(id.getText().toString());
+            infoItem.setPassword(password.getText().toString());
+            autoLoginCheck.insert_account(infoItem);
         }
 
 
     }
 
 
+
+
+
+    private void login(String responscode) throws JSONException {
+
+        LoginTask loginTask=new LoginTask();
+
+        Intent intent;
+
+
+            if (!responscode.equals("1")){
+                Toast.makeText(this, "아이디나 비밀번호를 다시 입력해 주세요"+responscode, Toast.LENGTH_SHORT).show();
+            }
+            else {
+
+
+                LoadingDialog dialog=new LoadingDialog(MainActivity.this,"로그인중 입니다.");
+                dialog.setCancelable(false);
+                dialog.show();
+
+                auto_login();
+
+                //로그인 성공시 채팅 서버접속
+                intent=new Intent(MainActivity.this, ChattingService.class);
+                startService(intent);
+
+                //계정정보 리턴해서 쉐어드에 저장 하기
+                intent=new Intent(MainActivity.this,MainFragment.class);
+                startActivity(intent);
+                dialog.dismiss();
+
+                finish();
+            }
+
+
+
+    }
 }

@@ -35,14 +35,14 @@ public class ReceiveMannerAdapter extends RecyclerView.Adapter<ReceiveMannerAdap
 
     @Override
     public void onBindViewHolder(@NonNull ReceiveMannerAdapter.CustomViewHolder holder, int position) {
-        holder.count.setText(arrayList.get(holder.getAdapterPosition()).getCount());
+        holder.count.setText(""+arrayList.get(holder.getAdapterPosition()).getCount());
         holder.text.setText(arrayList.get(holder.getAdapterPosition()).getText());
 
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        return arrayList.size();
     }
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {

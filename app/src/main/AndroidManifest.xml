@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.carrot_market">
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -20,18 +21,65 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:targetApi="q"
+        >
+        <service android:name=".Receiver.FcmService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
+
+
+        <activity android:name=".CONTROLLER.FindSellersInChat"></activity>
+        <activity android:name=".CONTROLLER.MyLeaveDealReview" />
+        <activity android:name=".CONTROLLER.SelectBuyer" />
+        <activity android:name=".CONTROLLER.PurchaseHistory" />
+        <activity android:name=".CONTROLLER.FollowList" />
+        <activity android:name=".CONTROLLER.FollowProduct" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCrUr9ELQjlhaHxLoiVw4xwbqUEHzUn21A" />
+
+        <activity android:name=".CONTROLLER.ProductHistory" />
+        <activity android:name=".CONTROLLER.FavoriteListActivity" />
+        <activity android:name=".CONTROLLER.DealReviewLeave" />
+
+
+        <receiver android:name=".CONTROLLER.Receiver.AlramReceiver"
+            android:enabled="true"
+            android:exported="true"/>
+        <receiver android:name=".CONTROLLER.Receiver.AlramBootReceiver" />
+        <receiver android:name=".Receiver.ChattingReceiver" />
+
+
+        <activity
+            android:name=".CONTROLLER.AlramTimeDialog"
+            android:theme="@style/bottom_sheet_dialog_time" />
+        <activity android:name=".CONTROLLER.DealPromise" />
+        <activity android:name=".CONTROLLER.AddProductLocationRange" />
+        <activity android:name=".CONTROLLER.TEST" />
+
+
+
+
+        <activity
+            android:name=".CONTROLLER.Dialog.Category"
+            android:theme="@style/NoTitleDialog" />
         <activity android:name=".CONTROLLER.SignUp" />
-
         <activity android:name=".CONTROLLER.DetailManner" />
         <activity android:name=".CONTROLLER.DealReviewDetail" />
         <activity android:name=".CONTROLLER.SaleItemes" />
@@ -43,31 +91,34 @@
         <activity android:name=".CONTROLLER.AddKeyword" />
         <activity android:name=".CONTROLLER.CategoeyList" />
         <activity android:name=".CONTROLLER.MainNotifyKeyWord" />
-        <activity android:name=".CONTROLLER.MainNotificationActive" />
+        <activity android:name=".CONTROLLER.MainNotificationActivity" />
         <activity android:name=".CONTROLLER.MainNotification" />
         <activity
             android:name=".CONTROLLER.AddProduct"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".CONTROLLER.ProductList" />
         <activity android:name=".CONTROLLER.HomeSearchFragmentPerson" />
-        <activity android:name=".CONTROLLER.HomeSearchFragmentLocalInfo" />
         <activity android:name=".CONTROLLER.HomeSearchFragmentDeal" />
-        <activity android:name=".CONTROLLER.HomeSearch" />
+
+
+        <activity
+            android:name=".CONTROLLER.HomeSearch" >
+        </activity>
+
+
+
 
         <service
             android:name=".MODEL.CHATTINGSERVICE.ChattingService"
             android:enabled="true"
             android:exported="true" />
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAX8bYC4gvQI8dIK8_5n5uq4TAUQXA7GSY" />
-
         <activity
             android:name=".CONTROLLER.Dialog.FindAccountDialog"
             android:theme="@style/NoTitleDialog" />
         <activity android:name=".CONTROLLER.HomeNotify" />
         <activity android:name=".CONTROLLER.Chatting" />
+
         <activity android:name=".CONTROLLER.ChattingList" />
         <activity android:name=".CONTROLLER.MyLocationCertification" />
         <activity android:name=".CONTROLLER.MyProfileSetting" />
@@ -76,10 +127,8 @@
         <activity android:name=".CONTROLLER.SearchMyLocation" />
         <activity android:name=".CONTROLLER.MyLocationSetting" />
         <activity android:name=".CONTROLLER.Product" />
-        <activity android:name=".CONTROLLER.MainActivity"></activity>
-        <activity
-            android:name=".CONTROLLER.MainFragment"
-            android:screenOrientation="portrait" />
+        <activity android:name=".CONTROLLER.MainActivity" />
+        <activity android:name=".CONTROLLER.MainFragment" />
         <activity android:name=".CONTROLLER.SelectMyLocation" />
         <activity android:name=".CONTROLLER.SplashActivity">
             <intent-filter>
@@ -88,9 +137,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <service android:name=".MODEL.ChattingReceiver" />
-        <service android:name=".MODEL.ChattingSend" />
     </application>
 
 </manifest>

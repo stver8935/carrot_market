@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <TextView
+        android:id="@+id/dialog_product_history_title"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="게시글 관리"
+        android:textColor="@color/colorblack"
+        android:textSize="20dp"
+        android:padding="10dp"
+        android:gravity="center_vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        />
+
+    <TextView
+        android:id="@+id/dialog_purchase_history_deal_review_leave"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:textSize="17dp"
+        android:textColor="@color/colorblack"
+        android:text="거래 후기 보내기"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        />
+
+
+    <TextView
+        android:id="@+id/dialog_purchase_history_delete"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:textSize="17dp"
+        android:textColor="@color/colorblack"
+        android:text="'목록 삭제"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        />
+
+
+</LinearLayout>

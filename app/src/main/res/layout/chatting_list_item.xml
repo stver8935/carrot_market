@@ -36,7 +36,7 @@
         app:layout_constraintTop_toTopOf="@id/chatting_list_item_profile_id"
         app:layout_constraintStart_toEndOf="@+id/chatting_list_item_profile_id"
         app:layout_constraintBottom_toBottomOf="@id/chatting_list_item_profile_id"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="10dp"
         />
     <TextView
         android:id="@+id/chatting_list_item_chatting_time"
@@ -45,8 +45,11 @@
         app:layout_constraintTop_toTopOf="@+id/chatting_list_item_profile_id"
         app:layout_constraintBottom_toBottomOf="@+id/chatting_list_item_profile_id"
         app:layout_constraintStart_toEndOf="@+id/chatting_list_item_location"
-        android:text=".15 분전"
-        android:layout_marginLeft="20dp"
+        android:text="1234567891011"
+        android:layout_marginLeft="10dp"
+        android:singleLine="false"
+        android:maxLines="1"
+        android:maxWidth="80dp"
         />
 
 
@@ -63,36 +66,19 @@
         />
 
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/chatting_list_item_chatting_count_background"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/round_button_orange"
-        app:layout_constraintStart_toEndOf="@+id/chatting_list_item_chatting_contents"
-        app:layout_constraintTop_toTopOf="@+id/chatting_list_item_chatting_time"
-        />
-    <TextView
-        android:id="@+id/chatting_list_item_chatting_count"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:text="1"
-        android:textColor="#ffffff"
-        android:textSize="20dp"
-        android:gravity="center"
-        app:layout_constraintTop_toTopOf="@id/chatting_list_item_chatting_count_background"
-        app:layout_constraintStart_toStartOf="@+id/chatting_list_item_chatting_count_background"
-        app:layout_constraintEnd_toEndOf="@id/chatting_list_item_chatting_count_background"
-        app:layout_constraintBottom_toBottomOf="@+id/chatting_list_item_chatting_count_background"/>
 
     <ImageView
         android:id="@+id/chatting_list_item_chatting_product_image"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/test_chair"
-        app:layout_constraintTop_toTopOf="@+id/chatting_list_item_chatting_count_background"
-        app:layout_constraintStart_toEndOf="@+id/chatting_list_item_chatting_count"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:scaleType="fitXY"
         android:layout_marginLeft="10dp"
         android:background="@drawable/round_corner"
+        android:layout_marginRight="20dp"
         />
 
 

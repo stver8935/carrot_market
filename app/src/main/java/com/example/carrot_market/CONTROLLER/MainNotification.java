@@ -1,12 +1,6 @@
 package com.example.carrot_market.CONTROLLER;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.viewpager.widget.ViewPager;
-
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +8,10 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.carrot_market.R;
 import com.example.carrot_market.ViewPager.Adapter.HomeNotifySelectionPageAdapter;
@@ -35,7 +33,7 @@ public class MainNotification extends AppCompatActivity {
 
     //탭 레이아웃에 넣어줄 프래그 먼트 객체 생성
     MainNotifyKeyWord keyword_fragment=new MainNotifyKeyWord();
-    MainNotificationActive notification_active_fragment=new MainNotificationActive();
+    MainNotificationActivity notification_active_fragment=new MainNotificationActivity();
     //삭제모드를 구분하는 boolean 변수 생성;
     Boolean del_bool=true;
 
@@ -118,7 +116,7 @@ public class MainNotification extends AppCompatActivity {
                     keyword_fragment.arrayList.get(a).setClear(false);
                     }
                     for (int a=0;a<notification_active_fragment.arrayList.size();a++){
-                    notification_active_fragment.arrayList.get(a).setClear(false);
+                    notification_active_fragment.arrayList.get(a).setDelete_check(false);
                     }
 
                     notification_active_fragment.activeAdapter.notifyDataSetChanged();
@@ -134,7 +132,7 @@ public class MainNotification extends AppCompatActivity {
                         keyword_fragment.arrayList.get(a).setClear(true);
                     }
                     for (int a=0;a<notification_active_fragment.arrayList.size();a++){
-                        notification_active_fragment.arrayList.get(a).setClear(true);
+                        notification_active_fragment.arrayList.get(a).setDelete_check(true);
                     }
                     notification_active_fragment.activeAdapter.notifyDataSetChanged();
                     keyword_fragment.adapter.notifyDataSetChanged();
