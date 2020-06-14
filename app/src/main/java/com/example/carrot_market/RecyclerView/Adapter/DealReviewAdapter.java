@@ -53,7 +53,7 @@ public class DealReviewAdapter extends RecyclerView.Adapter<DealReviewAdapter.Cu
         }else {
 //            holder.product_image.setVisibility(View.GONE);
         }
-        if (!arrayList.get(holder.getAdapterPosition()).getProfile_image().isEmpty()) {
+        if (arrayList.get(holder.getAdapterPosition()).getProfile_image()!=null) {
             holder.profile_image.setVisibility(View.VISIBLE);
             Glide.with(context).load(API_URL + "image/" + arrayList.get(holder.getAdapterPosition()).getProfile_image()).into(holder.profile_image);
         }else {

@@ -1,16 +1,21 @@
 package com.example.carrot_market.MODEL.DTO;
 
-public class ProductListItem {
-    String title;
-    String location;
-    String time;
-    String price;
-    String product_key;
-    String id;
-    int image;
-    int chat_count;
-    int favorite_count;
-    int coment_count;
+public class ProductListItem  {
+    private String title;
+    private  String location;
+    private  String time;
+    private  String price;
+    private  String product_key;
+    private  String id;
+    private  int image;
+    private  int chat_count;
+    private  int favorite_count;
+    private  int coment_count;
+
+
+
+
+
 
     public String getId() {
         return id;
@@ -102,6 +107,7 @@ public class ProductListItem {
         this.time = time;
         this.price = price;
     }
+
 
 
 }

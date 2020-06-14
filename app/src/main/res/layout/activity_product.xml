@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="800dp"
         android:layout_marginBottom="60dp"
-        android:padding="10dp"
+        android:paddingTop="10dp"
         app:layout_constraintBottom_toTopOf="@+id/view"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.811"

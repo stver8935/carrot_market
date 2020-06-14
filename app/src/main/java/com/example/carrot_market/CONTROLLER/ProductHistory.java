@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
@@ -74,14 +75,16 @@ public class ProductHistory extends AppCompatActivity implements ProductHistoryD
         viewPager.setAdapter(adapter);
     }
 
+
     @Override
-    public void startActivityForResult(Intent intent, int requestCode) {
-        super.startActivityForResult(intent, requestCode);
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        ing_fragmnet.onActivityResult(requestCode,resultCode,data);
+        commit_fragment.onActivityResult(requestCode,resultCode,data);
+        hidden_fragment.onActivityResult(requestCode,resultCode,data);
 
     }
-
-
-
 
     //다이얼로그 콜백 메서드
     @Override

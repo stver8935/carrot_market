@@ -13,6 +13,10 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.carrot_market.CONTROLLER.Chatting;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
 public class ChattingReceiver extends BroadcastReceiver {
     private Context context;
 
@@ -32,6 +36,19 @@ public class ChattingReceiver extends BroadcastReceiver {
         product_key=intent.getStringExtra("product_key");
         message=intent.getStringExtra("message");
 
+
+
+        Object message_json = null;
+        try {
+            message_json = new JSONTokener(message).nextValue();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        if (message_json instanceof JSONObject)
+        {
+        message=name+" 님이 거래약속을 만드셨습니다";
+        }
 
         String channelId = "channel";
         String channelName = "Channel Name";

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -188,4 +189,27 @@ public class SelectBuyer extends AppCompatActivity {
     });
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (data!=null){
+            if (resultCode==0){
+                data.getStringExtra("review_id");
+
+                for (int i=0;i<arrayList.size();i++){
+                    if (arrayList.get(i).getId().equals(data.getStringExtra("review_id"))){
+                        arrayList.get(i).setReview_commit_check(true);
+                        buyerListAdapter.notifyDataSetChanged();
+                    }
+
+                }
+
+            }
+
+        }
+
+
+
+    }
 }

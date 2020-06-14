@@ -3,7 +3,8 @@ package com.example.carrot_market.CONTROLLER;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.widget.CheckBox;
+import android.util.Log;
+import android.view.View;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
@@ -26,10 +27,13 @@ import java.util.ArrayList;
 public class AttentionCategory extends AppCompatActivity {
 
     ImageButton back;
-    ArrayList<CheckBox> category_list = new ArrayList<>();
+
     RecyclerView recyclerView;
     AttentionCategoryAdapter attentionCategoryAdapter;
-    ArrayList<AttentionCategoryItem> arrayList = new ArrayList<>();
+
+
+    ArrayList<AttentionCategoryItem> temp_category_list = new ArrayList<>();
+    ArrayList<AttentionCategoryItem> category_list = new ArrayList<>();
     UserInfoSave userInfoSave;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +42,7 @@ public class AttentionCategory extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.attention_category_recycler);
         recyclerView.setLayoutManager(new GridLayoutManager(AttentionCategory.this, 2));
-        attentionCategoryAdapter = new AttentionCategoryAdapter(arrayList);
+        attentionCategoryAdapter = new AttentionCategoryAdapter(category_list);
         recyclerView.setAdapter(attentionCategoryAdapter);
         userInfoSave=new UserInfoSave(this);
 
@@ -56,6 +60,12 @@ public class AttentionCategory extends AppCompatActivity {
 
 
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
 
 
@@ -89,18 +99,24 @@ public class AttentionCategory extends AppCompatActivity {
                         JSONObject jsonObject=jsonArray.getJSONObject(i);
 
                             AttentionCategoryItem item = new AttentionCategoryItem();
+                        AttentionCategoryItem temp_item = new AttentionCategoryItem();
+
                             switch (jsonObject.getInt("category_select")){
                                 case 0:
                                     item.setCheck(false);
+                                    temp_item.setCheck(false);
                                     break;
                                 case 1:
                                 item.setCheck(true);
-                            break;
+                                temp_item.setCheck(true);
+                                break;
 
                             }
 
                             item.setTitle(jsonObject.getString("category_name"));
-                            arrayList.add(item);
+                            temp_item.setTitle(jsonObject.getString("category_name"));
+                            category_list.add(item);
+                            temp_category_list.add(temp_item);
                             attentionCategoryAdapter.notifyItemInserted(i);
                     }
 
@@ -116,5 +132,40 @@ public class AttentionCategory extends AppCompatActivity {
         }
     });
 
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+    @Override
+    public void finish() {
+        CategorySetResult();
+        super.finish();
+    }
+
+    private void CategorySetResult(){
+
+        for (int i=0;i<category_list.size();i++){
+
+
+            //처음 카테고리 리스트와 비교중 값의 변화가 있을시 반복문 종료후 값 반환
+            if (!category_list.get(i).getTitle().equals(temp_category_list.get(i).getTitle())||category_list.get(i).getCheck()!=temp_category_list.get(i).getCheck()){
+
+                Log.e("callresult","ok");
+                setResult(1);
+                break;
+            }else if (i==category_list.size()){
+                //마지막 비교일때
+                Log.e("callresult","no");
+                setResult(0);
+
+            }
+
+            Log.e("listcompare","list"+category_list.get(i).getTitle()+"//"+category_list.get(i).getCheck()+"---" +
+                    "temp_list"+temp_category_list.get(i).getTitle()+"//"+temp_category_list.get(i).getCheck());
+
+        }
+    }
 
 }

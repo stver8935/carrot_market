@@ -92,20 +92,23 @@ public class MyLeaveDealReview extends AppCompatActivity {
             if (product_key.equals("null")){
                 //받은 데이터 라면
                 if (accept_check){
+                    task=new MyLeaveDealReviewTask(new UserInfoSave(MyLeaveDealReview.this).return_account().getId(),opponent_id,null,handler);
+                     Log.e("task","1");
+                }else {
                     task=new MyLeaveDealReviewTask(opponent_id,new UserInfoSave(MyLeaveDealReview.this).return_account().getId(),null,handler);
 
-                }else {
-                    task=new MyLeaveDealReviewTask(new UserInfoSave(MyLeaveDealReview.this).return_account().getId(),opponent_id,null,handler);
+                    Log.e("task","2");
                 }
 
             }else {
-
+                    //받은 후기인지 아닌지
                 if (accept_check){
-                    task=new MyLeaveDealReviewTask(opponent_id,new UserInfoSave(MyLeaveDealReview.this).return_account().getId(),product_key,handler);
 
-                }else {
                     task=new MyLeaveDealReviewTask(new UserInfoSave(MyLeaveDealReview.this).return_account().getId(),opponent_id,product_key,handler);
-
+                    Log.e("task","3");
+                }else {
+                    task=new MyLeaveDealReviewTask(opponent_id,new UserInfoSave(MyLeaveDealReview.this).return_account().getId(),product_key,handler);
+                    Log.e("task","4");
                 }
 
             }
@@ -133,7 +136,7 @@ public class MyLeaveDealReview extends AppCompatActivity {
                 case 0:
                     try {
                     JSONArray jsonArray=new JSONArray(msg.getData().getString("my_leave_deal_review"));
-                        Log.e("my_leave_deal_review",""+jsonArray) ;
+                        Log.e("my_leave_deal_review0",""+jsonArray) ;
 
 
                         my_leave_deal_review_info.setText(opponent_id+"님과 "+jsonArray.getJSONObject(0).getString("product_title")+"을 거래 했어요");
@@ -153,7 +156,7 @@ public class MyLeaveDealReview extends AppCompatActivity {
                     JSONArray jsonArray= null;
                     try {
                         jsonArray = new JSONArray(msg.getData().getString("my_leave_deal_review"));
-                    Log.e("my_leave_deal_review",""+jsonArray) ;
+                    Log.e("my_leave_deal_review1",""+jsonArray) ;
 
                     for (int i=0;i<jsonArray.length();i++){
                         JSONObject item_obj=jsonArray.getJSONObject(i);

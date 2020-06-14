@@ -1,18 +1,18 @@
 package com.example.carrot_market.CONTROLLER;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.carrot_market.MODEL.DTO.ProductListItem;
 import com.example.carrot_market.R;
 import com.example.carrot_market.RecyclerView.Adapter.ProductListAdapter;
-import com.example.carrot_market.MODEL.DTO.ProductListItem;
 
 import java.util.ArrayList;
 
@@ -66,4 +66,6 @@ public class ProductList extends AppCompatActivity {
         }
 
     }
+
+
 }

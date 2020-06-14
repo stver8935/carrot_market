@@ -3,6 +3,7 @@ package com.example.carrot_market.MODEL.HttpConnect;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
@@ -57,7 +58,7 @@ public class ProfileEditTask implements Runnable {
     @Override
     public void run() {
 
-        String path;
+        String path = null;
 
         if (profile_image_path.matches(".*"+API_URL+".*")){
 
@@ -66,32 +67,47 @@ public class ProfileEditTask implements Runnable {
 
         }else {
 
-            Cursor c = context.getContentResolver().query(Uri.parse(profile_image_path), null, null, null, null);
-            c.moveToFirst();
-            path = c.getString(c.getColumnIndex(MediaStore.MediaColumns.DATA));
 
+            Cursor c = context.getContentResolver().query(Uri.parse(profile_image_path), null, null, null, null);
+            if (c!=null){
+                c.moveToFirst();
+                path = c.getString(c.getColumnIndex(MediaStore.MediaColumns.DATA));
+            }
+            
         }
 
 
 
         Uri uri=Uri.parse(profile_image_path);
+        MultipartBody.Part profile_image_multipart_body;
+        if (path!=null) {
+            File file = new File(path);
+            final RequestBody requestfile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
-        File file = new File(path);
-
-        final RequestBody requestfile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        MultipartBody.Part profile_image_multipart_body = MultipartBody.Part.createFormData("profile_image", file.getName(), requestfile);
-
+             profile_image_multipart_body = MultipartBody.Part.createFormData("profile_image", file.getName(), requestfile);
+        }else {
+            profile_image_multipart_body=null;
+        }
         retrofitService.profile_edit(id,password,name,profile_image_multipart_body).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
 
                 try {
+                    Bundle bundle=new Bundle();
                     Message message=new Message();
+
+
+
+                    bundle.putString("profile_edit_response",response.body().string());
+                    message.setData(bundle);
                     message.what=2;
+
+
                     handler.sendMessage(message);
 
                     Log.e("프로필 수정에 성공 했습니다",""+""+response.body().string());
+                    //아이디 또는 이미지 경로 반환
 
 
                 } catch (IOException e) {

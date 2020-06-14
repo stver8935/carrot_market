@@ -164,59 +164,79 @@ public class EchoClientHandler extends ChannelInboundHandlerAdapter {
                 });
 
 
-                //채팅 업데이트
-                ((Chatting)Chatting_context).runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        ChattingItem item=new ChattingItem();
 
-                        try {
+                if(((Chatting)Chatting_context)!=null) {
+                    //채팅 업데이트
+                    ((Chatting) Chatting_context).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ChattingItem item = new ChattingItem();
 
-                            Log.e("message_info",""+chatting_message_json+"+ and //"+((Chatting)Chatting_context).chatting_room_key);
+                            try {
 
-                            //채팅메시지가 현재 보고 있는 채팅 액티비티와 같을때 처리
-                            //같지 않다면 알람 보여주기
-                            if (((Chatting)Chatting_context).chatting_room_key.equals(chatting_message_json.getString("chat_room_key"))){
+                                Log.e("message_info", "" + chatting_message_json + "+ and //" + ((Chatting) Chatting_context).chatting_room_key + "//" + ((Chatting) Chatting_context).chatting_room_key);
+
+                                //채팅메시지가 현재 보고 있는 채팅 액티비티와 같을때 처리
+                                //같지 않다면 알람 보여주기
+                                if (!((Chatting) Chatting_context).chatting_room_key.isEmpty() && ((Chatting) Chatting_context).chatting_room_key.equals(chatting_message_json.getString("chat_room_key"))) {
 
 
-                                item.setChatting_room_key(chatting_message_json.getString("chat_room_key"));
-                                item.setMessage_type(chatting_message_json.getString("message_type"));
-                                item.setId(chatting_message_json.getString("id"));
-                                item.setContent_time(chatting_message_json.getString("time_stamp"));
-                                item.setOther_profile_image_path(chatting_message_json.getString("profile_image"));
+                                    item.setChatting_room_key(chatting_message_json.getString("chat_room_key"));
+                                    item.setMessage_type(chatting_message_json.getString("message_type"));
+                                    item.setId(chatting_message_json.getString("id"));
+                                    item.setContent_time(chatting_message_json.getString("time_stamp"));
+                                    item.setOther_profile_image_path(chatting_message_json.getString("profile_image"));
 
                                     item.setContents(chatting_message_json.getString("message"));
 
-                                ((Chatting)Chatting_context).arrayList_c.add(item);
-                                ((Chatting)Chatting_context).adapter_c.notifyItemInserted(((Chatting)Chatting_context).arrayList_c.size());
-                                Chatting.recyclerView.scrollToPosition(((Chatting)Chatting_context).arrayList_c.size()-1);
+                                    ((Chatting) Chatting_context).arrayList_c.add(item);
+                                    ((Chatting) Chatting_context).adapter_c.notifyItemInserted(((Chatting) Chatting_context).arrayList_c.size());
+                                    Chatting.recyclerView.scrollToPosition(((Chatting) Chatting_context).arrayList_c.size() - 1);
 
 
+                                } else {
 
-                            }else{
+                                    //메시지 아이디와 내아이디가 같지 않다면 알람 메시지 보내기
+                                    //애뮬레이터에서 동일 채팅룸키인데도 불구하고 작동함
 
-                                //메시지 아이디와 내아이디가 같지 않다면 알람 메시지 보내기
+                                    if (!new UserInfoSave(MainFragment_context).return_account().getId().equals(chatting_message_json.getString("id"))) {
+                                        Intent intent = new Intent(MainFragment_context, ChattingReceiver.class);
+                                        intent.putExtra("name", chatting_message_json.getString("id"));
+                                        intent.putExtra("product_key", chatting_message_json.getString("product_key"));
+                                        intent.putExtra("message", chatting_message_json.getString("message"));
+                                        MainFragment_context.sendBroadcast(intent);
+                                        Log.e("call_alram",chatting_message_json.getString("id"));
 
-                                if (new UserInfoSave(MainFragment_context).return_account().getId().equals(chatting_message_json.getString("id"))){
-                                    Intent intent = new Intent(MainFragment_context, ChattingReceiver.class);
-                                    intent.putExtra("name",chatting_message_json.getString("id"));
-                                    intent.putExtra("product_key",chatting_message_json.getString("product_key"));
-                                    intent.putExtra("message",chatting_message_json.getString("message"));
-                                    MainFragment_context.sendBroadcast(intent);
+                                    }
+
                                 }
 
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
 
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
+                    });
 
+                }else{
+                    try {
+                        if (!new UserInfoSave(MainFragment_context).return_account().getId().equals(chatting_message_json.getString("id"))) {
+                            Intent intent = new Intent(MainFragment_context, ChattingReceiver.class);
+                            Log.e("call_alram",chatting_message_json.getString("id"));
+
+                            intent.putExtra("name", chatting_message_json.getString("id"));
+                            intent.putExtra("product_key", chatting_message_json.getString("product_key"));
+                            intent.putExtra("message", chatting_message_json.getString("message"));
+                            MainFragment_context.sendBroadcast(intent);
+//                            Intent asd=new Intent(MainFragment_context,AlramReceiver.class);
+//                            MainFragment_context.sendBroadcast(asd);
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                });
-
-
+                }
 
             }
 

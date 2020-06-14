@@ -33,8 +33,6 @@ public class ChatServerHandler extends ChannelInboundHandlerAdapter {
     private ServerRetrofitService retrofitService=retrofit.create(ServerRetrofitService.class);
 
 
-
-
     //상대에게 메시지를 보낼때 추가될 내 정보
     String id,profile_image,address,location;
     //나에게 메시지를 보낼때 추가될 상대정보
@@ -108,36 +106,76 @@ public class ChatServerHandler extends ChannelInboundHandlerAdapter {
         System.out.println("json"+jsonObject);
         message_type=jsonObject.getAsJsonObject().get("message_type").getAsString();
 
-        if (message_type.equals("0")){
+
+
+
+        //message_type
+        //0 예약
+        //1 일반 메시지
+        //4 나가기 메시지
+        System.out.println("user_added");
+
+        if (message_type.equals("5")){
+
+            retrofitService.chatting_channel_update(jsonObject.getAsJsonObject().get("id").getAsString(),ctx.channel().id().asShortText()).enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                }
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                }
+            });
+
+
+        }
+
+        //약속시간 설정 메시지
+        else if (message_type.equals("0")){
             id=jsonObject.getAsJsonObject().get("id").getAsString();
             opponent=jsonObject.getAsJsonObject().get("opponent").getAsString();
             chatting_message=jsonObject.getAsJsonObject().get("message").getAsJsonObject().toString();
-//            chatting_message=chatting_message_time.toString();
-
             product_key=jsonObject.getAsJsonObject().get("product_key").getAsString();
-        }else {
+
+            retrofitService.chatting_channel_update(id,ctx.channel().id().asShortText()).enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    upload_message();
+                }
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                }
+            });
+
+        }
+        else {
             id=jsonObject.getAsJsonObject().get("id").getAsString();
             opponent=jsonObject.getAsJsonObject().get("opponent").getAsString();
             chatting_message=jsonObject.getAsJsonObject().get("message").getAsString();
             product_key=jsonObject.getAsJsonObject().get("product_key").getAsString();
+
+            retrofitService.chatting_channel_update(id,ctx.channel().id().asShortText()).enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    upload_message();
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                }
+            });
+
+
+        }
+
         }
 
 
 
-          retrofitService.chatting_channel_update(id,ctx.channel().id().asShortText()).enqueue(new Callback<ResponseBody>() {
-              @Override
-              public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                  upload_message();
-              }
 
-              @Override
-              public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-              }
-          });
-
-
-        }
 
 
 

@@ -1,6 +1,7 @@
 package com.example.carrot_market.CONTROLLER;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.carrot_market.MODEL.DTO.HomeFragmentItem;
+import com.example.carrot_market.MODEL.HttpConnect.ProductActivityInfoTask;
 import com.example.carrot_market.MODEL.HttpConnect.SalesProductTask;
 import com.example.carrot_market.MODEL.LOCALMODEL.SharedPreference.UserInfoSave;
 import com.example.carrot_market.R;
@@ -23,12 +25,15 @@ import com.example.carrot_market.RecyclerView.Adapter.ProductHistoryAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 public class ProductHistoryFragment extends Fragment {
 
 
+
+    private final int PRODUCT_HISTORY_ITEM_UPDATE_REQUEST_CODE=2;
     private RecyclerView recyclerView;
      ArrayList<HomeFragmentItem> arrayList;
      ProductHistoryAdapter adapter;
@@ -96,12 +101,32 @@ public class ProductHistoryFragment extends Fragment {
         return v;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Log.e("ProductHistoryFragment","result_call");
+
+    switch (requestCode){
+        case PRODUCT_HISTORY_ITEM_UPDATE_REQUEST_CODE:
+
+            if (resultCode==1){
+                ProductActivityInfoTask productActivityInfoTask=new ProductActivityInfoTask(data.getStringExtra("product_key"),handler);
+                Thread thread=new Thread(productActivityInfoTask);
+                thread.start();
+            }
+            else {
+
+            }
+
+            break;
+    }
 
 
 
 
 
-
+    }
 
     Handler handler=new Handler(new Handler.Callback() {
         @Override
@@ -138,6 +163,32 @@ public class ProductHistoryFragment extends Fragment {
                         e.printStackTrace();
                     }
 
+                    break;
+
+
+                    //채팅룸 갯수 댓글수 좋아요 수 업데이트
+                case 1:
+                    if (msg.getData()!=null){
+                        try {
+                            JSONObject product_activity_info_json=new JSONObject(msg.getData().getString("product_activity_info"));
+
+                            if (arrayList!=null) {
+                                for (int i = 0; i < arrayList.size(); i++) {
+                                    if (arrayList.get(i).getProduct_key() == product_activity_info_json.getInt("product_key")) {
+                                        arrayList.get(i).setChatting_count(product_activity_info_json.getInt("chatting_room_count"));
+                                        arrayList.get(i).setComnet_count(product_activity_info_json.getInt("coment_count"));
+                                        arrayList.get(i).setFavorite_count(product_activity_info_json.getInt("favorite_count"));
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                }
+                            }
+
+
+                        } catch (JSONException e) {
+
+
+                        }
+                    }
                     break;
                 }
 

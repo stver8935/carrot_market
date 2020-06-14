@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.carrot_market.CONTROLLER.FavoriteListActivity;
+import com.example.carrot_market.CONTROLLER.MainFragment;
 import com.example.carrot_market.CONTROLLER.Product;
 import com.example.carrot_market.MODEL.DTO.HomeFragmentItem;
 import com.example.carrot_market.R;
@@ -30,9 +33,9 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
     private ArrayList<HomeFragmentItem> arrayList;
     Context context;
 
-    public HomeFragmentAdapter(Context context, ArrayList<HomeFragmentItem> arrayList) {
+    public HomeFragmentAdapter( ArrayList<HomeFragmentItem> arrayList) {
         this.arrayList = arrayList;
-        this.context=context;
+
     }
 
 
@@ -40,7 +43,7 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
     @Override
     public HomeFragmentAdapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.home_fragment_item,parent,false);
-
+        context=parent.getContext();
         HomeFragmentAdapter.CustomViewHolder holder=new HomeFragmentAdapter.CustomViewHolder(v);
         return holder;
     }
@@ -103,19 +106,30 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
         holder.coment_count.setText(""+arrayList.get(holder.getAdapterPosition()).getComnet_count());
 
 
-//        holder.product_image.setImageBitmap(arrayList.get(i).getImage());
 
 
+        //상품 상세정보를 보기위해 구현된 클릭 리스너
+        //코드 재사용성을 높이기 위해 상품 정보와 상대방 정보를 로드하기 위한 작업을 분할 했으므로
+        //상품정보를 얻어오기 위한 키값  product_key 판매자의 정보를 얻기위한 키값 상대방의 아이디를 보내준다.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-
                 Intent intent=new Intent(context, Product.class);
-              intent.putExtra("product_key",""+arrayList.get(holder.getAdapterPosition()).getProduct_key());
-              intent.putExtra("id",""+arrayList.get(holder.getAdapterPosition()).getId());
+                  intent.putExtra("product_key",""+arrayList.get(holder.getAdapterPosition()).getProduct_key());
+                  intent.putExtra("id",""+arrayList.get(holder.getAdapterPosition()).getId());
+                  intent.putExtra("request_code",2);
 
-              context.startActivity(intent);
+
+                Log.e("homefragmnetadaptercall",""+arrayList.get(holder.getAdapterPosition()).getProduct_key());
+
+                    //이 어댑터는 좋아요 리스트 액티비티와 메인 상품리스트 액티비티가 공유하고 있으므로 분기 처리 해준다
+                 if (context instanceof MainFragment){
+                     ((MainFragment)context).startActivityForResult(intent,2);
+                  }else if (context instanceof FavoriteListActivity){
+                     ((FavoriteListActivity)context).startActivityForResult(intent,2);
+                  }
+
 
             }
         });

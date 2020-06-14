@@ -3,6 +3,7 @@ package com.example.carrot_market.MODEL;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.example.carrot_market.MODEL.HttpConnect.RETROFIT.RetrofitService;
 
@@ -45,6 +46,8 @@ public class MyLeaveDealReviewTask implements Runnable {
                 try {
                     bundle.putString("my_leave_deal_review",response.body().string());
 
+
+                    Log.e("my_leave_task",bundle.getString("my_leave_deal_review"));
                     message.setData(bundle);
 
                     if (product_key==null){

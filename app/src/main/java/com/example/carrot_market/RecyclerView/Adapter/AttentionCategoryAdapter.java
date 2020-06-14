@@ -41,8 +41,12 @@ public class AttentionCategoryAdapter extends RecyclerView.Adapter<AttentionCate
     @Override
     public void onBindViewHolder(@NonNull final AttentionCategoryAdapter.CustomVIewHolder holder, int position) {
 
+
         holder.category.setText(arrayList.get(holder.getAdapterPosition()).getTitle());
+
         holder.category.setChecked(arrayList.get(holder.getAdapterPosition()).getCheck());
+
+
 
 
         //데이터 업데이트
@@ -50,9 +54,8 @@ public class AttentionCategoryAdapter extends RecyclerView.Adapter<AttentionCate
 
             @Override
             public void onClick(View v) {
-
-
                 arrayList.get(holder.getAdapterPosition()).setCheck(holder.category.isChecked());
+
                 int category_count=0;
 
                 for (int i=0;i<arrayList.size();i++){

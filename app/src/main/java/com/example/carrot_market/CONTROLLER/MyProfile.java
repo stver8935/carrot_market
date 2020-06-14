@@ -6,12 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +19,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.example.carrot_market.CONTROLLER.InterFace.ProfileImageUpdate;
+import com.example.carrot_market.MODEL.HttpConnect.LogoutTask;
 import com.example.carrot_market.MODEL.HttpConnect.ProfileLoadTask;
 import com.example.carrot_market.MODEL.LOCALMODEL.SharedPreference.UserInfoSave;
 import com.example.carrot_market.R;
@@ -33,16 +33,17 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static com.example.carrot_market.CONTROLLER.SplashActivity.API_URL;
 
 
-public class MyProfile extends Fragment implements View.OnClickListener {
+public class MyProfile extends Fragment implements ProfileImageUpdate,View.OnClickListener {
 
 
     protected CircleImageView profile_image;
-    protected ImageButton app_setting_image_button;
     protected ImageView sales_history,purchase_history,favorite_list;
-    protected Button my_location_setting,my_location_certification,my_key_word_notify,collect_view,app_setting_button,profile_view,logout;
+    protected Button my_location_setting,my_location_certification,my_key_word_notify,collect_view,profile_view,logout;
     private TextView my_profile_id,my_profile_location;
     protected Context context;
     private UserInfoSave userInfoSave;
+    private LoadingDialog loadingDialog;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,6 @@ public class MyProfile extends Fragment implements View.OnClickListener {
         context=getActivity();
 
 
-        app_setting_image_button=v.findViewById(R.id.my_profile_setting);
 
         profile_image=v.findViewById(R.id.my_profile_profile_image);
 
@@ -85,13 +85,10 @@ public class MyProfile extends Fragment implements View.OnClickListener {
 
         profile_view.setOnClickListener(this);
         profile_image.setOnClickListener(this);
-        app_setting_image_button.setOnClickListener(this);
         sales_history.setOnClickListener(this);
         purchase_history.setOnClickListener(this);
         favorite_list.setOnClickListener(this);
-
         my_location_setting.setOnClickListener(this);
-
         my_location_certification.setOnClickListener(this);
         my_key_word_notify.setOnClickListener(this);
         collect_view.setOnClickListener(this);
@@ -113,14 +110,12 @@ public class MyProfile extends Fragment implements View.OnClickListener {
         switch (v.getId()){
 
 
-            case R.id.my_profile_setting:
-                Toast.makeText(context, "hello", Toast.LENGTH_SHORT).show();
 
-                    break;
 
             case R.id.my_profile_profile_image:
                 intent=new Intent(context,MyProfileSetting.class);
-                context.startActivity(intent);
+                startActivityForResult(intent,4);
+
                 break;
             case R.id.my_profile_view:
                 intent=new Intent(context,ProfileDetail.class);
@@ -148,7 +143,6 @@ public class MyProfile extends Fragment implements View.OnClickListener {
             case R.id.my_profile_favorite_list:
                 Intent intent1=new Intent(context,FavoriteListActivity.class);
                 startActivity(intent1);
-                Toast.makeText(context, "favorite", Toast.LENGTH_SHORT).show();
 
                 break;
 
@@ -175,10 +169,15 @@ public class MyProfile extends Fragment implements View.OnClickListener {
 
                 break;
 
+                //로그아웃 처리
             case R.id.my_profile_logout:
-                intent=new Intent(getContext(),MainActivity.class);
-                startActivity(intent);
-                ((MainFragment)context).finish();
+
+                loadingDialog=new LoadingDialog(getContext(),"로그아웃 중입니다.");
+                loadingDialog.setCancelable(false);
+                loadingDialog.show();
+                LogoutTask logoutTask=new LogoutTask(userInfoSave.return_account().getId(),userInfoSave.return_account().getPassword(),handler);
+                Thread thread=new Thread(logoutTask);
+                thread.start();
                 break;
         }
 
@@ -193,7 +192,7 @@ public class MyProfile extends Fragment implements View.OnClickListener {
 
                 case 0:
                     //profile_info load
-                    Log.e("profiessss",msg.getData().getString("user_profile"));
+
                     JSONObject jsonObject= null;
                     try {
                         jsonObject = new JSONObject(msg.getData().getString("user_profile"));
@@ -209,9 +208,70 @@ public class MyProfile extends Fragment implements View.OnClickListener {
                         e.printStackTrace();
                     }
                     break;
+
+                case 1:
+
+                    if (msg.getData()!=null){
+
+
+                        try {
+                            JSONObject logout_check_to_json=new JSONObject(msg.getData().getString("logout_check"));
+
+                            if (logout_check_to_json.getString("id").equals(userInfoSave.return_account().getId())
+                                    &&logout_check_to_json.getBoolean("logout_check")){
+
+                                Intent intent=new Intent(getContext(),MainActivity.class);
+                                startActivity(intent);
+                                ((MainFragment)context).finish();
+                                Toast.makeText(context, "로그아웃 하셨습니다.", Toast.LENGTH_SHORT).show();
+                                loadingDialog.dismiss();
+                            }else {
+                                Toast.makeText(context, "로그아웃에 실패 하셨습니다.", Toast.LENGTH_SHORT).show();
+                                loadingDialog.dismiss();
+                            }
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+
+
+                    break;
             }
 
             return false;
         }
     });
+
+
+    @Override
+    public void profile_update(String image_path) {
+        Glide.with(this).load(API_URL+"image/"+image_path).into(profile_image);
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+
+            case 4:
+
+                if (data!=null) {
+
+                    if (data.getStringExtra("result_profile_image").equals("null")){
+                     profile_image.setImageDrawable(getResources().getDrawable(R.drawable.profile_image_man));
+                    }else {
+                        profile_update(data.getStringExtra("result_profile_image"));
+                    }
+                    }
+                break;
+        }
+
+    }
 }
+
+

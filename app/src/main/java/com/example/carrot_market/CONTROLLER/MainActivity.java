@@ -248,7 +248,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 //로그인 성공시 채팅 서버접속
                 intent=new Intent(MainActivity.this, ChattingService.class);
+
+
+                UserInfoSave userInfoSave=new UserInfoSave(this);
+                intent.putExtra("id",userInfoSave.return_account().getId());
                 startService(intent);
+
+
 
                 //계정정보 리턴해서 쉐어드에 저장 하기
                 intent=new Intent(MainActivity.this,MainFragment.class);

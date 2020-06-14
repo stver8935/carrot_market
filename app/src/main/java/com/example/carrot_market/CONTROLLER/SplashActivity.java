@@ -101,8 +101,6 @@ public class SplashActivity extends AppCompatActivity {
                                  String[] token = new String[1];
                                 // Get new Instance ID token
                                 token[0] = task.getResult().getToken();
-                                // Log and toast
-                                Log.d("tokens", token[0]);
 
                                 try {
 
@@ -157,6 +155,8 @@ public class SplashActivity extends AppCompatActivity {
                     if (rpcode==null||!rpcode.equals("1")){
 
                         Toast.makeText(SplashActivity.this, "잠시후 다시 시도해 주세요", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                        startActivity(intent);
                         finish();
                     }
                     else {
@@ -178,13 +178,15 @@ public class SplashActivity extends AppCompatActivity {
 
 
                         //채팅 서버 접속속
+
                        Intent chatting_service_intnet=new Intent(SplashActivity.this, ChattingService.class);
+
+                        UserInfoSave userInfoSave=new UserInfoSave(this);
+                        chatting_service_intnet.putExtra("id",userInfoSave.return_account().getId());
                         startService(chatting_service_intnet);
 
 
                         Toast.makeText(SplashActivity.this, "로그인 되셨습니다.", Toast.LENGTH_SHORT).show();
-
-
 
 
                         //로그인 되었을때 처리

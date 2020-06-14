@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.carrot_market.MODEL.DTO.HomeFragmentItem;
 import com.example.carrot_market.MODEL.HttpConnect.MyLocationLoadTask;
+import com.example.carrot_market.MODEL.HttpConnect.ProductActivityInfoTask;
 import com.example.carrot_market.MODEL.HttpConnect.RETROFIT.ProductDownloadTask;
 import com.example.carrot_market.MODEL.LOCALMODEL.SharedPreference.UserInfoSave;
 import com.example.carrot_market.R;
@@ -43,10 +44,21 @@ import java.util.concurrent.ExecutionException;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
+
+
+     final int CATEGORY_SETTING_RESULT_CODE=0;
+     final int LOCATION_SETTING_RESULT_CODE=1;
+     final int PRODUCT_DETAILE_ACTIVITY_RESULT_CODE=2;
+     LoadingDialog loadingDialog;
+
+
+
      HomeFragmentAdapter adapter;
      RecyclerView recyclerView;
      LinearLayoutManager linearLayoutManager;
      ArrayList<HomeFragmentItem>  arrayList=new ArrayList<>();
+
+
 
 
      TextView select_my_location;
@@ -64,6 +76,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         //home fragment에서 사용될 버튼 변수 초기화
         context=getContext();
         UserInfo=new UserInfoSave(getContext());
+
 
     }
 
@@ -84,7 +97,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
 
         //어댑터 생성자로 객체 생성하여 아이템리스트를 넣어줌
-        adapter=new HomeFragmentAdapter(v.getContext(),arrayList);
+        adapter=new HomeFragmentAdapter(arrayList);
 
         //리사이클러뷰에 어댑터 적용
         recyclerView.setAdapter(adapter);
@@ -105,12 +118,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         tune_button.setOnClickListener(this);
         notification_button.setOnClickListener(this);
 
-        ProductDownloadTask downloadTask=new ProductDownloadTask(handler,context,UserInfo.return_account().getId(),0,null,null);
-        Thread thread = new Thread(downloadTask);
-        thread.setDaemon(true);
-        thread.run();
 
 
+
+
+
+        //상품 리스트 페이징 처리
+        //상품 리스트의 끝의 -1 개수 만큼의 위치에 도달 했을때 다른 상품 리스트 10개 로드
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -130,11 +144,22 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     thread.run();
                     data_load=false;
                     }
-                }else{
-
                 }
             }
         });
+
+        //초반 상품 리스트 10개 로드
+
+        adapter.notifyItemRangeRemoved(0,arrayList.size());
+        arrayList.clear();
+        loadingDialog=new LoadingDialog(getContext(),"상품 정보 로드 중 입니다");
+        loadingDialog.setCancelable(false);
+        loadingDialog.show();
+        ProductDownloadTask downloadTask=new ProductDownloadTask(handler,context,UserInfo.return_account().getId(),0,null,null);
+        Thread thread = new Thread(downloadTask);
+        thread.run();
+
+
 
         return v;
     }
@@ -210,7 +235,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                                 Intent intent=new Intent(context,MyLocationSetting.class);
                                 intent.putExtra("title","내 동네 설정");
                                 intent.putExtra("product",false);
-                                startActivity(intent);
+                                startActivityForResult(intent,LOCATION_SETTING_RESULT_CODE);
                                 break;
 
                                 //첫번째주소
@@ -271,9 +296,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
 
 
+
+                //상품 리스트에 보여질 카테고리를 세팅하는 액티비티로 이동
             case R.id.home_fragment_tune:
                  intent=new Intent(context,AttentionCategory.class);
-                startActivity(intent);
+                startActivityForResult(intent,CATEGORY_SETTING_RESULT_CODE);
                 break;
 
 
@@ -285,16 +312,91 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         }
 
+
+
+
     }
 
 
-Handler handler=new Handler(){
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+    }
+
+    // 현재 액티비티에 호출하는 액티비티에서 설정하는 값이 현재 액티비티의 데이터에 영향을 주는 경우 반환 값을 받기 위한 onActivityforresult
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.e("onactivity_result","aa"+resultCode);
+        //위치나 카테고리 세팅후 다시 돌아올때
+
+        switch (requestCode){
+
+            case CATEGORY_SETTING_RESULT_CODE:
+                if (resultCode==1){
+                        loadingDialog=new LoadingDialog(context,"상품 로드 중");
+                        loadingDialog.setCancelable(false);
+                        loadingDialog.show();
+
+                    Log.e("onactivity_result","cayegory_update");
+                    adapter.notifyItemRangeRemoved(0,arrayList.size());
+                    arrayList.clear();
+                    ProductDownloadTask downloadTask=new ProductDownloadTask(handler,context,UserInfo.return_account().getId(),0,null,null);
+                    Thread thread = new Thread(downloadTask);
+                    thread.run();
+                }
+                break;
+
+            case LOCATION_SETTING_RESULT_CODE:
+                if (resultCode==1){
+
+                    loadingDialog=new LoadingDialog(context,"상품 로드 중");
+                    loadingDialog.setCancelable(false);
+                    loadingDialog.show();
+
+                    Log.e("onactivity_result","location_update");
+                    adapter.notifyItemRangeRemoved(0,arrayList.size());
+                    arrayList.clear();
+                    ProductDownloadTask downloadTask=new ProductDownloadTask(handler,context,UserInfo.return_account().getId(),0,null,null);
+                    Thread thread = new Thread(downloadTask);
+                    thread.run();
+                }
+                break;
+
+            case PRODUCT_DETAILE_ACTIVITY_RESULT_CODE:
+                if (resultCode==1){
+                    loadingDialog=new LoadingDialog(context,"상품 로드 중");
+                    loadingDialog.setCancelable(false);
+                    loadingDialog.show();
+
+                ProductActivityInfoTask productActivityInfoTask=new ProductActivityInfoTask(data.getStringExtra("product_key"),handler);
+                Thread thread=new Thread(productActivityInfoTask);
+                thread.start();
+                }
+                break;
+        }
+
+
+
+
+
+
+
+    }
+
+
+    Handler handler=new Handler(){
     @Override
    public void handleMessage(Message message){
 
 
         switch (message.what){
             case 0:
+
+                if (loadingDialog!=null) {
+                    loadingDialog.dismiss();
+                }
 
                 try {
 //                    adapter.notifyItemRangeRemoved(0,arrayList.size());
@@ -304,6 +406,7 @@ Handler handler=new Handler(){
 
                     for (int i=0;i<jsonArray.length();i++){
                     HomeFragmentItem item=new HomeFragmentItem();
+
                     item.setSales_completed(jsonArray.getJSONObject(i).getString("sales_completed"));
                     item.setId(jsonArray.getJSONObject(i).getString("id"));
                     item.setProduct_key(Integer.parseInt(jsonArray.getJSONObject(i).getString("product_key")));
@@ -319,7 +422,32 @@ Handler handler=new Handler(){
                     arrayList.add(item);
                     adapter.notifyItemInserted(arrayList.size()-1);
                     }
-                    data_load=true;
+
+                    if (10<arrayList.size()) {
+                        data_load = true;
+                    }else {
+                        data_load=false;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                break;
+
+                //상품 상세정보에서 좋아요나 채팅창 생성 댓글을 달았을때 호출 되는 작업
+            case 1:
+                Log.e("product_update","update");
+                loadingDialog.dismiss();
+                try {
+                    JSONObject product_activity_info_json=new JSONObject(message.getData().getString("product_activity_info"));
+                for (int i=0;i<arrayList.size();i++){
+                if (arrayList.get(i).getProduct_key()==product_activity_info_json.getInt("product_key")){
+                 arrayList.get(i).setComnet_count(product_activity_info_json.getInt("coment_count"));
+                 arrayList.get(i).setChatting_count(product_activity_info_json.getInt("chatting_room_count"));
+                 arrayList.get(i).setFavorite_count(product_activity_info_json.getInt("favorite_count"));
+                 adapter.notifyDataSetChanged();
+                }
+                }
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -328,8 +456,6 @@ Handler handler=new Handler(){
         }
         }
 };
-
-
 
 
 

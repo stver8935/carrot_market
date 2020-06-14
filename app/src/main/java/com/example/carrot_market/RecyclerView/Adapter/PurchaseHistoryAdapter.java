@@ -2,6 +2,7 @@ package com.example.carrot_market.RecyclerView.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.carrot_market.CONTROLLER.Dialog.PurchaseHistoryDialog;
 import com.example.carrot_market.CONTROLLER.Product;
+import com.example.carrot_market.CONTROLLER.SaleItemes;
 import com.example.carrot_market.CONTROLLER.SelectBuyer;
 import com.example.carrot_market.MODEL.DTO.HomeFragmentItem;
 import com.example.carrot_market.R;
@@ -118,7 +120,15 @@ public class PurchaseHistoryAdapter extends RecyclerView.Adapter<PurchaseHistory
             public void onClick(View v) {
                 Intent intent=new Intent(context, Product.class);
                 intent.putExtra("product_key",""+arrayList.get(holder.getAdapterPosition()).getProduct_key());
-                context.startActivity(intent);
+                intent.putExtra("request_code",2);
+                if (context instanceof SaleItemes) {
+                    Log.e("PurchaseHistoryAdapter","SaleItems context call");
+
+                    ((SaleItemes) context).startActivityForResult(intent, 2);
+                }else{
+                    Log.e("PurchasehistoryAdapter","context missmatch error");
+                }
+
             }
         });
 

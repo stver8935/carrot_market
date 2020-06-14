@@ -10,6 +10,7 @@ import android.os.Message;
 import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -47,7 +48,7 @@ public class MyProfileSetting extends AppCompatActivity {
     private EditText insert_nick_name;
     private TextView nick_name_info;
     private Button commit_button;
-    private Uri profile_image_uri;
+    public Uri profile_image_uri;
     private ProgressDialog progressDialog;
     private ImageButton back;
 
@@ -151,8 +152,13 @@ public class MyProfileSetting extends AppCompatActivity {
                 password=new UserInfoSave(MyProfileSetting.this).return_account().getPassword();
 
 
-                ProfileEditTask profileEditTask=new ProfileEditTask(id,password
-                        ,insert_nick_name.getText().toString(),profile_image_uri.toString(),handler,MyProfileSetting.this);
+
+
+                ProfileEditTask profileEditTask;
+
+                   profileEditTask = new ProfileEditTask(id, password
+                            , insert_nick_name.getText().toString(), profile_image_uri.toString(), handler, MyProfileSetting.this);
+
 
                 Thread thread=new Thread(profileEditTask);
                 thread.start();
@@ -205,13 +211,19 @@ public class MyProfileSetting extends AppCompatActivity {
                     try {
 
                         JSONObject user_profile_json_array=new JSONObject(msg.getData().getString("user_profile"));
+                        Log.e("user_profile",user_profile_json_array.toString());
+
                         insert_nick_name.setText(user_profile_json_array.getString("name"));
 
 
                         if (!user_profile_json_array.getString("profile_image").equals("null")){
                         profile_image_uri= Uri.parse(API_URL+"image/"+user_profile_json_array.getString("profile_image"));
+                            Glide.with(MyProfileSetting.this).load(profile_image_uri).into(profile_image);
+
+                        }else{
+                            profile_image.setImageDrawable(getResources().getDrawable(R.drawable.profile_image_man));
+
                         }
-                        Glide.with(MyProfileSetting.this).load(profile_image_uri).into(profile_image);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -230,8 +242,27 @@ public class MyProfileSetting extends AppCompatActivity {
 
                     //수정 완료 종료버튼
                 case 2:
+
+
+                    Log.e("수정완료","완료!");
+
+                    try {
+                        JSONObject profile_edit_response_to_json=new JSONObject(msg.getData().getString("profile_edit_response"));
+                        profile_edit_response_to_json.getString("profile_image");
+
+
+                        Intent intent=new Intent(MyProfileSetting.this,MyProfile.class);
+                        intent.putExtra("result_profile_image",profile_edit_response_to_json.getString("profile_image"));
+                        setResult(4,intent);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
                     progressDialog.dismiss();
                     finish();
+
                     break;
 
             }
@@ -240,7 +271,9 @@ public class MyProfileSetting extends AppCompatActivity {
         }
     });
 
-
+    public interface ProfileImageUpdate {
+        void profile_update(String image_path);
+    }
 
 
 }

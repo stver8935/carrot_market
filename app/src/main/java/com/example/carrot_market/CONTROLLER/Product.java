@@ -153,7 +153,7 @@ public class Product extends AppCompatActivity {
         * 더미 데이터
         * */
 
-        String product_key=getIntent().getStringExtra("product_key");
+        final String product_key=getIntent().getStringExtra("product_key");
         ProductDetaileDownloadTask task=new ProductDetaileDownloadTask(product_key,userInfoSave.return_account().getId(),"0","3",handler);
         Thread thread=new Thread(task);
         thread.run();
@@ -255,6 +255,9 @@ public class Product extends AppCompatActivity {
                     Drawable drawable = getResources().getDrawable(R.drawable.favorite_red);
                     favorit_button.setImageDrawable(drawable);
                     Toast.makeText(Product.this, "관심 상품를 등록 했습니다", Toast.LENGTH_SHORT).show();
+
+
+
                     aa=false;
                 }else {
 
@@ -262,6 +265,9 @@ public class Product extends AppCompatActivity {
                     favorit_button.setImageDrawable(drawable);
                     Toast.makeText(Product.this, "관심 상품을 해제 했습니다", Toast.LENGTH_SHORT).show();
                     aa=true;
+
+
+
 
                 }
 
@@ -307,8 +313,6 @@ public class Product extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-
-
             }
         });
 
@@ -366,11 +370,29 @@ public class Product extends AppCompatActivity {
         ProductDetaileDownloadTask task=new ProductDetaileDownloadTask(product_key,userInfoSave.return_account().getId(),"0","3",handler);
         Thread thread=new Thread(task);
         thread.run();
-
-
     }
 
-Handler handler=new Handler(){
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+
+
+
+    @Override
+    public void finish() {
+
+            if (getIntent().getIntExtra("request_code",0)==2) {
+                Intent intent = new Intent();
+                intent.putExtra("product_key", getIntent().getStringExtra("product_key"));
+                intent.putExtra("favorite_check",!aa);
+                setResult(1,intent);
+            }
+        super.finish();
+    }
+
+    Handler handler=new Handler(){
 
     @Override
     public void handleMessage(@NonNull Message msg) {
@@ -472,4 +494,5 @@ Handler handler=new Handler(){
         }
     }
 };
+
 }

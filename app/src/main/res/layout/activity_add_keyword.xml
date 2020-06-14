@@ -84,7 +84,7 @@
             android:gravity="center_vertical"
             android:hint="키워드를 입력해주세요."
             android:textSize="20dp"
-            android:lines="1"
+            android:maxLines="1"
             android:background="#00ff0000"
             app:layout_constraintEnd_toStartOf="@+id/add_keyword_insert_button"
             app:layout_constraintStart_toStartOf="parent"

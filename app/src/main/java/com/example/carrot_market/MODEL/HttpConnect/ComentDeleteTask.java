@@ -7,6 +7,9 @@ import android.util.Log;
 
 import com.example.carrot_market.MODEL.HttpConnect.RETROFIT.RetrofitService;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,11 +45,17 @@ public class ComentDeleteTask implements Runnable {
                 Message message=new Message();
 
                 Bundle bundle=new Bundle();
+                JSONObject coment_delete=new JSONObject();
+                try {
 
+                coment_delete.put("coment_key",comnet_key);
+                coment_delete.put("coment_delete_check",true);
+                bundle.putString("coment_delete",coment_delete.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 message.setData(bundle);
-                bundle.putBoolean("coment_delete_bool",true);
-
-                message.what=0;
+                message.what=3;
 
                 handler.sendMessage(message);
 

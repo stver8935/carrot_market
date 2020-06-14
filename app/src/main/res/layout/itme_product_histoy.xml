@@ -22,7 +22,7 @@
 
     <TextView
         android:id="@+id/product_histroy_item_title"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="안녕하세요"
         android:textSize="20dp"

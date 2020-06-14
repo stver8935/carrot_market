@@ -1,7 +1,6 @@
 package com.example.carrot_market.CONTROLLER;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -22,7 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.FutureTarget;
+import com.example.carrot_market.CONTROLLER.Dialog.MannerLeaveCheckDialog;
 import com.example.carrot_market.MODEL.DTO.DealReviewItem;
 import com.example.carrot_market.MODEL.DTO.ReceiveMannerItem;
 import com.example.carrot_market.MODEL.HttpConnect.DealReviewLoadTask;
@@ -39,10 +38,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -64,6 +60,7 @@ public class ProfileDetail extends AppCompatActivity {
     private ProgressBar manner_temperacture;
     private ProgressBar asd;
 
+    private boolean manner_leave_check=true;
     private boolean follow_check;
 
 
@@ -94,15 +91,7 @@ public class ProfileDetail extends AppCompatActivity {
         recyclerView_deal_review.setAdapter(adapter_deal_review);
         recyclerView_deal_review.setLayoutManager(linearLayoutManager_d);
 
-//        recyclerView_deal_review.setVisibility(View.GONE);
-//        recyclerView_manner.setVisibility(View.GONE);
 
-        //버튼 초기화
-
-//        private ImageButton back,more,share;
-//        private TextView deal_review,badge,sell_product,manner;
-
-        //badge,sell_product,manner,review
         back=findViewById(R.id.profile_detail_back);
         more=findViewById(R.id.profile_detail_more);
         share=findViewById(R.id.profile_detail_share);
@@ -155,7 +144,7 @@ public class ProfileDetail extends AppCompatActivity {
         thread1.run();
 
 
-        MannerEvaluationTask mannerEvaluationTask=new MannerEvaluationTask(handler,getIntent().getStringExtra("profile_id"),20);
+        final MannerEvaluationTask mannerEvaluationTask=new MannerEvaluationTask(handler,getIntent().getStringExtra("profile_id"),20);
         Thread thread2=new Thread(mannerEvaluationTask);
         thread2.run();
 
@@ -163,9 +152,20 @@ public class ProfileDetail extends AppCompatActivity {
 
 
 
-        manner_evaluate.setOnClickListener(new View.OnClickListener() {
+
+        //상대편 매너평가 남기기
+       manner_evaluate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+//                 Intent intent = new Intent(ProfileDetail.this, MannerLeave.class);
+//                 intent.putExtra("id",getIntent().getStringExtra("profile_id"));
+//                 startActivity(intent);
+                MannerLeaveCheckDialog mannerLeaveCheckDialog=new MannerLeaveCheckDialog(ProfileDetail.this,getIntent().getStringExtra("profile_id"));
+                mannerLeaveCheckDialog.setCancelable(true);
+                mannerLeaveCheckDialog.show();
+
+
 
             }
         });
@@ -176,20 +176,7 @@ public class ProfileDetail extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                finish();
-
-
-                try {
-                    String path=asyncTask.execute().get();
-                    Log.e("path",path);
-                    Glide.with(ProfileDetail.this).load(path).into(profile_image);
-
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
+                finish();
 
             }
         });
@@ -222,8 +209,6 @@ public class ProfileDetail extends AppCompatActivity {
                 MenuInflater inflater=getMenuInflater();
                 inflater.inflate(R.menu.profile_detail_more_menu, popupMenu.getMenu());
 
-                Toast.makeText(ProfileDetail.this, "test", Toast.LENGTH_SHORT).show();
-
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -231,7 +216,6 @@ public class ProfileDetail extends AppCompatActivity {
                         switch (item.getItemId()) {
 
                             case R.id.profile_detail_more:
-                            Toast.makeText(ProfileDetail.this, "hello", Toast.LENGTH_SHORT).show();
                             break;
 
                         }
@@ -281,13 +265,7 @@ public class ProfileDetail extends AppCompatActivity {
         }
     });
 
-    // 매너 평가하기 버튼
-    manner_evaluate.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
 
-        }
-    });
 
 
 
@@ -336,20 +314,6 @@ public class ProfileDetail extends AppCompatActivity {
     }
 
 
-    //받은 매너평가나 거래후기가 있는지 체크하는 메서드
-
-    private void check_coment(){
-        //if (/*매너평가*/){
-         //   recyclerView_manner.setVisibility(View.VISIBLE);
-            //데이터 넣기
-        //}
-       // if (/*거래후기*/){
-          //  recyclerView_deal_review.setVisibility(View.VISIBLE);
-            //데이터 넣기
-        //}
-
-    }
-
 
 
     Handler handler=new Handler(new Handler.Callback() {
@@ -365,8 +329,6 @@ public class ProfileDetail extends AppCompatActivity {
                         Log.e("profiessss",msg.getData().getString("user_profile"));
                         JSONObject jsonObject=new JSONObject(msg.getData().getString("user_profile"));
                         id.setText(jsonObject.getString("id"));
-
-
 
                         if (id.getText().toString().equals(userInfoSave.return_account().getId())){
                             collect_see.setVisibility(View.GONE);
@@ -442,7 +404,15 @@ public class ProfileDetail extends AppCompatActivity {
                             dealReviewItem.setComent(deal_review_obj.getString("coment"));
                             dealReviewItem.setProduct_image(deal_review_obj.getString("review_image_path"));
                             dealReviewItem.setDate(deal_review_obj.getString("time_stamp"));
-                            dealReviewItem.setProfile_image(deal_review_obj.getString("profile_image_path"));
+
+
+                            if (!deal_review_obj.getString("profile_image_path").equals("null")){
+                                Glide.with(ProfileDetail.this).load(API_URL+"image/"+deal_review_obj.getString("profile_image_path")).into(profile_image);
+                            }else {
+                                profile_image.setImageDrawable(getResources().getDrawable(R.drawable.profile_image_man));
+                            }
+
+
                             dealReviewItem.setAddress(deal_review_obj.getString("address"));
                             dealReviewItem.setLocation(deal_review_obj.getString("location"));
                             dealReviewItem.setLat(deal_review_obj.getDouble("lat"));
@@ -481,6 +451,19 @@ public class ProfileDetail extends AppCompatActivity {
                     break;
 
 
+                    //매너 평가를 남긴 상태였다면
+                case 5:
+                    if (msg.getData().getString("manner_check").equals("1")){
+                        manner_evaluate.setBackground(getResources().getDrawable(R.drawable.corner_round_color_orange));
+                        manner_leave_check=true;
+                    }else {
+                        manner_evaluate.setBackground(getResources().getDrawable(R.drawable.round_corner_nomal));
+                        manner_leave_check=false;
+                    }
+
+
+                    break;
+
             }
 
 
@@ -490,35 +473,7 @@ public class ProfileDetail extends AppCompatActivity {
 
 
 
-    AsyncTask<String,String,String> asyncTask=new AsyncTask<String, String, String>() {
-        @Override
-        protected String doInBackground(String... strings) {
 
 
-            try {
-                return test("http://13.125.130.142/image/202005151041040r_r4cec7d001_771d31ce98a83d921be0da5fa0420d10391edfa7.jpg");
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return "helo";
-        }
-    };
-
-
-    public String test(String uri) throws ExecutionException, InterruptedException, IOException {
-
-        FutureTarget<File> futureTarget =
-                Glide.with(this).load(uri).downloadOnly(100, 100);
-
-        File temp_file=File.createTempFile("prefix","extension.jpg",this.getCacheDir());
-        temp_file=futureTarget.get();
-
-        return futureTarget.get().getAbsolutePath();
-    }
 
 }

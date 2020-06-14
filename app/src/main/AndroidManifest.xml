@@ -2,11 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.carrot_market">
-    <!--
-         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-         Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the 'MyLocation' functionality.
-    -->
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <permission android:name="android.permission.INTERNET" />
@@ -33,17 +29,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:targetApi="q"
-        >
+        tools:targetApi="q">
+        <activity android:name=".CONTROLLER.MannerLeave"></activity>
+
         <service android:name=".Receiver.FcmService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-
-
-        <activity android:name=".CONTROLLER.FindSellersInChat"></activity>
+        <activity android:name=".CONTROLLER.FindSellersInChat" />
         <activity android:name=".CONTROLLER.MyLeaveDealReview" />
         <activity android:name=".CONTROLLER.SelectBuyer" />
         <activity android:name=".CONTROLLER.PurchaseHistory" />
@@ -58,13 +53,12 @@
         <activity android:name=".CONTROLLER.FavoriteListActivity" />
         <activity android:name=".CONTROLLER.DealReviewLeave" />
 
-
-        <receiver android:name=".CONTROLLER.Receiver.AlramReceiver"
+        <receiver
+            android:name=".CONTROLLER.Receiver.AlramReceiver"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
         <receiver android:name=".CONTROLLER.Receiver.AlramBootReceiver" />
         <receiver android:name=".Receiver.ChattingReceiver" />
-
 
         <activity
             android:name=".CONTROLLER.AlramTimeDialog"
@@ -72,10 +66,6 @@
         <activity android:name=".CONTROLLER.DealPromise" />
         <activity android:name=".CONTROLLER.AddProductLocationRange" />
         <activity android:name=".CONTROLLER.TEST" />
-
-
-
-
         <activity
             android:name=".CONTROLLER.Dialog.Category"
             android:theme="@style/NoTitleDialog" />
@@ -99,14 +89,7 @@
         <activity android:name=".CONTROLLER.ProductList" />
         <activity android:name=".CONTROLLER.HomeSearchFragmentPerson" />
         <activity android:name=".CONTROLLER.HomeSearchFragmentDeal" />
-
-
-        <activity
-            android:name=".CONTROLLER.HomeSearch" >
-        </activity>
-
-
-
+        <activity android:name=".CONTROLLER.HomeSearch"></activity>
 
         <service
             android:name=".MODEL.CHATTINGSERVICE.ChattingService"
@@ -118,7 +101,6 @@
             android:theme="@style/NoTitleDialog" />
         <activity android:name=".CONTROLLER.HomeNotify" />
         <activity android:name=".CONTROLLER.Chatting" />
-
         <activity android:name=".CONTROLLER.ChattingList" />
         <activity android:name=".CONTROLLER.MyLocationCertification" />
         <activity android:name=".CONTROLLER.MyProfileSetting" />

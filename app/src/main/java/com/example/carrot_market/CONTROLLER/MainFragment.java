@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -185,10 +186,9 @@ private View.OnClickListener del= new View.OnClickListener() {
         alertDialog.show();
     }
 
-
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        selectfragment.onActivityResult(requestCode,resultCode,data);
     }
 }

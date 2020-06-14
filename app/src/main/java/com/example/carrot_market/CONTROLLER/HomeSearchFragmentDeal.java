@@ -53,7 +53,7 @@ public class HomeSearchFragmentDeal extends Fragment implements Search {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         //어댑터 생성자로 객체 생성하여 아이템리스트를 넣어줌
-        adapter=new HomeFragmentAdapter(v.getContext(),arrayList);
+        adapter=new HomeFragmentAdapter(arrayList);
 //        tagAdapter=new TagAdapter(arrayList_tag,v.getContext());
 
         //리사이클러뷰에 어댑터 적용

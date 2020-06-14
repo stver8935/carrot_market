@@ -2,6 +2,7 @@ package com.example.carrot_market.CONTROLLER.Dialog;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -55,6 +56,7 @@ public class ProfileImageSetting extends BottomSheetDialog {
             @Override
             public void onClick(View v) {
                 ((MyProfileSetting)context).profile_image.setImageDrawable(context.getResources().getDrawable(R.drawable.profile_image_man));
+                ((MyProfileSetting)context).profile_image_uri= Uri.parse("null");
                 dismiss();
             }
         });

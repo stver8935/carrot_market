@@ -11,6 +11,7 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 
 import com.example.carrot_market.CONTROLLER.SplashActivity;
+import com.example.carrot_market.MODEL.LOCALMODEL.SharedPreference.UserInfoSave;
 import com.example.carrot_market.R;
 
 import org.json.JSONException;
@@ -40,7 +41,10 @@ public class AlramReceiver extends BroadcastReceiver {
             notification_intenet=new Intent(context, SplashActivity.class);
 
 
-        id=intent.getStringExtra("id");
+
+
+
+
 
         alram_message_string=intent.getStringExtra("alram_message_json");
 
@@ -52,7 +56,13 @@ public class AlramReceiver extends BroadcastReceiver {
             JSONObject alram_message=new JSONObject(alram_message_json.getString("message"));
 
             //상대편 아이디로 바꾸기
-           id= alram_message_json.getString("opponent");
+            if (alram_message_json.getString("id").equals(new UserInfoSave(context).return_account().getId())){
+                id=alram_message_json.getString("opponent");
+            }else {
+                id=alram_message_json.getString("id");
+            }
+
+
             description = id+"님과 약속시간 "+alram_message.getString("alram_time_min")+"분 전 입니다.";
             product_key=alram_message_json.getString("product_key");
             date_to_string=alram_message_json.getString("message");

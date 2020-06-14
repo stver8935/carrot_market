@@ -12,6 +12,9 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -30,7 +33,7 @@ public class ChattingService extends Service{
     private static final int MSE_SEND_TO_ACTIVITY=4;
 
 
-    static final String HOST = System.getProperty("host", "172.30.1.19");
+    static final String HOST = System.getProperty("host", "192.168.0.7");
 
 
     //두정동 hollys2 caffee 192.168.219.131"
@@ -47,6 +50,8 @@ public class ChattingService extends Service{
     static final int PORT = Integer.parseInt(System.getProperty("port", "8001"));
     public static Channel socketchannel;
      Handler handler;
+    private String id;
+
 
 
     @Override
@@ -57,59 +62,82 @@ public class ChattingService extends Service{
     public void onCreate() {
         super.onCreate();
 
-     //스레드 구현
-        handler = new Handler();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    final SslContext sslCtx = SslContextBuilder.forClient()
-                            .trustManager(InsecureTrustManagerFactory.INSTANCE).build();
-
-                    EventLoopGroup group=new NioEventLoopGroup();
-                    Bootstrap bootstrap=new Bootstrap();
-                    bootstrap.group(group)
-                            .channel(NioSocketChannel.class)
-                            .handler(new ChatClientinitializer(sslCtx,getApplicationContext(),handler));
-
-                    socketchannel=bootstrap.connect(HOST,PORT).sync().channel();
-                    // 처음 접속할때 데이터 세팅 계정 JSON Accessid 를 키로 계정 아이디를 보낸다.
-                    //이휴 서버에서 접근 아이피 및 채널을 사용장 계정에 업데이트 시켜준다.
-
-
-                } catch (Exception ioe) {
-                    Log.e("Servser_Error", ioe.getMessage() + "입니다");
-                    ioe.printStackTrace();
-
-                }
-
-
-
-
-
-//                if (ActivityCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//                    // TODO: Consider calling
-//                    //    Activity#requestPermissions
-//                    // here to request the missing permissions, and then overriding
-//                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//                    //                                          int[] grantResults)
-//                    // to handle the case where the user grants the permission. See the documentation
-//                    // for Activity#requestPermissions for more details.
-//                    return;
-//                }
-//                LocationManager locationManager = (LocationManager) getApplication().getSystemService(getApplication().LOCATION_SERVICE);
-//                Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-
-
-            }
-        }).start();
 
 
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public int onStartCommand(final Intent intent, int flags, int startId) {
+
+
+
+        //스레드 구현
+        handler = new Handler();
+        try {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        final SslContext sslCtx = SslContextBuilder.forClient()
+                                .trustManager(InsecureTrustManagerFactory.INSTANCE).build();
+
+                        EventLoopGroup group=new NioEventLoopGroup();
+                        Bootstrap bootstrap=new Bootstrap();
+                        bootstrap.group(group)
+                                .channel(NioSocketChannel.class)
+                                .handler(new ChatClientinitializer(sslCtx,getApplicationContext(),handler));
+
+                        socketchannel=bootstrap.connect(HOST,PORT).sync().channel();
+
+
+
+                        // 처음 접속할때 데이터 세팅 계정 JSON Accessid 를 키로 계정 아이디를 보낸다.
+                        //이휴 서버에서 접근 아이피 및 채널을 사용장 계정에 업데이트 시켜준다.
+                        JSONObject jsonObject=new JSONObject();
+                        try {
+                            jsonObject.put("id",intent.getStringExtra("id"));
+
+                            jsonObject.put("message_type","5");
+
+                            ChannelFuture lastWriteFuture = null;
+                            lastWriteFuture = socketchannel.writeAndFlush(jsonObject+"\n");
+                            lastWriteFuture.sync();
+                        } catch (JSONException | InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                    } catch (Exception ioe) {
+                        Log.e("Servser_Error", ioe.getMessage() + "입니다");
+                        ioe.printStackTrace();
+
+                    }
+
+
+
+
+
+    //                if (ActivityCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+    //                    // TODO: Consider calling
+    //                    //    Activity#requestPermissions
+    //                    // here to request the missing permissions, and then overriding
+    //                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+    //                    //                                          int[] grantResults)
+    //                    // to handle the case where the user grants the permission. See the documentation
+    //                    // for Activity#requestPermissions for more details.
+    //                    return;
+    //                }
+    //                LocationManager locationManager = (LocationManager) getApplication().getSystemService(getApplication().LOCATION_SERVICE);
+    //                Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+
+
+                }
+            }).start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         return super.onStartCommand(intent, flags, startId);
 
 

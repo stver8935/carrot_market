@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -67,23 +66,18 @@ public class ChattingListAdapter extends RecyclerView.Adapter<ChattingListAdapte
             e.printStackTrace();
         }
 
-        //        holder.count.setText(arrayList.get(i).getCount());
         holder.contents.setText(arrayList.get(i).getContents());
 
 
-            Glide.with(context).load(API_URL+"/image/"+arrayList.get(i).getProduct_image_path()).into(holder.product_image);
+         Glide.with(context).load(API_URL+"/image/"+arrayList.get(i).getProduct_image_path()).into(holder.product_image);
+
         Log.e("profile_image",arrayList.get(i).getProfile_image_path());
-
-
-        Toast.makeText(context, ""+arrayList.get(i).getProfile_image_path(), Toast.LENGTH_SHORT).show();
-
 
         if (arrayList.get(i).getProfile_image_path().equals("null")){
             holder.profile_image.setImageDrawable(context.getResources().getDrawable(R.drawable.profile_image_man));
         }else {
 
             Glide.with(context).load(API_URL+"/image/"+arrayList.get(i).getProfile_image_path()).into(holder.profile_image);
-
 
         }
         Log.e("adapter_call","adapter_call");
@@ -96,25 +90,13 @@ public class ChattingListAdapter extends RecyclerView.Adapter<ChattingListAdapte
                 intent.putExtra("chatting_room_key",arrayList.get(holder.getAdapterPosition()).getChatting_room_key());
                 intent.putExtra("product_key",arrayList.get(holder.getAdapterPosition()).getProduct_key());
                 intent.putExtra("id",arrayList.get(holder.getAdapterPosition()).getProfile_id());
-
-
-
                 context.startActivity(intent);
-////
 
-////                notifyDataSetChanged();
+
             }
         });
 
 
-        holder.profile_image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Glide.with(context).load(API_URL+"/image/"+"202001082137200thumb_crop_resize.jpeg.jpg").into(holder.profile_image);
-                Glide.with(context).load(API_URL+"/image/"+"202001082137200thumb_crop_resize.jpeg.jpg").into(holder.product_image);
-                Toast.makeText(context, ""+arrayList.get(holder.getAdapterPosition()).getChatting_room_key(), Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
 

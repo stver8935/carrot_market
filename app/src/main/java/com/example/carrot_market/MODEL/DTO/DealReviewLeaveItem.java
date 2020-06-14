@@ -1,6 +1,19 @@
 package com.example.carrot_market.MODEL.DTO;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class DealReviewLeaveItem {
+    @SerializedName("check")
+    @Expose
+    Boolean check=false;
+    @SerializedName("title")
+    @Expose
+    String title;
+
+    @SerializedName("value")
+    @Expose
+    int value;
 
 
     public DealReviewLeaveItem(String title) {
@@ -30,10 +43,6 @@ public class DealReviewLeaveItem {
     public void setValue(int value) {
         this.value = value;
     }
-
-    Boolean check=false;
-    String title;
-    int value;
 
 
 }

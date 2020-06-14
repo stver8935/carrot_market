@@ -30,7 +30,6 @@ public class DealReviewLeaveTask implements Runnable {
     private String deal_review_list;
     private int denial_and_positive;
 
-    private Map<String,String> map=new HashMap<>();
 
     public DealReviewLeaveTask(Handler handler,int denial_and_positive,String deal_review_list,String id,String opponent_id,String coment,String product_key,String deal_review_image_path) {
         this.handler = handler;
@@ -49,7 +48,6 @@ public class DealReviewLeaveTask implements Runnable {
         final RequestBody requestfile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("uploaded_file", file.getName(), requestfile);
 
-        map.put("producy_key",product_key);
 
         Map<String,RequestBody> product_key_map=new HashMap<>();
         Map<String,RequestBody> my_id_map=new HashMap<>();

@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,8 +32,6 @@ import java.util.ArrayList;
 
 
 public class ChattingList extends Fragment {
-    public static Handler handler1=new Handler();
-
 
     public static ChattingListAdapter adapter;
 
@@ -76,7 +73,6 @@ public class ChattingList extends Fragment {
     public void onDestroy() {
         super.onDestroy();
 
-        Toast.makeText(getContext(), "hello", Toast.LENGTH_SHORT).show();
         try {
 //            socketChannel.close();
         } catch (Exception e) {
@@ -119,10 +115,6 @@ public class ChattingList extends Fragment {
 v.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-
-
-        Log.e("SEND","SEND!!");
-
 
 
     }

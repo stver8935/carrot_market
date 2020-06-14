@@ -131,7 +131,6 @@ public class PurchaseHistory extends AppCompatActivity implements PurchaseHistor
     @Override
     public void purchase_history_works(String product_key, String work_type) {
 
-        Log.e("work_tpy",work_type);
 
         switch (work_type){
             case "deal_review_leave":

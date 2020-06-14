@@ -290,8 +290,7 @@ public void alram_commit(Calendar cal,AlramTimeItem select_alram_time_item) thro
             calendar.setTime(date);
 
             if (alram_switch.isChecked()){
-//            AlramNotification alramNotification=new AlramNotification(this,jsonObject.toString());
-//            alramNotification.send_notification();
+
 
         }else {
 

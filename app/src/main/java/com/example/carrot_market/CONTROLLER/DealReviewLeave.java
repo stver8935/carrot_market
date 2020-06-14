@@ -262,6 +262,9 @@ public class DealReviewLeave extends AppCompatActivity {
                 Thread thread1=new Thread(task);
                 thread1.run();
 
+                Intent intent=new Intent();
+                intent.putExtra("review_id",other_id);
+                setResult(0,intent);
 
                 finish();
 
@@ -317,7 +320,7 @@ public class DealReviewLeave extends AppCompatActivity {
                 check_title_list.add("거래 시간과 장소를 정한 후 거래 직전 취소했어요");
                 check_title_list.add("무조건 택배거래만 하려고 해요.");
                 check_title_list.add("상품 가치없는 물건을 팔아요");
-                check_title_list.add("차에서 내리지도 않고 창문만 열고 거랴하려고 해요.");
+                check_title_list.add("차에서 내리지도 않고 창문만 열고 거래하려고 해요.");
                 check_title_list.add("약속시간을 안 지켜요.");
                 check_title_list.add("구매 가격보다 비싼 가격으로 판매해요.");
                 check_title_list.add("상품 상태가 설명과 달라요");
@@ -346,8 +349,7 @@ public class DealReviewLeave extends AppCompatActivity {
                 check_title.setText("거래하며 불편했던 점을 선택해 주세요");
                 check_info.setVisibility(View.VISIBLE);
 
-                check_info.setText("부정후기는 산대방에게 알림이 가지 않아요." +
-                        "누가 평가했는지는 알 수 없으니 안심하세요.");
+
 
                 coment_info.setText("신고 내용은 상대방에게 공개되지 않습니다. (선택사항)");
                 break;
@@ -357,13 +359,14 @@ public class DealReviewLeave extends AppCompatActivity {
                 check_title_list.add("무료로 나눠주셨어요.");
                 check_title_list.add("상품상태가 설명한 것과 같아요.");
                 check_title_list.add("상품설명이 자세해요.");
-                check_title_list.add("좋은 상품을 저렵하게 판매해요.");
+                check_title_list.add("좋은 상품을 저렴하게 판매해요.");
                 check_title_list.add("약속시간을 잘 지켜요.");
                 check_title_list.add("응답이 빨라요.");
                 check_title_list.add("친절하고 매너가 좋아요.");
 
                 coment_text.setHint("여기에 감사인사를 작성하세요");
                 check_title.setText("거래하며 좋았던 점을 선택해 주세요");
+                coment_info.setText("작성한 내용은 상대방 프로필에 공개됩니다.");
                 coment_info.setText("작성한 내용은 상대방 프로필에 공개됩니다.");
 
                 check_info.setVisibility(View.GONE);

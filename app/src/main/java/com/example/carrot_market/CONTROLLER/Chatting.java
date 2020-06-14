@@ -38,6 +38,7 @@ import com.example.carrot_market.MODEL.DTO.ChattingItem;
 import com.example.carrot_market.MODEL.HttpConnect.ChattingInfoLoadTask;
 import com.example.carrot_market.MODEL.HttpConnect.ChattingLoadTask;
 import com.example.carrot_market.MODEL.HttpConnect.ChattingRoomInsertTask;
+import com.example.carrot_market.MODEL.HttpConnect.DealReviewCheckTask;
 import com.example.carrot_market.MODEL.HttpConnect.SendMessageTask;
 import com.example.carrot_market.MODEL.LOCALMODEL.SharedPreference.UserInfoSave;
 import com.example.carrot_market.R;
@@ -65,14 +66,11 @@ public class Chatting extends AppCompatActivity {
     public  ArrayList<ChattingItem> arrayList_c=new ArrayList<>();
     public static Context context;
     ScrollView myScrollView;
-    boolean isOpened = false;
-
-    int item_position;
 
     //채팅창 내부에서 사용할 뷰의 변수 선언
     TextView product_title,product_price,id,temperature;
     EditText edit_contents;
-    ImageView product_image,chatting_send,chatting_more;
+    ImageView product_image,chatting_send,chatting_more,chatting_back;
     Button deal_review;
     ImageButton add,deal_promise_button;
     UserInfoSave userInfoSave;
@@ -80,8 +78,6 @@ public class Chatting extends AppCompatActivity {
 
     String product_key;
     public static String chatting_room_key;
-
-     int item_positon=0;
 
     InputMethodManager imm;
     ViewGroup linearLayout_parent;
@@ -102,7 +98,6 @@ public class Chatting extends AppCompatActivity {
 
         chatting_deal_review=findViewById(R.id.chatting_deal_review);
         deal_promise_button=findViewById(R.id.chatting_deal_promise);
-
         context=this;
         //리사이클러 변수 초기화
         recyclerView=findViewById(R.id.chatting_recycler);
@@ -132,6 +127,7 @@ public class Chatting extends AppCompatActivity {
         chatting_send=findViewById(R.id.chatting_send);
         chatting_send.setClickable(false);
         chatting_more=findViewById(R.id.chatting_more);
+        chatting_back=findViewById(R.id.chatting_back);
 
 
 
@@ -171,10 +167,7 @@ public class Chatting extends AppCompatActivity {
 
 
 
-        //상품을 통해 들어 왔을때 null
-        ChattingLoadTask chattingLoadTask=new ChattingLoadTask(product_key,userInfoSave.return_account().getId(),handler);
-         Thread thread=new Thread(chattingLoadTask);
-        thread.run();
+
 
 
 
@@ -183,11 +176,15 @@ public class Chatting extends AppCompatActivity {
         chatting_info_thread.run();
 
 
-        //상대편 아이디를 보내준다.
-//        Log.e("intent.id",intent_id);
-//
 
 
+
+        chatting_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         edit_contents.addTextChangedListener(new TextWatcher() {
             @Override
@@ -264,7 +261,6 @@ public class Chatting extends AppCompatActivity {
                                         ChattingList.arrayList.remove(i);
                                         break;
                                     }
-                                    Log.e("chatting_room_remove","ing");
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -277,28 +273,6 @@ public class Chatting extends AppCompatActivity {
 
                             finish();
 
-
-//                                Retrofit retrofit=new Retrofit.Builder().baseUrl(API_URL).addConverterFactory(GsonConverterFactory.create()).build();
-//                                RetrofitService retrofitService=retrofit.create(RetrofitService.class);
-//
-////                            retrofitService.exit_chatting_room(userInfoSave.return_account().getId(),chatting_room_key).enqueue(new Callback<ResponseBody>() {
-////                                @Override
-////                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-////                                    try {
-////                                        System.out.println("response"+response.body().string());
-////                                    } catch (IOException e) {
-////                                        e.printStackTrace();
-////                                    }
-////
-////                                }
-////
-////                                @Override
-////                                public void onFailure(Call<ResponseBody> call, Throwable t) {
-////
-////                                    System.out.println("faile");
-////                                }
-////                            });
-                            //채팅방 나가기
                             break;
 
                     }
@@ -316,12 +290,7 @@ public class Chatting extends AppCompatActivity {
 
 
 
-
-
-        //        chatting_deal_review=findViewById(R.id.chatting_deal_review);
-        //        deal_promise_button=findViewById(R.id.chatting_deal_promise);
-
-
+        //상품 정보를 보여주는 레이아웃 을 처티 했을때의 이벤트 처리
         chatting_deal_review_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -332,19 +301,43 @@ public class Chatting extends AppCompatActivity {
             }
         });
 
+
+
+
+        //거래후기를 작성하기 위한 버튼 이벤트 처리
         chatting_deal_review.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-            Intent intent1=new Intent(Chatting.this,DealReviewLeave.class);
-            intent1.putExtra("product_key",product_key);
-            intent1.putExtra("opponent_id",intent_id);
-            startActivity(intent1);
+                //거래 후기 작성 했으면 리스트 보여주는 창으로 가기
+//
+//            Intent intent1=new Intent(Chatting.this,DealReviewLeave.class);
+//            intent1.putExtra("product_key",product_key);
+//            intent1.putExtra("opponent_id",intent_id);
+//            startActivity(intent1);
+
+//
+//                Intent intent=new Intent(context, MyLeaveDealReview.class);
+//                intent.putExtra("product_key",product_key);
+//                intent.putExtra("opponent_id",userInfoSave.return_account().getId());
+//                intent.putExtra("accept_check",true);
+//                context.startActivity(intent);
+                DealReviewCheckTask dealReviewCheckTask=new DealReviewCheckTask(userInfoSave.return_account().getId(),
+                        intent_id,product_key,handler);
+            Thread thread1=new Thread(dealReviewCheckTask);
+            thread1.start();
+
+
 
             }
         });
 
+
+
+
+
+        //약속 예약 메시지를 보내기 위한 버튼 이벤트 처리
         deal_promise_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -373,20 +366,6 @@ chatting_send.setOnClickListener(new View.OnClickListener() {
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public void onClick(View v) {
-
-//        imm.hideSoftInputFromWindow(edit_contents.getWindowToken(),0);
-
-
-//
-//        adapter_c.notifyItemInserted(arrayList_c.size());
-//        recyclerView.scrollToPosition(arrayList_c.size()-1);
-
-//        FcmService fcmService=new FcmService();
-//        fcmService.sendNotification("fA_9lI5Uo5w:APA91bHPHibeHUnEDkv9VOpeogYPfkLtjDhyngONpxLJL0KV1jjWaFuRaSVebyRYZkho6D0wVqKU12h7NIsro6sLhsaODlmmK3lOLC0qR7PH8XCMQ6RDnXVq4vXXU92hIS1fhdIa0g96",
-//                userInfoSave.return_account().getId(),edit_contents.getText().toString(),product_key);
-//
-
-
 
         JSONObject jsonObject=new JSONObject();
         try {
@@ -527,13 +506,40 @@ chatting_send.setOnClickListener(new View.OnClickListener() {
                //채팅룸키를 받아 업데이트를 해주는 곳
            case 5:
                chatting_room_key=msg.getData().getString("chatting_room_key");
-               Log.e("accept_chat_room_key","??"+chatting_room_key);
-
+               //상품을 통해 들어 왔을때 null
+               ChattingLoadTask chattingLoadTask=new ChattingLoadTask(chatting_room_key,userInfoSave.return_account().getId(),handler);
+               Thread thread=new Thread(chattingLoadTask);
+               thread.run();
                break;
 
                default:
 
                    break;
+
+           case 10:
+
+               Log.e("deal_review_what",msg.getData().getString("deal_review_check"));
+
+
+               if (msg.getData().getString("deal_review_check").equals("1")){
+
+                Intent intent=new Intent(context, MyLeaveDealReview.class);
+                intent.putExtra("product_key",product_key);
+                intent.putExtra("opponent_id",intent_id);
+                intent.putExtra("accept_check",false);
+               context.startActivity(intent);
+               }else {
+                   Intent intent1=new Intent(Chatting.this,DealReviewLeave.class);
+                   intent1.putExtra("product_key",product_key);
+                   intent1.putExtra("opponent_id",intent_id);
+                   startActivity(intent1);
+               }
+
+
+
+
+
+               break;
        }
 
 
@@ -555,6 +561,9 @@ chatting_send.setOnClickListener(new View.OnClickListener() {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        Chatting.chatting_room_key="null";
+
     }
 
 

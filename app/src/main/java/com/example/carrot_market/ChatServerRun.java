@@ -37,6 +37,7 @@ public class ChatServerRun {
                     .handler(new LoggingHandler(LogLevel.INFO))
                     .childHandler(new ChattingServer(sslCtx));
 
+
             bootstrap.bind(port).sync().channel().closeFuture().sync();
         } finally {
             bossGroup.shutdownGracefully();

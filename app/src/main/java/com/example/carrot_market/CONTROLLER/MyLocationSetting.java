@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,6 +35,11 @@ public class MyLocationSetting extends AppCompatActivity {
     private SeekBar location_range;
     private ImageButton backbutton;
     private TextView title,location_info;
+
+    final int CREATE_PRODUCT_RESULT_CODE=2;
+    final int LOCATION_SETTING_RESULT_CODE=1;
+
+
 
 
     private RecyclerView my_location_button_recyclerview;
@@ -191,7 +195,6 @@ public class MyLocationSetting extends AppCompatActivity {
 
             //상품 등록인가 아니면 반경 설정인가
         }else {
-
         }
 
     }
@@ -213,7 +216,6 @@ public class MyLocationSetting extends AppCompatActivity {
 
 
         GetIntent();
-        Toast.makeText(this, "resume", Toast.LENGTH_SHORT).show();
     }
     public void my_location_setting() throws JSONException, ExecutionException, InterruptedException {
 
@@ -241,7 +243,7 @@ public class MyLocationSetting extends AppCompatActivity {
        for (int i=my_location_button_arraylist.size();i<jsonArray.length();i++) {
            AddressItem item = new AddressItem();
            try {
-               Log.e("돼?","이게??");
+
                item.jsonobject_to_AddressItem(jsonArray.getJSONObject(i));
                my_location_button_arraylist.add(item);
             my_location_button_adapter.notifyItemInserted(i);
@@ -275,10 +277,12 @@ public class MyLocationSetting extends AppCompatActivity {
                 Intent intent2 = new Intent(MyLocationSetting.this, AddProduct.class);
                 intent2.putExtra("add_prodct_location_range", my_location_button_arraylist.get(i).getRange());
                 intent2.putExtra("add_product_location",my_location_button_arraylist.get(i).getLocation());
-                setResult(2, intent2);
+                setResult(CREATE_PRODUCT_RESULT_CODE, intent2);
                 Log.e("상품 종료실행", "실행");
             }
             }
+        }else {
+            setResult(LOCATION_SETTING_RESULT_CODE);
         }
 
         super.finish();

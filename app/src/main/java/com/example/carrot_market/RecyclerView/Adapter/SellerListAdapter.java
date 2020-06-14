@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.carrot_market.CONTROLLER.DealReviewLeave;
 import com.example.carrot_market.CONTROLLER.MyLeaveDealReview;
+import com.example.carrot_market.CONTROLLER.SelectBuyer;
 import com.example.carrot_market.MODEL.DTO.SellerListItem;
 import com.example.carrot_market.R;
 
@@ -58,12 +59,17 @@ public class SellerListAdapter extends RecyclerView.Adapter<SellerListAdapter.Cu
 
 
 
-        if (arrayList.get(holder.getAdapterPosition()).getProfile_image()!=null){
+        if (!arrayList.get(holder.getAdapterPosition()).getProfile_image().equals("null")){
             Glide.with(context).load(API_URL+"image/"+arrayList.get(holder.getAdapterPosition()).getProfile_image()).into(holder.profile_image);
+        }else {
+            holder.profile_image.setImageDrawable(context.getResources().getDrawable(R.drawable.profile_image_man));
         }
 
         if (arrayList.get(holder.getAdapterPosition()).isReview_commit_check()){
             holder.deal_review.setText("후기 작성 마침");
+
+            holder.deal_review.setTextColor(context.getResources().getColor(R.color.colorblack));
+            holder.deal_review.setBackground(context.getResources().getDrawable(R.drawable.border_line));
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -89,7 +95,7 @@ public class SellerListAdapter extends RecyclerView.Adapter<SellerListAdapter.Cu
                     intent.putExtra("opponent_id",arrayList.get(holder.getAdapterPosition()).getId());
                     intent.putExtra("product_key",product_key);
 
-                    context.startActivity(intent);
+                    ((SelectBuyer)context).startActivityForResult(intent,0);
 
                 }
 

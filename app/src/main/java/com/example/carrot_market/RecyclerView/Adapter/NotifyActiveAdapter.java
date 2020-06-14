@@ -133,7 +133,13 @@ public class NotifyActiveAdapter extends RecyclerView.Adapter<NotifyActiveAdapte
 
 
         }
-        Glide.with(context).load(API_URL+"image/"+arrayList.get(holder.getAdapterPosition()).getImage_path()).into(holder.imageView);
+
+        if (arrayList.get(holder.getAdapterPosition()).getImage_path().isEmpty()||arrayList.get(holder.getAdapterPosition()).getImage_path().equals("null")){
+         holder.imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.profile_image_man));
+        }else {
+            Glide.with(context).load(API_URL + "image/" + arrayList.get(holder.getAdapterPosition()).getImage_path()).into(holder.imageView);
+        }
+
 
         //데이터 베이스에서 실제 데이터로 받기
         holder.date.setText(arrayList.get(position).getTime_stamp());

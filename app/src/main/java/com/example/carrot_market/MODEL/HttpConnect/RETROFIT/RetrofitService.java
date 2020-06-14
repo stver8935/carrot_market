@@ -1,8 +1,10 @@
 package com.example.carrot_market.MODEL.HttpConnect.RETROFIT;
 
 import java.sql.Date;
+import java.util.Map;
 
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -11,9 +13,26 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 
 public interface RetrofitService {
+
+
+
+    @FormUrlEncoded
+    @POST("logout.php")
+    Call<ResponseBody>logout(@Field("id")String id,@Field("password")String password);
+
+    @FormUrlEncoded
+    @POST("product_activity_info.php")
+    Call<ResponseBody>product_activity_info(@Field("product_key")String product_key);
+
+
+    @FormUrlEncoded
+    @POST("deal_review_check.php")
+    Call<ResponseBody>deal_review_check(@Field("id") String id,@Field("review_id") String review_id,@Field("product_key") String product_key);
+
 
 
     @FormUrlEncoded
@@ -32,6 +51,7 @@ public interface RetrofitService {
 
     @GET("product_key_word_notification_list.php")
     Call<ResponseBody> product_notification_list(@Query("id") String id ,@Query("count") String count );
+
 
     @FormUrlEncoded
     @POST("delete_key_word.php")
@@ -65,6 +85,17 @@ public interface RetrofitService {
     @FormUrlEncoded
     @POST("my_leave_deal_review.php")
     Call<ResponseBody>my_leave_deal_review(@Field("id") String id,@Field("opponent_id") String opponent_id,@Field("product_key")String product_key);
+
+
+    @FormUrlEncoded
+    @POST("my_leave_manner_list.php")
+    Call<ResponseBody>my_leave_manner_list(@Field("id") String id,@Field("opponent_id") String opponent_id,@Field("manner_type")String manner_type);
+
+    @Multipart
+    @POST("manner_leave.php")
+    Call<ResponseBody>manner_leave(@PartMap Map<String, RequestBody> id, @PartMap Map<String, RequestBody>manner_id, @PartMap Map<String, RequestBody> manner_type,@PartMap Map<String, RequestBody>  manner_list);
+
+
 
     @FormUrlEncoded
     @POST("buyer_list.php")
@@ -171,11 +202,6 @@ public interface RetrofitService {
 
 
 
-//    $user_product_count=$_POST['product_count'];
-//    $user_id=$_POST['id'];
-//    $sales_completed=$_POST['sales_completed'];
-//    $hidden=$_POST['hidden'];
-//    sales_product.php
 
 
     @FormUrlEncoded
@@ -216,6 +242,10 @@ public interface RetrofitService {
     @POST("product_coment_insert.php")
     Call<ResponseBody> product_coment_insert(@Field("id") String id,@Field("coment") String coment,@Field("product_key") int key);
 
+    @FormUrlEncoded
+    @POST("product_coment_update.php")
+    Call<ResponseBody> product_coment_update(@Field("coment") String coment,@Field("coment_key") String key);
+
 
     @GET("category_loadd.php")
     Call<ResponseBody> category_load(@Query("id") String id);
@@ -241,7 +271,6 @@ public interface RetrofitService {
     @POST("chatting_room_insert.php")
     Call<ResponseBody> chatting_room_insert(@Field("seller") String seller, @Field("buyer") String buyer ,@Field("product_key") String product_key);
 
-//    exit_chatting_room
 
     @FormUrlEncoded
     @POST("exit_chatting_room.php")
@@ -251,7 +280,7 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("chatting_load.php")
-    Call<ResponseBody> chatting_load(@Field("product_key") String product_key, @Field("id")String id);
+    Call<ResponseBody> chatting_load(@Field("chatting_room_key") String chatting_room_key, @Field("id")String id);
 
 
 //    @FormUrlEncoded
@@ -274,7 +303,6 @@ public interface RetrofitService {
 
     @GET("deal_review_load.php")
     Call<ResponseBody> deal_review_load(@Query("user_type") String user_type,@Query("id") String id,@Query("start_count") int start_count,@Query("count") int count);
-
 
     @FormUrlEncoded
     @POST("chatting_info_load.php")

@@ -1,6 +1,7 @@
 package com.example.carrot_market.CONTROLLER;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -55,7 +56,7 @@ public class SaleItemsFragment extends Fragment {
 
 
         product_recyclerview=v.findViewById(R.id.fragment_sale_items_recycler);
-        adapter=new HomeFragmentAdapter(context,arrayList);
+        adapter=new HomeFragmentAdapter(arrayList);
         linearLayoutManager=new LinearLayoutManager(context);
 
         product_recyclerview.setAdapter(adapter);
@@ -107,8 +108,6 @@ public class SaleItemsFragment extends Fragment {
         productDownLoadAllTask productDownLoadAllTask=new productDownLoadAllTask(arrayList.size(),profile_id,tab_count,handler);
         Thread thread=new Thread(productDownLoadAllTask);
         thread.run();
-
-
 
 
         }
@@ -167,6 +166,11 @@ public class SaleItemsFragment extends Fragment {
         }
     });
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }
 
 

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -22,9 +21,11 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.carrot_market.CONTROLLER.ProductComent;
 import com.example.carrot_market.CONTROLLER.ProfileDetail;
 import com.example.carrot_market.MODEL.DTO.ProductComentItem;
 import com.example.carrot_market.MODEL.HttpConnect.ComentDeleteTask;
+import com.example.carrot_market.MODEL.HttpConnect.ProductComentUpdateTask;
 import com.example.carrot_market.MODEL.LOCALMODEL.SharedPreference.UserInfoSave;
 import com.example.carrot_market.R;
 
@@ -40,13 +41,14 @@ public class ProductComentAdapter extends RecyclerView.Adapter<ProductComentAdap
      Context context;
      EditText coment;
      Boolean product_coment_and_coment_list;
+    Handler handler;
 
-
-    public ProductComentAdapter(ArrayList<ProductComentItem> arrayList,Context context,EditText coment) {
+    public ProductComentAdapter(ArrayList<ProductComentItem> arrayList,Context context,EditText coment,Handler handler) {
         product_coment_and_coment_list=true;
         this.arrayList = arrayList;
         this.context=context;
         this.coment=coment;
+        this.handler=handler;
     }
     public ProductComentAdapter(ArrayList<ProductComentItem> arrayList,Context context) {
         product_coment_and_coment_list=false;
@@ -116,7 +118,16 @@ public class ProductComentAdapter extends RecyclerView.Adapter<ProductComentAdap
                                         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
 
+                                        ((ProductComent)context).write_commit.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
 
+                                                ProductComentUpdateTask productComentUpdateTask=new ProductComentUpdateTask(arrayList.get(holder.getAdapterPosition()).getKey(),coment.getText().toString(),handler);
+                                                Thread thread=new Thread(productComentUpdateTask);
+                                                thread.start();
+
+                                            }
+                                        });
 
                                         //데이터베스에 수정
                                         break;
@@ -130,8 +141,6 @@ public class ProductComentAdapter extends RecyclerView.Adapter<ProductComentAdap
                                         thread.run();
 
                                         //데이터베스에서 삭제
-                                        arrayList.remove(holder.getAdapterPosition());
-                                        notifyItemRemoved(holder.getAdapterPosition());
                                         break;
 
 
@@ -170,8 +179,7 @@ public class ProductComentAdapter extends RecyclerView.Adapter<ProductComentAdap
                                         //해당 댓글의 작성자 프로필로 이동
                                         break;
                                     case R.id.coment_declaration:
-
-                                        //댓글 신고
+                                        Toast.makeText(context, "미구현 입니다.", Toast.LENGTH_SHORT).show();
                                         break;
 
 
@@ -233,32 +241,7 @@ public class ProductComentAdapter extends RecyclerView.Adapter<ProductComentAdap
         }
     }
 
-    Handler handler=new Handler(){
-        @Override
-        public void handleMessage(Message message){
 
-            switch (message.what){
-
-                case 0:
-
-                    Toast.makeText(context, "댓글을 삭제 했습니다.", Toast.LENGTH_SHORT).show();
-                    break;
-                case 1:
-
-                    Toast.makeText(context, "댓글을 수정 했습니다.", Toast.LENGTH_SHORT).show();
-
-                    break;
-
-
-                    default:
-
-
-                        break;
-            }
-
-
-
-    }};
 
 
 }

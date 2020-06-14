@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,7 +39,7 @@ public class ProductComent extends AppCompatActivity {
     private ArrayList<ProductComentItem> arrayList=new ArrayList<>();
     private ImageButton back;
     private EditText write_coment;
-    private Button write_commit;
+    public Button write_commit;
     private TextView title;
     private UserInfoSave userInfoSave;
 
@@ -65,7 +66,7 @@ public class ProductComent extends AppCompatActivity {
 
         recyclerView_coment=findViewById(R.id.product_coment_list_recycler);
         linearLayoutManager=new LinearLayoutManager(this);
-        adapter=new ProductComentAdapter(arrayList,this,write_coment);
+        adapter=new ProductComentAdapter(arrayList,this,write_coment,handler);
         recyclerView_coment.setAdapter(adapter);
         recyclerView_coment.setLayoutManager(linearLayoutManager);
 
@@ -143,8 +144,6 @@ public class ProductComent extends AppCompatActivity {
                 int last=((LinearLayoutManager)recyclerView_coment.getLayoutManager()).findLastCompletelyVisibleItemPosition();
                 int itemcount=recyclerView_coment.getAdapter().getItemCount();
 
-                Toast.makeText(ProductComent.this, "p"+last+"  "+itemcount, Toast.LENGTH_SHORT).show();
-
                 if (last>(itemcount-3)){
                     ProductComentListTask task=new ProductComentListTask(getIntent().getStringExtra("product_key"),""+arrayList.size(),handler);
                     Thread thread=new Thread(task);
@@ -172,6 +171,8 @@ public class ProductComent extends AppCompatActivity {
             super.handleMessage(msg);
 
             switch (msg.what){
+
+                //코멘트 리스트 로드
                 case 0:
                     try {
                         JSONArray jsonArray=new JSONArray(msg.getData().getString("coment_list"));
@@ -193,23 +194,114 @@ public class ProductComent extends AppCompatActivity {
                     }
 
                     break;
+
+                    //코멘트 입력
                 case 1:
+
+                    JSONObject jsonObject= null;
                     try {
-                        JSONObject jsonObject=new JSONObject(msg.getData().getString("coment"));
-                        ProductComentItem item=new ProductComentItem();
+                        jsonObject = new JSONObject(msg.getData().getString("coment"));
+                    ProductComentItem item=new ProductComentItem();
                         item.setKey(jsonObject.getString("coment_key"));
                         item.setId(jsonObject.getString("id"));
                         item.setDate(jsonObject.getString("date"));
+
                         item.setComent(jsonObject.getString("coment"));
                         item.setProfile_image_path(jsonObject.getString("profile_image"));
-                        arrayList.add(item);
-                        adapter.notifyItemInserted(arrayList.size()-1);
+                        arrayList.add(0,item);
+                        adapter.notifyItemInserted(0);
+                        recyclerView_coment.scrollToPosition(0);
+
+                    } catch (JSONException  e) {
+                        e.printStackTrace();
+                    }
+
+                    break;
+
+                    //코멘트 수정
+                case 2:
+
+                    Log.e("coemnt","update?");
+                    try {
+                        JSONObject product_coment_update_info=new JSONObject(msg.getData().getString("product_coment_update"));
+
+                        Log.e("coment_update",product_coment_update_info.toString());
+
+                        for (int i=0;i<arrayList.size();i++){
+                            if (arrayList.get(i).getKey().equals(product_coment_update_info.getString("coment_key"))){
+                                Log.e("coemnt","update");
+                                arrayList.get(i).setComent(product_coment_update_info.getString("coment"));
+                                arrayList.get(i).setText(product_coment_update_info.getString("coment"));
+                                adapter.notifyDataSetChanged();
+
+                                write_coment.setText(null);
+
+                                //수정 작업을 했던 댓글입력 버튼을 ->댓글 입력작업을 하는 버튼으로 초기화
+                                write_commit.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+
+                                        ProductComentInsertTask comentInsertTask=new ProductComentInsertTask(userInfoSave.return_account().getId(),write_coment.getText().toString(),
+                                                Integer.parseInt(getIntent().getStringExtra("product_key")),handler);
+                                        Thread thread=new Thread(comentInsertTask);
+
+                                        thread.run();
+
+
+                                        if (write_coment.length()<=0){
+                                            Toast.makeText(ProductComent.this, "작성할 댓글을 입력해 주세요", Toast.LENGTH_SHORT).show();
+                                        }
+                                        else {
+
+                                            recyclerView_coment.scrollToPosition(arrayList.size()-1);
+                                            //입력했던 댓글 초기화
+                                            write_coment.setText(null);
+
+                                        }
+
+                                    }
+                                });
+
+
+                            }
+                        }
+
+
+
+
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+
+
+                    break;
+
+                    //코멘트 삭제제
+                case 3:
+                    if (msg.getData()!=null){
+
+                        try {
+                            JSONObject coment_delete_check=new JSONObject(msg.getData().getString("coment_delete"));
+                            for (int i=0;i<arrayList.size();i++){
+                                if (arrayList.get(i).getKey().equals(coment_delete_check.getString("coment_key"))
+                                        &&coment_delete_check.getBoolean("coment_delete_check")){
+                                    adapter.notifyItemRemoved(i);
+                                    arrayList.remove(i);
+                                }
+                            }
+
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                        Toast.makeText(ProductComent.this, "댓글이 삭제 되었습니다.", Toast.LENGTH_SHORT).show();
+                    }
                     break;
             }
-        }
-    };
+        }    };
 }

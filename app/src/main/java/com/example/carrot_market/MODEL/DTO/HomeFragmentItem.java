@@ -3,15 +3,21 @@ package com.example.carrot_market.MODEL.DTO;
 import android.graphics.Bitmap;
 
 public class HomeFragmentItem {
-    int product_key;
-    int chatting_count;
-    int favorite_count;
-    String id;
-    int comnet_count;
-    String title;
-    String location;
-    String date;
-    int price;
+    private int product_key;
+    private  int chatting_count;
+    private  int favorite_count;
+    private  String id;
+    private  int comnet_count;
+    private  String title;
+    private  String location;
+    private  String date;
+    private int price;
+
+    public int HomeFragmentItem(int product_key) {
+        this.product_key = product_key;
+    return 0;
+    }
+
 
     public String getHidden() {
         return hidden;

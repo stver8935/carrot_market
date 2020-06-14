@@ -203,7 +203,14 @@ public class ProductHistoryAdapter extends RecyclerView.Adapter<ProductHistoryAd
             public void onClick(View v) {
                 Intent intent=new Intent(context, Product.class);
                 intent.putExtra("product_key",""+arrayList.get(holder.getAdapterPosition()).getProduct_key());
-                context.startActivity(intent);
+                intent.putExtra("request_code",2);
+
+                if (context instanceof ProductHistory) {
+                    ((ProductHistory) context).startActivityForResult(intent, 2);
+                }else{
+                    Log.e("ProductHistoryAdapter","context miss match");
+                }
+
             }
         });
     }

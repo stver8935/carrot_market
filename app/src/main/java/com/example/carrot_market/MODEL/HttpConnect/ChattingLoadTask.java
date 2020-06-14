@@ -19,15 +19,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.example.carrot_market.CONTROLLER.SplashActivity.API_URL;
 
 public class ChattingLoadTask implements Runnable {
-    String product_key;
+    String chatting_room_key;
     String id;
 
     RetrofitService retrofitService;
     Retrofit retrofit;
     Handler handler;
 
-    public ChattingLoadTask(String product_key,String id,Handler handler) {
-        this.product_key = product_key;
+    public ChattingLoadTask(String chatting_room_key,String id,Handler handler) {
+        this.chatting_room_key = chatting_room_key;
         this.id=id;
 
         this.handler=handler;
@@ -39,7 +39,7 @@ public class ChattingLoadTask implements Runnable {
 
     @Override
     public void run() {
-        retrofitService.chatting_load(product_key,id).enqueue(new Callback<ResponseBody>() {
+        retrofitService.chatting_load(chatting_room_key,id).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Message message=new Message();

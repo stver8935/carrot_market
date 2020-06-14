@@ -91,4 +91,5 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             comentcount=itemView.findViewById(R.id.product_list_item_coment);
         }
     }
+
 }
